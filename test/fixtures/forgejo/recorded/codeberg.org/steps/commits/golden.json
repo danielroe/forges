@@ -10,234 +10,121 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10"
+        "sha": "9ddd410a13b7dff70f3d9f883375518420b90240"
       },
-      "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-      "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "sha": "9ddd410a13b7dff70f3d9f883375518420b90240",
+      "message": "fix(ci): actually run the e2e tests affected by a PR as intended (#15319)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15319\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "AverageHelper",
-          "id": "135189",
-          "avatarUrl": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "url": "https://codeberg.org/AverageHelper",
+          "login": "patka",
+          "id": "260884",
+          "avatarUrl": "https://codeberg.org/avatars/91307d3c0c0620f7e516783d7a0244d02552fb80b54ec466aef4119253bb933f",
+          "url": "https://codeberg.org/patka",
           "isBotHint": false
         },
-        "name": "AverageHelper",
+        "name": "patka",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
+        "date": "<now>"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
           "isBotHint": false
         },
-        "name": "Gusted",
+        "name": "Mathieu Fenniak",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
+        "71d3fb8767dc89a14b283b6d3e08c91a66d52525"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/9ddd410a13b7dff70f3d9f883375518420b90240",
       "stats": {
-        "additions": 41,
-        "deletions": 27,
-        "total": 68
+        "additions": 17,
+        "deletions": 18,
+        "total": 35
       },
       "files": [
         {
-          "path": "package-lock.json",
+          "path": ".forgejo/workflows/testing.yml",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "package.json",
+          "path": "tests/e2e/changes.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "tailwind.config.ts",
+          "path": "tests/e2e/codemirror.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/components/RepoActionView.vue",
+          "path": "tests/e2e/dimmer.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/components/RepoBranchTagSelector.vue",
+          "path": "tests/e2e/explore.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/common-global.js",
+          "path": "tests/e2e/issue-comment.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/comp/ComboMarkdownEditor.js",
+          "path": "tests/e2e/issue-timetracking.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-common.js",
+          "path": "tests/e2e/modal.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-diff.js",
+          "path": "tests/e2e/pagination.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-home.js",
+          "path": "tests/e2e/repo-activity-contributors.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-issue-content.js",
+          "path": "tests/e2e/repo-code.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-issue-list.js",
+          "path": "tests/e2e/repo-labels.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-issue.js",
+          "path": "tests/e2e/repo-watch.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-legacy.js",
+          "path": "tests/e2e/runner-management.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "web_src/js/features/repo-suggestion.js",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "web_src/js/htmx.ts",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "web_src/js/markup/tasklist.js",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "webpack.config.ts",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "web_src/js/modules/toast.test.ts",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "web_src/js/modules/toast.ts",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "web_src/js/standalone/demo.ts",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "web_src/js/modules/toast.js",
-          "status": "removed",
-          "statusRaw": "removed"
-        },
-        {
-          "path": "web_src/js/modules/toast.test.js",
-          "status": "removed",
-          "statusRaw": "removed"
-        },
-        {
-          "path": "web_src/js/standalone/demo.js",
-          "status": "removed",
-          "statusRaw": "removed"
-        }
-      ]
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
-      },
-      "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-      "message": "git(mirror): silently ignore non-agit PR deletion instead of failing (#14901)\n\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14901\nReviewed-by: Gusted <redacted@example.invalid>\n",
-      "author": {
-        "actor": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "login": "oliverpool",
-          "id": "32636",
-          "avatarUrl": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
-          "url": "https://codeberg.org/oliverpool",
-          "isBotHint": false
-        },
-        "name": "oliverpool",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
-          "isBotHint": false
-        },
-        "name": "Gusted",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
-      },
-      "parents": [
-        "27ae2d7b675d2a4b3589cc7f2489b105b628275e"
-      ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-      "stats": {
-        "additions": 53,
-        "deletions": 11,
-        "total": 64
-      },
-      "files": [
-        {
-          "path": "routers/private/hook_pre_receive.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "tests/integration/git_push_test.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "tests/integration/git_test.go",
+          "path": "tests/e2e/switch.test.e2e.ts",
           "status": "modified",
           "statusRaw": "modified"
         }
@@ -253,68 +140,144 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e"
+        "sha": "71d3fb8767dc89a14b283b6d3e08c91a66d52525"
       },
-      "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-      "message": "Update module github.com/go-ldap/ldap/v3 to v3.4.15 (forgejo) (#14894)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14894\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "sha": "71d3fb8767dc89a14b283b6d3e08c91a66d52525",
+      "message": "fix(ui): keep trailing parts of list items right-aligned on wrap (#15093)\n\nIn issue lists, the trailing block (assignees, comment count, tracked time) is rendered at the left edge of its own line when the title and labels are long enough to fill the whole row. It should stay right-aligned like in rows where everything fits on one line.\n\n`.flex-item-header` uses `flex-wrap: wrap`. When the title and labels fill the row, `.flex-item-trailing` wraps onto a new line. It has `flex-grow: 0`, so it sits at the start of that line and `justify-content: end` has no effect. The fix adds `margin-inline-start: auto` to `.flex-item .flex-item-trailing`, which pushes it to the right in both cases.\n\nThe rule is in the shared `flex-list.css`, so it also applies to other lists that use `flex-item-trailing`. Rows where the trailing block does not wrap look the same as before.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15093\nReviewed-by: 0ko <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "viceice-bot",
-          "id": "141082",
-          "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-          "url": "https://codeberg.org/viceice-bot",
+          "login": "jona-es",
+          "id": "1613132",
+          "avatarUrl": "https://codeberg.org/avatars/3ddb872d36066430231b45fdb6f1009e",
+          "url": "https://codeberg.org/jona-es",
           "isBotHint": false
         },
-        "name": "Renovate Bot",
+        "name": "jona sander",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:32:57.000Z"
+        "date": "2026-11-21T13:05:07.000Z"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "0ko",
+          "id": "35856",
+          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "url": "https://codeberg.org/0ko",
           "isBotHint": false
         },
-        "name": "Gusted",
+        "name": "0ko",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:32:57.000Z"
+        "date": "2026-11-21T13:05:07.000Z"
       },
       "parents": [
-        "3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59"
+        "5c3c081e6566a94028d37a733a282c299c20ff6b"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/71d3fb8767dc89a14b283b6d3e08c91a66d52525",
       "stats": {
-        "additions": 3,
-        "deletions": 3,
-        "total": 6
+        "additions": 1,
+        "deletions": 0,
+        "total": 1
       },
       "files": [
         {
-          "path": "go.mod",
+          "path": "web_src/css/shared/flex-list.css",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "5c3c081e6566a94028d37a733a282c299c20ff6b"
+      },
+      "sha": "5c3c081e6566a94028d37a733a282c299c20ff6b",
+      "message": "fix: API pagination in `/repos/{owner}/{repo}/pulls/{index}/reviews` (#15354)\n\nFixes a bug in pagination in the API `/repos/{owner}/{repo}/pulls/{index}/reviews`: if a review is found in the database in state pending, it would be omitted from the return value after the pagination is applied, resulting in pagination returning an unexpected number of records.\n\nThis issue was identified by code analysis on possible API issues that will arise from enforcing pagination in the API (#13960).\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n- I added test coverage for Go changes...\n  - [ ] in their respective `*_test.go` for unit tests.\n  - [x] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [x] `make pr-go` before pushing\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15354): <!--number 15354 --><!--line 0 --><!--description QVBJIHBhZ2luYXRpb24gaW4gYC9yZXBvcy97b3duZXJ9L3tyZXBvfS9wdWxscy97aW5kZXh9L3Jldmlld3Ng-->API pagination in `/repos/{owner}/{repo}/pulls/{index}/reviews`<!--description-->\n<!--end release-notes-assistant-->\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15354\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
+          "isBotHint": false
+        },
+        "name": "Mathieu Fenniak",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-21T11:47:44.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "aahlenst",
+          "id": "468676",
+          "name": "Andreas Ahlenstorf",
+          "avatarUrl": "https://codeberg.org/avatars/d15066c8d70752866771e90b9204536d",
+          "url": "https://codeberg.org/aahlenst",
+          "isBotHint": false
+        },
+        "name": "Andreas Ahlenstorf",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-21T11:47:44.000Z"
+      },
+      "parents": [
+        "14d5fd7a36ba536e235f87e79df8bb6ecc562ada"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/5c3c081e6566a94028d37a733a282c299c20ff6b",
+      "stats": {
+        "additions": 85,
+        "deletions": 37,
+        "total": 122
+      },
+      "files": [
+        {
+          "path": "models/issues/review_list.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "go.sum",
+          "path": "routers/api/v1/repo/pull_review.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "services/convert/pull_review.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "services/convert/pull_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "tests/integration/api_pull_review_test.go",
           "status": "modified",
           "statusRaw": "modified"
         }
       ]
     }
   ],
-  "total": 26009,
+  "total": 26158,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1935,
+    "remaining": 1932,
     "resetAt": "<now>",
     "resource": "baseline"
   }

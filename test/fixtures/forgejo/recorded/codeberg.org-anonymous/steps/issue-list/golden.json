@@ -11,22 +11,23 @@
           "name": "forgejo"
         },
         "kind": "issue",
-        "number": "14922",
-        "externalId": "7780340"
+        "number": "15356",
+        "externalId": "8245169"
       },
       "kind": "issue",
-      "title": "Inconsistency: A repository admin can manage Actions secrets in the web UI but gets 403 from the API",
-      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes. I've validated this on version 16.0.6, and the relevant files (`req_owner.go` and `req_admin.go`) haven't changed, so presumably affecting all current versions.\n\n### About your usage of Forgejo\n\nI use Forgejo on a local server for personal use only, mostly to coordinate changes within a home network. As repository storage, CI actions and package registry.\n\n### Problem description\n\nI think the REST API and the web UI disagree on who can manage a repository's Actions secrets.\n\n- The API requires the repository owner or a site admin.\n- The web UI page requires only repository admin.\n\nSelfishly, I'd like to be able to modify the secrets using the API token, but the key issue here is the inconsistency.\n\n#### Scenario\n\n`PUT` and `DELETE /repos/{owner}/{repo}/actions/secrets/{name}`, and the list endpoint, are mounted with `reqOwner(unit.TypeActions)`, whose predicate is `ctx.Permission().IsOwner() || IsUserSiteAdmin`.\nA collaborator with admin on the repository is not the owner, so the API answers `403 {\"message\":\"user should be the owner of the repo\"}`.\n\nThe web UI repo settings group is mounted with `reqRepoAdmin`, which is `ctx.Repo.IsAdmin()`.\nThat admits a collaborator with admin.\nSo the same person, with the same permissions, can create the secret at `/-/settings/actions/secrets` and cannot create it through the API.\n\n#### Steps to reproduce\n\n1. Have user `bob` as a collaborator with admin on `owner/repo`.\n2. As `bob`, `PUT /api/v1/repos/owner/repo/actions/secrets/FOO` with body `{\"data\":\"x\"}`.\n3. Compare with the web UI at `/owner/repo/settings/actions/secrets` as `bob`.\n4. Compare with `POST /api/v1/repos/owner/repo/keys` as `bob`.\n\n#### Expected\n\nThe API and the web UI apply the same rule for the same principal.\n\n#### Actual\n\n- API secrets: `403 user should be the owner of the repo`.\n- Web UI secrets: allowed.\n- API deploy keys: allowed.\n\n#### Source\n\n- `routers/api/v1/api.go`: the repo actions routes are mounted with `reqOwner(unit.TypeActions)`.\n- `routers/api/v1/permissions/req_owner.go`: `if !ctx.Permission().IsOwner() && !IsUserSiteAdmin(ctx)`.\n- `routers/api/v1/permissions/req_admin.go`: `if !IsUserRepoAdmin(ctx) && !IsUserSiteAdmin(ctx)`, used for deploy keys.\n- `services/context/permission.go`: `RequireRepoAdmin` checks `ctx.Repo.IsAdmin()`.\n- `models/perm/access/repo_permission.go`: `IsOwner()` is `AccessMode >= Owner`, `IsAdmin()` is `AccessMode >= Admin`.\n\n### Potential workarounds\n\nThe practical effect is that automation holding a repository-admin token, or a bot account that is an admin collaborator, cannot manage repository secrets through the API, while a person can do it in the UI.\n\nThe workarounds are a token for the owner, a site admin, or moving the secret to the organization level, where `reqOrgOwnership` applies (org owner or site admin).\n\n### Forgejo Version\n\n16.0.6\n\n### Other details about your environment (software names and versions)\n\nForgejo: 16.0.6\nPostgres: 17.5\n\nI'm not sure what else is relevant sorry. Happy to share more info if it's needed.\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "title": "problem: add old-to-new URL redirects to Git-over-SSH",
+      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested on a next instance)\n\n### About your usage of Forgejo\n\nI often change naming conventions and just need to rename stuff. Git repos and orgs are no difference. Forgejo is a perfect replacement for most of the things, with just one thing missing for me: **SSH repo redirects** on repo/org name changes.\n\n### Problem description\n\nGitHub allows me to rename a repo and sets up redirect to old repo. Now, Forgejo actually supports that too, but **only for HTTPS**, not for SSH. I would like it to also work for Git-over-SSH clones, which take up a majority of my deployment scenarios. The scenario is simple:\r\n- User creates a new organisation and/or new repo.\r\n- User clones this new repo using SSH URL (Git-over-SSH).\r\n- User renames the organization or repo or both at the same time.\r\n- Fetch/push now fails until I change the URL. This can be really hard to trace down as there can be many deployments of the same repo in our company. \r\n\r\nNow, Forgejo could just redirect as it does in Git-over-HTTPS, inform the user about the repo/org name change and potentially log the redirect so admin can trace this occurence and fix it without it breaking in the meantime. \r\n\r\nOf course, if the repo/org name has been shadowed by a new one, the redirect shouldn't happen at all, as GitHub or similar services do the same.\n\n### Potential workarounds\n\nI believe the fix is fairly simple, just add a few checks to `routers/private/serv.go` and a hook to `cmd/serv.go` which fires **only when the redirect happened** (`strings.EqualFold(results.OwnerName, username` and simillar `if` for the repo itself) and:\r\n- Informs the client by sending a message like: `this repository has moved to %s/%s.\\nplease update your remote: git remote set-url origin %s\\n`\r\n- Logs the redirect so an admin can trace it or SIEM can evaluate that it happened.\n\n### Forgejo Version\n\nv17.0.2, but tested also on `1a13355` (Next, commit from `2026-11-20`) and it still behaves the same.\n\n### Other details about your environment (software names and versions)\n\nI don't think this is relevant, but:\r\nForgejo v17.0.2\r\nGit: several clients: 2.56.1 on Fedora 44, 2.47.3 on Debian 13\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "jahredhope",
-        "id": "1567625",
-        "avatarUrl": "https://codeberg.org/avatars/7338fa221dbcbf0c192bd0ca383cdf54",
-        "url": "https://codeberg.org/jahredhope",
+        "login": "lukastesar",
+        "id": "1669298",
+        "name": "Lukáš Tesař",
+        "avatarUrl": "https://codeberg.org/avatars/fe56430ef9f0a29e664511da7e6d6947ce871415e14167ed66a0f3e46254f89b",
+        "url": "https://codeberg.org/lukastesar",
         "isBotHint": false
       },
       "assignees": [],
@@ -43,10 +44,10 @@
           "description": "A user report about a problem. Needs to be triaged to find potential solutions."
         }
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/14922",
-      "createdAt": "2026-10-19T03:04:24.000Z",
-      "updatedAt": "2026-10-19T03:07:02.000Z",
-      "lastActivityAt": "2026-10-19T03:07:02.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15356",
+      "createdAt": "2026-11-21T09:48:37.000Z",
+      "updatedAt": "2026-11-21T09:48:37.000Z",
+      "lastActivityAt": "2026-11-21T09:48:37.000Z",
       "locked": false,
       "commentCount": 0
     },
@@ -61,77 +62,83 @@
           "name": "forgejo"
         },
         "kind": "issue",
-        "number": "14918",
-        "externalId": "7775864"
+        "number": "15353",
+        "externalId": "8242586"
       },
       "kind": "issue",
-      "title": "bug: imperfect image alignment and scaling",
-      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I can't try it on the test instance for some reason\n\n### Description\n\nWas seeing [LocalSend's](https://codeberg.org/localsend/localsend) repo. Found two screenshot there. One is aligned to left and another is scaled longer in vertical direction.\n\nI was hoping them to be center aligned and not improperly scaled.\n\n### Screenshots\n\nAttached is a screenshot having those two images\n\n\n\n### Forgejo Version\n\n_No response_\n\n### Browser Version\n\nChrome mobile\n\n",
+      "title": "problem: ucode-lang (ucode) is detected as unrealscript",
+      "body": "### Does your problem still exist on the latest Forgejo version?\n\nUnknown, I can't try it for some reason (please explain)\n\n### About your usage of Forgejo\n\nI use Forgejo through codeberg.org and do not have a Forgejo instance to test with, however searching Forgejo issues and pull requests does not match 'unrealscript' or 'ucode'. GitHub also does not handle this correctly as [ucode-lang](https://github.com/ucode-lang/ucode) is a fairly niche ECMAScript-like language, primarily used by [OpenWrt](https://openwrt.org) that happens to use the typically uses same file extension (`.uc`) as unrealscript (although `ucode` doesn't really care about the extension).\r\n\r\nFor a sample repo with which one can see the issue see: https://codeberg.org/danielfdickinson/uwatchcat\n\n### Problem description\n\nI have a repo https://codeberg.org/danielfdickinson/uwatchcat for which the main code is written in [ucode](https://github.com/ucode-lang/ucode) aka `ucode-lang`. The ucode scripts are detected and reported as `UnrealScript`\n\n### Potential workarounds\n\n_No response_\n\n### Forgejo Version\n\nI think 17 with modifications (https://codeberg.org/Codeberg-Infrastructure/forgejo)\n\n### Other details about your environment (software names and versions)\n\nAlthough this occurs with Codeberg, when I was running my own Forgejo instance  (15 then 16) I noticed the same behaviour. (I gave up on self-hosting due to LLM abusive crawlers).\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "mkmake",
-        "id": "1340230",
-        "avatarUrl": "https://codeberg.org/avatars/ac78c7737f52aedf1e259d969bb3656d",
-        "url": "https://codeberg.org/mkmake",
+        "login": "danielfdickinson",
+        "id": "963756",
+        "name": "Daniel F. Dickinson",
+        "avatarUrl": "https://codeberg.org/avatars/be7eec9cec7a737ba79d6941770c9872069047e23459c88fc44dbfcf62962785",
+        "url": "https://codeberg.org/danielfdickinson",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [
         {
-          "name": "bug/new-report",
-          "colour": "e11d21",
-          "description": "bug has just been reported and need triage (default label on issue creation)"
+          "name": "impact/unknown",
+          "colour": "545454",
+          "description": "Report was not yet triaged to assess impact."
         },
         {
-          "name": "forgejo/ui",
+          "name": "problem",
+          "colour": "fbca04",
+          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15353",
+      "createdAt": "2026-11-21T02:38:41.000Z",
+      "updatedAt": "2026-11-21T02:38:41.000Z",
+      "lastActivityAt": "2026-11-21T02:38:41.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "issue",
+        "number": "15351",
+        "externalId": "8240433"
+      },
+      "kind": "issue",
+      "title": "problem: forgejo-cli actions register: --secret-stdin should be a boolean flag, not a string flag",
+      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested on a next instance)\n\n### About your usage of Forgejo\n\nI'm migrating off of Gitea to Forgejo and am figuring out runner registration using the CLI.\n\n### Problem description\n\n- I wanted to register a runner while piping its secret through stdin, without putting the secret in process arguments.\n- On Forgejo 15.0.12 (LTS), --secret-stdin requires a string value, so I just used --secret-stdin=dummyto get it to work. I found the source [here](https://codeberg.org/forgejo/forgejo/src/tag/v15.0.12/cmd/forgejo/actions.go#L71). It is the same for the latest branch. The actual secret value is piped in through std.in as you would expect and that functionality works fine.\n- The assigned value (in this case \"dummy\") is completely ignored in the source code: SubcmdActionsRegister() declares a string flag, while readSecret() only checks whether it is set.\n\nI expected --secret-stdin to work without a value being given to the argument - the actual secret comes from std.in and works fine.\n\nDoes it make sense to just change this to a BoolFlag so there is no need to pass a value here? The value is ignored anyway.\n\n### Potential workarounds\n\nI can just give a value and it works but it feels wrong.\n\n### Forgejo Version\n\nlatest and on LTS 15.0.12 (which I tested)\n\n### Other details about your environment (software names and versions)\n\nI tested on On Forgejo 15.0.12 (LTS) - docker compose but the code is the same on the main branch.\n\nLinks:\n- [On forgejo branch](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/cmd/forgejo/actions.go#L72) \n\n\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "vab2048",
+        "id": "1614644",
+        "avatarUrl": "https://codeberg.org/avatars/a734c6a3e63e276b2659b07f4b1774ad",
+        "url": "https://codeberg.org/vab2048",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "code/actions",
           "colour": "eb6420",
-          "description": "User interface"
-        }
-      ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/14918",
-      "createdAt": "2026-10-18T23:20:07.000Z",
-      "updatedAt": "2026-10-18T23:25:45.000Z",
-      "lastActivityAt": "2026-10-18T23:25:45.000Z",
-      "locked": false,
-      "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
+          "description": "Forgejo Actions feature"
         },
-        "kind": "issue",
-        "number": "14915",
-        "externalId": "7775636"
-      },
-      "kind": "issue",
-      "title": "problem: OIDC single logout does not terminate Forgejo sessions",
-      "body": "### Does your problem still exist on the latest Forgejo version?\n\nUnknown, I can't try it for some reason (please explain)\n\n### About your usage of Forgejo\n\nI operate a self-hosted Forgejo instance as part of a small infrastructure environment using Keycloak for centralized authentication. Multiple applications use the same Keycloak realm, and administrators need consistent single sign-on and single logout across these services.\n\n### Problem description\n\nWhen Forgejo is configured to authenticate users through Keycloak using OpenID Connect, signing out does not provide complete OIDC single-logout behavior.\r\n\r\nIn particular:\r\n\r\n- Logging out of Forgejo does not necessarily terminate the corresponding Keycloak SSO session.\r\n- Logging out through Keycloak does not reliably invalidate an existing authenticated Forgejo session.\r\n- Consequently, users may remain authenticated to Forgejo after terminating their central SSO session.\r\n\r\nFor environments using centralized identity management, this creates inconsistent logout behavior and can leave application sessions active longer than intended.\r\n\r\nThe desired behavior is coordinated OIDC logout, including RP-initiated logout and Keycloak-initiated backchannel logout, with invalidation of the affected application session while preserving independent local administrator recovery.\r\n\r\nI reproduced the missing functionality on an unmodified Forgejo 15-based installation. I haven't tested the latest upstream development version because my current installation includes a locally developed OIDC logout extension.\n\n### Potential workarounds\n\nAn OIDC-aware reverse proxy may restrict access, but it does not necessarily revoke Forgejo's existing authenticated application sessions.\r\n\r\nWe have developed and tested a local implementation of coordinated OIDC logout in our self-hosted environment, with AI assistance. We are not submitting that implementation as a contribution under Forgejo's current contribution policy.\r\n\r\nWe would welcome guidance on whether this functionality is already planned or whether maintainers would be interested in discussing an independently developed implementation.\n\n### Forgejo Version\n\nForgejo 15.0.9 (locally customized)\n\n### Other details about your environment (software names and versions)\n\nSelf-hosted Forgejo on Ubuntu Linux, using SQLite and Keycloak as the OpenID Connect identity provider. Forgejo is accessed through an Nginx HTTPS reverse proxy.\r\n\r\nThe behavior was investigated against a Forgejo 15-based deployment. A locally customized build was subsequently tested, so the feature request concerns the original upstream behavior rather than a current failure of our modified installation.\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "purple888",
-        "id": "1567394",
-        "avatarUrl": "https://codeberg.org/avatars/1deb145c59245a6f6ab702631b65aa00",
-        "url": "https://codeberg.org/purple888",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [
         {
           "name": "impact/unknown",
           "colour": "545454",
@@ -143,21 +150,21 @@
           "description": "A user report about a problem. Needs to be triaged to find potential solutions."
         }
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/14915",
-      "createdAt": "2026-10-18T22:35:19.000Z",
-      "updatedAt": "2026-10-18T22:35:19.000Z",
-      "lastActivityAt": "2026-10-18T22:35:19.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15351",
+      "createdAt": "2026-11-20T22:23:13.000Z",
+      "updatedAt": "2026-11-21T12:08:15.000Z",
+      "lastActivityAt": "2026-11-21T12:08:15.000Z",
       "locked": false,
-      "commentCount": 0
+      "commentCount": 1
     }
   ],
-  "total": 1572,
+  "total": 1659,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=issues"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1891,
+    "remaining": 1886,
     "resetAt": "<now>",
     "resource": "baseline"
   }

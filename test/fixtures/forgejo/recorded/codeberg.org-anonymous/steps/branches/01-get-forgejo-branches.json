@@ -7,17 +7,60 @@
     "status": 200,
     "headers": {
       "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1873;t=600",
+      "ratelimit": "\"baseline\";r=1867;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "33"
     },
     "body": [
       {
-        "name": "renovate/forgejo-idiomorph-0.x",
+        "name": "forgejo",
         "commit": {
-          "id": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
-          "message": "Update dependency idiomorph to v0.8.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+          "id": "9ddd410a13b7dff70f3d9f883375518420b90240",
+          "message": "fix(ci): actually run the e2e tests affected by a PR as intended (#15319)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15319\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/9ddd410a13b7dff70f3d9f883375518420b90240",
+          "author": {
+            "name": "patka",
+            "email": "redacted@example.invalid",
+            "username": "patka"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "username": "mfenniak"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-11-21T19:35:16+01:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "renovate/forgejo-github.com-sourcegraph-zoekt-digest",
+        "commit": {
+          "id": "0cef832ac142eec7bda967e4e0073df224bfe505",
+          "message": "Update github.com/sourcegraph/zoekt digest to b55ce72\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/0cef832ac142eec7bda967e4e0073df224bfe505",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -31,15 +74,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHQEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVt3wAKCRCKxL7rWQD5\ndl+9APdbdeh0S4ElwD96kw/M7HlFbcXPTT5ZZ7tds3QPABDxAQCdEEYomFRQDLNM\nZTusUuQf1MsqjA52djWwdKBhubCwAA==\n=VVeq\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCawC4JgAKCRCKxL7rWQD5\ndjdrAQCeaDwprGucSwkLYz4nihN69cGMCPXBKSiSQ6GOv/0PSQD/VTwD5GxyyBf0\nRm3u3SSOTiavoJHBf3tvp60AtunnfQw=\n=TlMy\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree 660407ea8ef5fd51bd6caa95dffc5e2b586c1a85\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372191 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372191 +0000\n\nUpdate dependency idiomorph to v0.8.0\n"
+            "payload": "tree 9a8806b0ec68f745ee78f9593f681c13c1731986\nparent 1a13355998e2e0183e74d0221e0504564ca21e6c\nauthor Renovate Bot <redacted@example.invalid> 1795209254 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1795209254 +0000\n\nUpdate github.com/sourcegraph/zoekt digest to b55ce72\n"
           },
-          "timestamp": "2026-10-19T01:09:51Z",
+          "timestamp": "2026-11-20T21:14:14Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -53,81 +96,44 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "renovate/forgejo-renovate",
+        "name": "v17.0/forgejo",
         "commit": {
-          "id": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-          "message": "Update renovate Docker tag to v44.167.5\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/29bf51bb67b183078911a446fe0baaeccdf182c0",
+          "id": "0f10ccb6b9dd36ed8f0da165c3ba45e7825c36dd",
+          "message": "[v17.0/forgejo] perf: don't compute commit status twice on notifications subscription page (#15337)\n\n**Backport:** https://codeberg.org/forgejo/forgejo/pulls/15296\n\nCo-authored-by: patka <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15337\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/0f10ccb6b9dd36ed8f0da165c3ba45e7825c36dd",
           "author": {
-            "name": "Renovate Bot",
+            "name": "forgejo-backport-action",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "forgejo-backport-action"
           },
           "committer": {
-            "name": "Renovate Bot",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "mfenniak"
           },
           "verification": {
-            "verified": true,
-            "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVtxAAKCRCKxL7rWQD5\ndiDRAP0S7YlydUCAaqmqbA4rm1QZcz9KfX+sSX9Bb3BGq2khZwD9HzhYuiCVwjgj\nCPTEDCsQnVB9v4E/06myZ/3Cg64Wegk=\n=xwmf\n-----END PGP SIGNATURE-----\n",
-            "signer": {
-              "name": "viceice-bot",
-              "email": "redacted@example.invalid",
-              "username": ""
-            },
-            "payload": "tree df4bad2583f2327ef47ac502f0e5ecc11e2b98d1\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372164 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372164 +0000\n\nUpdate renovate Docker tag to v44.167.5\n"
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
           },
-          "timestamp": "2026-10-19T01:09:24Z",
+          "timestamp": "2026-11-19T22:31:59+01:00",
           "added": null,
           "removed": null,
           "modified": null
         },
-        "protected": false,
-        "required_approvals": 0,
-        "enable_status_check": false,
-        "status_check_contexts": [],
-        "user_can_push": false,
-        "user_can_merge": false,
-        "effective_branch_protection_name": ""
-      },
-      {
-        "name": "renovate/forgejo-globals-17.x",
-        "commit": {
-          "id": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-          "message": "Update dependency globals to v17.13.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-          "author": {
-            "name": "Renovate Bot",
-            "email": "redacted@example.invalid",
-            "username": "viceice-bot"
-          },
-          "committer": {
-            "name": "Renovate Bot",
-            "email": "redacted@example.invalid",
-            "username": "viceice-bot"
-          },
-          "verification": {
-            "verified": true,
-            "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVgQgAKCRCKxL7rWQD5\ndjUDAQDEWurD9xoq/JDd2DF6TfeNYWXsoK1tNY+glQwOCljzxAD9EPv6gAX/srNC\nuvNv1m2KyZMF1FQMc7GW6IrBST1VNQ0=\n=YGja\n-----END PGP SIGNATURE-----\n",
-            "signer": {
-              "name": "viceice-bot",
-              "email": "redacted@example.invalid",
-              "username": ""
-            },
-            "payload": "tree 79e37338577044c7729704c54258725962c8a742\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792368706 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792368706 +0000\n\nUpdate dependency globals to v17.13.0\n"
-          },
-          "timestamp": "2026-10-19T00:11:46Z",
-          "added": null,
-          "removed": null,
-          "modified": null
-        },
-        "protected": false,
-        "required_approvals": 0,
-        "enable_status_check": false,
-        "status_check_contexts": [],
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""

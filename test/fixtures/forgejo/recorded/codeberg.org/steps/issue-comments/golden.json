@@ -34,5 +34,11 @@
       "url": "https://codeberg.org/forgejo/forgejo/issues/14613#issuecomment-24317943"
     }
   ],
-  "total": 1
+  "total": 1,
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1958,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

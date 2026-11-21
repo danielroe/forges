@@ -6,36 +6,36 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=26009&sha=forgejo&stat=false>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1936;t=600",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=26158&sha=forgejo&stat=false>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1933;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total": "26009",
-      "x-total-count": "26009",
+      "x-total": "26158",
+      "x-total-count": "26158",
       "x-page": "1"
     },
     "body": [
       {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "created": "2026-10-18T20:14:06+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/9ddd410a13b7dff70f3d9f883375518420b90240",
+        "sha": "9ddd410a13b7dff70f3d9f883375518420b90240",
+        "created": "2026-11-21T19:35:16+01:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/9ddd410a13b7dff70f3d9f883375518420b90240",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/9ddd410a13b7dff70f3d9f883375518420b90240",
           "author": {
-            "name": "AverageHelper",
+            "name": "patka",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-21T19:35:16+01:00"
           },
           "committer": {
-            "name": "Gusted",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-21T19:35:16+01:00"
           },
-          "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "message": "fix(ci): actually run the e2e tests affected by a PR as intended (#15319)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15319\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
           "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "created": "2026-10-18T20:14:06+02:00"
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/9ddd410a13b7dff70f3d9f883375518420b90240",
+            "sha": "9ddd410a13b7dff70f3d9f883375518420b90240",
+            "created": "2026-11-21T19:35:16+01:00"
           },
           "verification": {
             "verified": false,
@@ -46,143 +46,107 @@
           }
         },
         "author": {
-          "id": 135189,
-          "login": "AverageHelper",
+          "id": 260884,
+          "login": "patka",
           "source_id": 0,
           "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "html_url": "https://codeberg.org/AverageHelper",
+          "avatar_url": "https://codeberg.org/avatars/91307d3c0c0620f7e516783d7a0244d02552fb80b54ec466aef4119253bb933f",
+          "html_url": "https://codeberg.org/patka",
           "active": false,
-          "location": "on your left",
-          "pronouns": "she/her",
-          "website": "https://average.name",
+          "location": "",
+          "pronouns": "",
+          "website": "",
           "description": "",
-          "followers_count": 2,
-          "following_count": 2,
-          "starred_repos_count": 32,
-          "username": "AverageHelper"
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 6,
+          "username": "patka"
         },
         "committer": {
-          "id": 26734,
-          "login": "Gusted",
+          "id": 222642,
+          "login": "mfenniak",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "Mathieu Fenniak",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
+          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "html_url": "https://codeberg.org/mfenniak",
           "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 22,
+          "following_count": 0,
+          "starred_repos_count": 4,
+          "username": "mfenniak"
         },
         "parents": [
           {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-            "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/71d3fb8767dc89a14b283b6d3e08c91a66d52525",
+            "sha": "71d3fb8767dc89a14b283b6d3e08c91a66d52525",
             "created": "0001-01-01T00:00:00Z"
           }
         ],
         "files": [
           {
-            "filename": "web_src/js/modules/toast.test.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/modules/toast.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/modules/toast.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/modules/toast.test.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.js",
-            "status": "removed"
-          },
-          {
-            "filename": "package-lock.json",
+            "filename": ".forgejo/workflows/testing.yml",
             "status": "modified"
           },
           {
-            "filename": "package.json",
+            "filename": "tests/e2e/changes.go",
             "status": "modified"
           },
           {
-            "filename": "tailwind.config.ts",
+            "filename": "tests/e2e/codemirror.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/components/RepoActionView.vue",
+            "filename": "tests/e2e/dimmer.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/components/RepoBranchTagSelector.vue",
+            "filename": "tests/e2e/explore.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/common-global.js",
+            "filename": "tests/e2e/issue-comment.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/comp/ComboMarkdownEditor.js",
+            "filename": "tests/e2e/issue-timetracking.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-common.js",
+            "filename": "tests/e2e/modal.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-diff.js",
+            "filename": "tests/e2e/pagination.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-home.js",
+            "filename": "tests/e2e/repo-activity-contributors.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-issue-content.js",
+            "filename": "tests/e2e/repo-code.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-issue-list.js",
+            "filename": "tests/e2e/repo-labels.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-issue.js",
+            "filename": "tests/e2e/repo-watch.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-legacy.js",
+            "filename": "tests/e2e/runner-management.test.e2e.ts",
             "status": "modified"
           },
           {
-            "filename": "web_src/js/features/repo-suggestion.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/htmx.ts",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/markup/tasklist.js",
-            "status": "modified"
-          },
-          {
-            "filename": "webpack.config.ts",
+            "filename": "tests/e2e/switch.test.e2e.ts",
             "status": "modified"
           }
         ],

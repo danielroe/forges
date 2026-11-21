@@ -1,0 +1,171 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/releases/tags/v13.2.2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 1078580,
+      "tag_name": "v13.2.2",
+      "target_commitish": "",
+      "name": "v13.2.2",
+      "body": "- [User guide](https://forgejo.org/docs/next/user/actions/overview/)\n- [Administrator guide](https://forgejo.org/docs/next/admin/actions/)\n- [Container images](https://code.forgejo.org/forgejo/-/packages/container/runner/versions)\n\nRelease Notes\n\n---\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1793): <!--number 1793 --><!--line 0 --><!--description Zml4OiBpc29sYXRlIGNhY2hlIHdyaXRlcyBvZiBwdWxsIHJlcXVlc3QgdHJpZ2dlcmVkIHJldXNhYmxlIHdvcmtmbG93cw==-->fix: isolate cache writes of pull request triggered reusable workflows<!--description-->\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1800): <!--number 1800 --><!--line 0 --><!--description Zml4OiB1cGRhdGUgbHhjLWhlbHBlcnMgdG8gdjEuMS40-->fix: update lxc-helpers to v1.1.4<!--description-->\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1786): <!--number 1786 --><!--line 0 --><!--description Zml4KGNpKTogaW5zdGFsbCBwcmUtY29tbWl0IHZpYSBhcHQ=-->fix(ci): install pre-commit via apt<!--description-->\n- other\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1791): <!--number 1791 --><!--line 0 --><!--description dGVzdDogbWFrZSBsaW51eEJpbmQgdGVzdHMgcGFzcyBvbiBtYWNoaW5lcyB3aXRoIFNFTGludXg=-->test: make linuxBind tests pass on machines with SELinux<!--description-->\n<!--end release-notes-assistant-->\n",
+      "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/releases/1078580",
+      "html_url": "https://code.forgejo.org/forgejo/runner/releases/tag/v13.2.2",
+      "tarball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.2.2.tar.gz",
+      "zipball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.2.2.zip",
+      "hide_archive_links": false,
+      "upload_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/releases/1078580/assets",
+      "draft": false,
+      "prerelease": false,
+      "created_at": "2026-11-19T14:42:21Z",
+      "published_at": "2026-11-19T14:42:21Z",
+      "author": {
+        "id": 16,
+        "login": "release-team",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://code.forgejo.org/avatars/f4ccbf2f05de8f5149dbe7150912d223829857dfa10339184a49c176fe0d2f9f",
+        "html_url": "https://code.forgejo.org/release-team",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "release-team"
+      },
+      "assets": [
+        {
+          "id": 7092,
+          "name": "forgejo-runner-13.2.2-linux-amd64",
+          "size": 22311074,
+          "download_count": 1712,
+          "created_at": "2026-11-19T14:41:46Z",
+          "uuid": "38c3da34-4893-428e-a6cc-5558913be364",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-amd64",
+          "type": "attachment"
+        },
+        {
+          "id": 7093,
+          "name": "forgejo-runner-13.2.2-linux-amd64.asc",
+          "size": 228,
+          "download_count": 496,
+          "created_at": "2026-11-19T14:41:46Z",
+          "uuid": "76b370b2-3f85-4ef4-9b6f-743b3a330f8c",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-amd64.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 7094,
+          "name": "forgejo-runner-13.2.2-linux-amd64.sha256",
+          "size": 100,
+          "download_count": 2048,
+          "created_at": "2026-11-19T14:41:46Z",
+          "uuid": "8765dede-ee16-4133-ade4-c0da2b19f270",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-amd64.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 7095,
+          "name": "forgejo-runner-13.2.2-linux-amd64.xz",
+          "size": 6142260,
+          "download_count": 71,
+          "created_at": "2026-11-19T14:41:47Z",
+          "uuid": "73c16518-8d8b-4599-bbf7-8352cb48a362",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-amd64.xz",
+          "type": "attachment"
+        },
+        {
+          "id": 7096,
+          "name": "forgejo-runner-13.2.2-linux-amd64.xz.asc",
+          "size": 228,
+          "download_count": 20,
+          "created_at": "2026-11-19T14:41:47Z",
+          "uuid": "e8b5f318-166a-4602-ad85-7b96215c62fc",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-amd64.xz.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 7097,
+          "name": "forgejo-runner-13.2.2-linux-amd64.xz.sha256",
+          "size": 103,
+          "download_count": 43,
+          "created_at": "2026-11-19T14:41:47Z",
+          "uuid": "a87c3166-2703-46ac-9448-78e3ad45f05f",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-amd64.xz.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 7098,
+          "name": "forgejo-runner-13.2.2-linux-arm64",
+          "size": 20840610,
+          "download_count": 140,
+          "created_at": "2026-11-19T14:41:48Z",
+          "uuid": "367954e1-8d27-4e62-a3f9-5bbc7eba2719",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-arm64",
+          "type": "attachment"
+        },
+        {
+          "id": 7099,
+          "name": "forgejo-runner-13.2.2-linux-arm64.asc",
+          "size": 228,
+          "download_count": 72,
+          "created_at": "2026-11-19T14:41:48Z",
+          "uuid": "7c21bb9e-416d-442d-b7ab-0b7bbad8638f",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-arm64.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 7100,
+          "name": "forgejo-runner-13.2.2-linux-arm64.sha256",
+          "size": 100,
+          "download_count": 75,
+          "created_at": "2026-11-19T14:41:48Z",
+          "uuid": "7c575181-fb85-451f-81d0-2c9047cc8ef7",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-arm64.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 7101,
+          "name": "forgejo-runner-13.2.2-linux-arm64.xz",
+          "size": 5230808,
+          "download_count": 37,
+          "created_at": "2026-11-19T14:41:49Z",
+          "uuid": "416ac035-2f60-47f6-aec8-dfbbe3b7ce13",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-arm64.xz",
+          "type": "attachment"
+        },
+        {
+          "id": 7102,
+          "name": "forgejo-runner-13.2.2-linux-arm64.xz.asc",
+          "size": 228,
+          "download_count": 1,
+          "created_at": "2026-11-19T14:41:49Z",
+          "uuid": "6ea5f101-e106-4186-bb68-6e95a6ff1080",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-arm64.xz.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 7103,
+          "name": "forgejo-runner-13.2.2-linux-arm64.xz.sha256",
+          "size": 103,
+          "download_count": 10,
+          "created_at": "2026-11-19T14:41:49Z",
+          "uuid": "a4f88755-56a6-4e96-aa92-79c7ad57f64b",
+          "browser_download_url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.2/forgejo-runner-13.2.2-linux-arm64.xz.sha256",
+          "type": "attachment"
+        }
+      ],
+      "archive_download_count": {
+        "zip": 3,
+        "tar_gz": 153
+      }
+    }
+  }
+}
