@@ -111,6 +111,22 @@ function offsetPage<T>(items: T[], offset: number, limit: number): Pick<Page<T>,
   }
 }
 
+/**
+ * A page of a mirror listing that hands out its own cursor. The cursor can look
+ * like a number (`"1"`), so pass it back as it is rather than as an offset.
+ */
+function mirrorPage<T>(items: T[], data: MirrorList, limit: number): Page<T> {
+  return {
+    items,
+    cursor: data.cursor && items.length >= limit
+      ? { token: data.cursor }
+      : undefined,
+    ...data.total !== undefined
+      ? { total: data.total }
+      : {},
+  }
+}
+
 function fileStats(files: ChangedFile[]) {
   return files.reduce((stats, file) => ({
     additions: stats.additions + (file.additions ?? 0),
@@ -264,12 +280,11 @@ export function createTangledContents({ instance, webUrl, context, apiUrl, fetch
 
   async function branchesPage(repo: RepoRef, options: PageOptions = {}): Promise<Page<Branch>> {
     const handle = await repoFor(repo, options.signal)
-    const offset = offsetOf(options)
     const limit = Math.min(options.perPage ?? DEFAULT_PAGE, 100)
     const data = await query<MirrorList & { branches?: Array<{ name: string, oid: string }>, defaultBranch?: string }>('org.tangled.temp.git.listBranches', {
       repo: handle.did,
       limit,
-      cursor: offset ? undefined : options.cursor?.token,
+      cursor: options.cursor?.token,
     }, options.signal)
     const items = (data.branches ?? []).map(branch => ({
       name: branch.name,
@@ -278,27 +293,16 @@ export function createTangledContents({ instance, webUrl, context, apiUrl, fetch
       url: `${webUrl}${repoPath(handle.ref)}/tree/${encodeURIComponent(branch.name)}`,
       raw: branch,
     }))
-    return offset
-      ? offsetPage(items, offset, limit)
-      : {
-          items,
-          cursor: data.cursor && items.length >= limit
-            ? { token: data.cursor }
-            : undefined,
-          ...data.total !== undefined
-            ? { total: data.total }
-            : {},
-        }
+    return mirrorPage(items, data, limit)
   }
 
   async function tagsPage(repo: RepoRef, options: PageOptions = {}): Promise<Page<Tag>> {
     const handle = await repoFor(repo, options.signal)
-    const offset = offsetOf(options)
     const limit = Math.min(options.perPage ?? DEFAULT_PAGE, 100)
     const data = await query<MirrorList & { tags?: Array<{ name: string, oid: string }> }>('org.tangled.temp.git.listTags', {
       repo: handle.did,
       limit,
-      cursor: offset ? undefined : options.cursor?.token,
+      cursor: options.cursor?.token,
     }, options.signal)
     const items = (data.tags ?? []).map(tag => ({
       name: tag.name,
@@ -306,17 +310,7 @@ export function createTangledContents({ instance, webUrl, context, apiUrl, fetch
       url: `${webUrl}${repoPath(handle.ref)}/tree/${encodeURIComponent(tag.name)}`,
       raw: tag,
     }))
-    return offset
-      ? offsetPage(items, offset, limit)
-      : {
-          items,
-          cursor: data.cursor && items.length >= limit
-            ? { token: data.cursor }
-            : undefined,
-          ...data.total !== undefined
-            ? { total: data.total }
-            : {},
-        }
+    return mirrorPage(items, data, limit)
   }
 
   async function resolveRef(repo: RepoRef, ref: string, options: { signal?: AbortSignal } = {}): Promise<string> {

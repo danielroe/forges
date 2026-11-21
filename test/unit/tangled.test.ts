@@ -201,6 +201,42 @@ describe('tangled reads', () => {
     const commits = await instance.commits.list(repo, { perPage: 30 }).page()
     expect(commits.items.map(commit => commit.sha)).toEqual(['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'])
   })
+
+  it('pages branches with the mirror\'s numeric cursor', async () => {
+    const listing = `GET https://api.tangled.org/xrpc/org.tangled.temp.git.listBranches?repo=${encodeURIComponent(REPO_DID)}&limit=1`
+    const { instance } = provider({
+      [listing]: {
+        status: 200,
+        body: {
+          branches: [
+            {
+              name: 'main',
+              oid: 'a'.repeat(40),
+            },
+          ],
+          cursor: '1',
+          defaultBranch: 'main',
+          total: 2,
+        },
+      },
+      [`${listing}&cursor=1`]: {
+        status: 200,
+        body: {
+          branches: [
+            {
+              name: 'template-cache',
+              oid: '2'.repeat(40),
+            },
+          ],
+          defaultBranch: 'main',
+          total: 2,
+        },
+      },
+    })
+    const branches = await Array.fromAsync(instance.contents.branches(repo, { perPage: 1 }))
+
+    expect(branches.map(branch => branch.name)).toEqual(['main', 'template-cache'])
+  })
 })
 
 describe('tangled writes', () => {
@@ -282,6 +318,40 @@ describe('tangled writes', () => {
       },
     })
     await expect(instance.threads.close(pull)).rejects.toThrow(InsufficientScopeError)
+  })
+
+  it('lets the author change a thread that a collaborator edited last', async () => {
+    const ticket = `GET https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=${encodeURIComponent(REPO_DID)}&collection=org.tangled.track.ticket&rkey=7`
+    const { instance, calls } = provider({
+      ...session,
+      'POST https://pds.example.com/xrpc/com.atproto.server.createSession': {
+        status: 200,
+        body: {
+          did: ADA,
+          accessJwt: 'access',
+          refreshJwt: 'refresh',
+          handle: 'ada.example.com',
+        },
+      },
+      [ticket]: {
+        status: 200,
+        body: {
+          uri: TICKET_URI,
+          cid: 'bafyreiticket00000000000000000000000000000000000000000000000001',
+          value: {
+            'title': { text: 'Cache compiled templates' },
+            'state': 'open',
+            'targetBranch': 'main',
+            'createdAt': '2026-09-01T10:00:00Z',
+            'x-tngl-editor': 'did:plc:gracecollab2222222222222',
+          },
+        },
+      },
+    })
+    await instance.threads.close(pull)
+
+    const put = calls.find(call => call.url.endsWith('/com.atproto.repo.putRecord'))!
+    expect(JSON.parse(put.body!).record.state).toBe('closed')
   })
 
   it('changes labels on a thread', async () => {
