@@ -67,7 +67,7 @@ Upstream creates no tag for a release, so push the tag, or create it with the gi
 
 ## Search
 
-Upstream searches code in one repository at a time, so `search.code()` needs a `repo` and rejects a search across an owner's repositories.
+Upstream searches code in one repository at a time, so `search.code()` needs a `repo`, and without one rejects with `UnsupportedOperationError` before any request goes out. Upstream reports every code search as incomplete, so its pages carry no `search_incomplete` warning.
 
 ## Webhooks
 

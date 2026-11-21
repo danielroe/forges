@@ -83,6 +83,16 @@ const cases: Array<[keyof typeof web & keyof typeof providers, WebOptions, strin
     ['https://git.cafe/acme/widgets/pull/2', 'https://git.cafe/acme/widgets/issues/4#icomment_01m6kj9jhkee3acc99w4ep8kvz'],
   ],
   [
+    'upstream',
+    {},
+    ['https://upstream.codes/acme/widgets/changes/2#comment-9', 'https://upstream.codes/acme/widgets/issues/4'],
+  ],
+  [
+    'upstream',
+    { baseUrl: 'https://api.upstream.codes' },
+    ['https://upstream.codes/acme/widgets/changes/2'],
+  ],
+  [
     'tangled',
     {},
     ['https://tangled.sh/@acme.dev/core/issues/4', 'https://tangled.sh/@acme.dev/core/compare/main...feat'],

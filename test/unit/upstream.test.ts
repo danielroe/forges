@@ -1,8 +1,13 @@
 import type { FetchLike } from '../../src/fetch.ts'
+import type { WebhookDelivery } from '../../src/index.ts'
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { UnsupportedOperationError } from '../../src/errors.ts'
 import { upstream } from '../../src/upstream/index.ts'
 import { upstream as upstreamWeb } from '../../src/web/index.ts'
+import { FIXTURE_HOOK_SECRET } from '../recording/write-steps.ts'
+import { fixtureDirectory } from '../utils/fixtures.ts'
+import { markPayload } from '../utils/provenance.ts'
 
 const origin = { forge: 'upstream', instance: 'upstream.codes' } as const
 const repo = { ...origin, owner: 'coline', name: 'onset' } as const
@@ -35,6 +40,14 @@ function server() {
   }
 }
 
+function delivery(name: string): WebhookDelivery {
+  const { headers, body } = JSON.parse(readFileSync(`${fixtureDirectory('upstream')}webhooks/${name}.delivery.json`, 'utf8')) as { headers: Record<string, string>, body: string }
+  return {
+    headers,
+    body: markPayload(body, 'recorded'),
+  }
+}
+
 describe('upstream', () => {
   it('talks to upstream.codes through `/api/v3` by default', () => {
     const forge = upstream()
@@ -59,7 +72,29 @@ describe('upstream', () => {
     await expect(forge.threads.createReview(pull, { body: 'Pending' })).rejects.toThrow(UnsupportedOperationError)
     await expect(forge.notifications.markAllRead({ repo })).rejects.toThrow(UnsupportedOperationError)
     await expect(forge.contents.commitFiles(repo, { branch: 'main', message: 'm', changes: [] })).rejects.toThrow('upstream does not support contents.commitFiles')
+    await expect(forge.search.code({ text: 'import', owner: 'coline' }).page()).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
+  })
+
+  it('searches code in one repository without an incomplete warning', async () => {
+    const calls: string[] = []
+    const forge = upstream({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        calls.push(url)
+        return Response.json({ total_count: 0, incomplete_results: true, items: [] })
+      },
+    })
+
+    const page = await forge.search.code({ text: 'import', repo }).page()
+    await forge.search.code({ queryRaw: 'import repo:coline/onset' }).page()
+
+    expect(page.items).toEqual([])
+    expect(page.warnings).toBeUndefined()
+    expect(calls).toEqual([
+      'https://upstream.codes/api/v3/search/code?q=import+repo%3Acoline%2Fonset',
+      'https://upstream.codes/api/v3/search/code?q=import+repo%3Acoline%2Fonset',
+    ])
   })
 
   it('reports what Upstream lacks', () => {
@@ -93,5 +128,47 @@ describe('upstream', () => {
     expect(web.parseUrl('https://upstream.codes/coline/onset/issues/1')?.thread).toEqual(issue)
     expect(web.parseUrl('https://upstream.codes/coline/onset')?.repo).toEqual(repo)
     expect(web.parseUrl('https://upstream.codes/docs/api')).toBeUndefined()
+  })
+
+  it.each([
+    ['pull-request-opened', 'state_change', 'opened'],
+    ['pull-request-labeled', 'label', 'labelled'],
+    ['pull-request-assigned', 'assignment', 'assigned'],
+    ['pull-request-review-commented', 'review', 'submitted'],
+    ['pull-request-review-approved', 'review', 'submitted'],
+    ['pull-request-review-comment-created', 'review_comment', 'created'],
+    ['pull-request-closed', 'state_change', 'closed'],
+  ])('translates the %s delivery Upstream sent', async (name, kind, action) => {
+    const forge = upstream({ webhookSecret: FIXTURE_HOOK_SECRET })
+    const events = await forge.webhooks.ingest(delivery(name))
+
+    expect(events).toHaveLength(1)
+    expect(events[0]).toMatchObject({
+      kind,
+      action,
+      repo: {
+        forge: 'upstream',
+        instance: 'upstream.codes',
+        owner: 'upstream_forges_bot',
+        name: 'forges-fixtures',
+      },
+      thread: { kind: 'pull_request', number: '30' },
+      threadSnapshot: { url: 'https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/30' },
+      source: 'webhook',
+    })
+  })
+
+  it.each([
+    ['create-branch', 'ref', 'created'],
+    ['create-tag', 'ref', 'created'],
+    ['delete-branch', 'ref', 'deleted'],
+    ['release-published', 'release', 'published'],
+  ])('translates the %s delivery Upstream sent', async (name, kind, action) => {
+    const forge = upstream({ webhookSecret: FIXTURE_HOOK_SECRET })
+    const events = await forge.webhooks.ingest(delivery(name))
+
+    expect(events.map(event => [event.kind, event.action])).toEqual([
+      [kind, action],
+    ])
   })
 })

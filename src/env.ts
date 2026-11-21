@@ -305,20 +305,6 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
             }),
           }
         : { ...entry, skipped: 'needs TOKEN, or ENABLED for anonymous reads' }
-    case 'UPSTREAM':
-      return fields.TOKEN || anonymous
-        ? {
-            ...entry,
-            provider: upstream({
-              ...base,
-              ...fields.TOKEN
-                ? {
-                    auth: { type: 'token', token: fields.TOKEN },
-                  }
-                : {},
-            }),
-          }
-        : { ...entry, skipped: 'needs TOKEN, or ENABLED for anonymous reads' }
     case 'SOURCEHUT':
       return fields.TOKEN
         ? {
@@ -368,6 +354,7 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
         GITEA: gitea,
         GITEE: gitee,
         PUSHIN: pushin,
+        UPSTREAM: upstream,
       }[kind]
       return {
         ...entry,

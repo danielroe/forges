@@ -103,20 +103,33 @@ const NO_DISCUSSIONS: Record<string, RedeclaredSupport> = Object.fromEntries(CAP
 
 /** Swaps in the verbs that Upstream needs done its own way. */
 function forUpstream(spec: GitHubSpec, { origin }: GitHubContext): GitHubSpec {
-  const { notifications, threads } = spec
+  const { notifications, search, threads } = spec
   const markAllRead = notifications?.markAllRead
   const createReview = threads.createReview
+  const codePage = search?.codePage
   return {
     ...spec,
     // Upstream serves no Dependabot, code scanning or secret scanning alerts.
     securityAlerts: undefined,
+    search: search && {
+      ...search,
+      codePage: codePage && {
+        ...codePage,
+        run: async (query) => {
+          if (!query.repo && !/(?:^|\s)repo:/.test(query.queryRaw ?? '')) {
+            throw new UnsupportedOperationError('Upstream searches code in one repository at a time, so a code search needs a `repo`', origin)
+          }
+          const { warnings, ...page } = await codePage.run(query)
+          // Upstream sets `incomplete_results` on every code search, so it says nothing about this one.
+          const kept = warnings?.filter(warning => warning.code !== 'search_incomplete')
+          return kept?.length
+            ? { ...page, warnings: kept }
+            : page
+        },
+      },
+    },
     threads: {
       ...threads,
-      // Approving doesn't need a pending review, so it stays when creating reviews is redeclared.
-      approve: createReview && {
-        support: createReview.support,
-        run: (ref, body, options) => createReview.run(ref, { event: 'approve', body }, options),
-      },
       createReview: createReview && {
         ...createReview,
         run: (ref, input, options) => input.event
