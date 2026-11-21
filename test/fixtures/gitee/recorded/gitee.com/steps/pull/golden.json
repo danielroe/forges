@@ -109,12 +109,12 @@
   ],
   "labels": [
     {
-      "name": "ci_smoke_success",
-      "colour": "20c22e"
-    },
-    {
       "name": "ci_compile_warning",
       "colour": "febc08"
+    },
+    {
+      "name": "ci_smoke_success",
+      "colour": "20c22e"
     },
     {
       "name": "ci_scan_success",
