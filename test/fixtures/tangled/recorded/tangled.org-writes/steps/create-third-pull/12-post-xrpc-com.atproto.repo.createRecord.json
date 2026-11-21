@@ -8,29 +8,29 @@
       "record": {
         "$type": "org.tangled.graph.attestation",
         "subject": {
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreie7lzlmshr2k5tposzvdpqa2dsfdbybuzxuqd4z7eq26hzhsmuulu",
-          "cid": "bafyreie7lzlmshr2k5tposzvdpqa2dsfdbybuzxuqd4z7eq26hzhsmuulu"
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreihslm766n4wpfurvb32v2y24qg44yth4jxrlmf5b437g7zrxmz3tm",
+          "cid": "bafyreihslm766n4wpfurvb32v2y24qg44yth4jxrlmf5b437g7zrxmz3tm"
         },
-        "change": "bfac00bdf9610a7ccf126940c0d4c54460364bf7",
-        "createdAt": "2026-11-21T11:23:49.671Z"
+        "change": "920f6d558a665ea91f06641397860eb32fa0592f",
+        "createdAt": "2026-11-21T12:22:10.207Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"121-b2W6bVd+SyyLx1Dbca6yY5PDBjg\"",
+      "etag": "W/\"121-j3W1wx7DOt2MBttYN/0xYjHhQH0\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2863",
-      "ratelimit-reset": "1795260458",
+      "ratelimit-remaining": "2857",
+      "ratelimit-reset": "1795263963",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.graph.attestation/3n2syg7c34o2r",
-      "cid": "bafyreifdac2ishsjklwwmldbtfjmm7gpzfalqeqsuxnhtnmlzpcgczbcq4",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.graph.attestation/3n2t3ojmpbg2r",
+      "cid": "bafyreigcbaqwgymfahbfqsigop4vpyma3yilh7yhtsp4kynvgb46ogfhgq",
       "commit": {
-        "cid": "bafyreievgrtgp4jkjs237gyw6gvpwwg4xppq3jxz4ptupsjmfmvck5uz7i",
-        "rev": "3n2syg7cjrg2r"
+        "cid": "bafyreigrnwyyhjamyx7dvuqtkppfeydj55jc6wtgqaaaccq2b7izkrr5za",
+        "rev": "3n2t3ojmw462r"
       },
       "validationStatus": "unknown"
     }

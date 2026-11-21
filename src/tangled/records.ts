@@ -117,7 +117,7 @@ export interface RepoHandle {
   did: string
   /** The origin of the knot that hosts the repository. */
   knot: string
-  view: RepoView & { git?: { defaultBranch?: string, isEmpty?: boolean, languages?: Array<{ name: string, size: number }> } }
+  view: RepoView
 }
 
 /** A ticket the index found, with what the index adds to its record. */
@@ -241,7 +241,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       return repoByDid(repo.externalId, signal)
     }
     return cached(reposByName, `${repo.owner.toLowerCase()}/${repo.name}`, async () => {
-      const handle = await toHandle(await query('org.tangled.temp.repo.getRepoByName', {
+      const handle = await toHandle(await query('org.tangled.repo.getRepoByName', {
         owner: await didOf(repo.owner),
         name: repo.name,
       }))
@@ -264,7 +264,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return {
       ref,
       description: manifest.description || undefined,
-      defaultBranch: view.defaultBranch ?? view.git?.defaultBranch,
+      defaultBranch: view.defaultBranch,
       visibility: 'public',
       isFork: Boolean(manifest.source),
       isArchived: false,
@@ -275,7 +275,6 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       cloneUrls: { https: `${webUrl}/${path}`, ssh: `ssh://git@${sshHost(new URL(knot).host)}/${path}` },
       createdAt: toDate(manifest.createdAt),
       homepage: manifest.website || undefined,
-      language: view.git?.languages?.[0]?.name,
       mergeMethods: ['merge', 'rebase'],
       defaultMergeMethod: 'merge',
       ...counts,

@@ -1,27 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Axer24egskgvsxk2pwfvn5m37"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3At73o44q7fppgagkrevtztyok"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreihqvtea3ueyjjxoz4pddqgpgfg6iexvee6n3qd5q56jjmekbk3a6y",
+      "cid": "bafyreidwqp7izr2rl2odhtkx3xnzl7gbd2hnvh727dnkpwlyvbdekitpqq",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:xer24egskgvsxk2pwfvn5m37/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-10-28T16:07:22Z",
+        "createdAt": "2026-10-09T17:02:20.000000Z",
         "declaration": {
-          "name": "airlift",
-          "owner": "did:plc:qokwkqtezyfuctbnkqxh7swf"
+          "name": "forges-fixtures",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk"
         },
-        "description": "a universal package manager",
         "spindle": "did:web:spindle.tangled.network",
-        "x-tngl-editor": "did:plc:qokwkqtezyfuctbnkqxh7swf"
+        "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
       }
     }
   }

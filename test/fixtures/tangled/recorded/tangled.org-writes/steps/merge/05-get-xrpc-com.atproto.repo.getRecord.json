@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.track.ticket&rkey=126"
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.track.ticket&rkey=132"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreiau7mr2zwefleyimxozjx5cnrcgpry47qiz2eppw2i4x25iejbqaa",
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/126",
+      "cid": "bafyreidfv4askyemdlax4yl6hich2e3fd3hqovajc6g5lknsznsougfdtq",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132",
       "value": {
         "$type": "org.tangled.track.ticket",
         "assignees": [
@@ -16,19 +16,19 @@
         ],
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "Edited by run 20261121112236."
+          "text": "Edited by run 20261121122101."
         },
-        "createdAt": "2026-11-21T11:23:39Z",
+        "createdAt": "2026-11-21T12:22:00Z",
         "state": "open",
         "tangledLabels": [
           {
-            "key": "forges-fixture-20261121112236"
+            "key": "forges-fixture-20261121122101"
           }
         ],
         "targetBranch": "main",
         "title": {
           "$type": "org.tangled.markup.markdown#inline",
-          "text": "forges fixture 20261121112236: pull, edited"
+          "text": "forges fixture 20261121122101: pull, edited"
         },
         "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
       }

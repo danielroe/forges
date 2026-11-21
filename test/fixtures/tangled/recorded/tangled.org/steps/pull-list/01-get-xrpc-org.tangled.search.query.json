@@ -10,85 +10,85 @@
       "hits": [
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreihpqwgmrnigsoxktmruy3yhihstp4mq3y3lj65ieekcspogjbpgru",
+          "cid": "bafyreihm547exhn424gvlaxe7zk3hzbhemvbjdlkryyqvi2fc6y5hix6bi",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 0,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/116",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/134",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Opened by run 20261121100622."
+              "text": "Opened by run 20261121122101."
             },
-            "createdAt": "2026-11-21T10:07:28Z",
+            "createdAt": "2026-11-21T12:22:08Z",
             "state": "open",
             "tangledLabels": [],
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261121100622: pull 3"
+              "text": "forges fixture 20261121122101: pull 3"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         },
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreiewym7bhht3vvaqe6aztq57gh7vja2pg2fddrpptzy7pkp72shm3u",
+          "cid": "bafyreihjto5gaikaxnsrjzbrqup7x7oxrtmpy3i7lvc4u35p43rumy3ryu",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 0,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/115",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/133",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Opened by run 20261121100622."
+              "text": "Opened by run 20261121122101."
             },
-            "createdAt": "2026-11-21T10:07:24Z",
+            "createdAt": "2026-11-21T12:22:04Z",
             "state": "open",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261121100622: pull 2"
+              "text": "forges fixture 20261121122101: pull 2"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         },
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreib5jvlythquwmdgzjmvp52imhmcntsx7gumqjmn7ozfhapg4fvvwe",
+          "cid": "bafyreibuyghjarxjdl2faeiaosq4e7oid4h3qqwvpgxw5tqk43h5gv7y74",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 0,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/110",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/128",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Opened by run 20261121100317."
+              "text": "Opened by run 20261121112236."
             },
-            "createdAt": "2026-11-21T10:04:19Z",
+            "createdAt": "2026-11-21T11:23:47Z",
             "state": "open",
             "tangledLabels": [],
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261121100317: pull 3"
+              "text": "forges fixture 20261121112236: pull 3"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         }
       ],
-      "cursor": "k000000006b016ca3mf2dulzpmruwiotqnrrtu5bxgnxtindrg5tha4dhmftww4tfoz2hu5dzn5vs633sm4xhiylom5wgkzboorzgcy3lfz2gsy3lmv2c6mjrga",
-      "total": 23,
+      "cursor": "k000000006b017f43mf2dulzpmruwiotqnrrtu5bxgnxtindrg5tha4dhmftww4tfoz2hu5dzn5vs633sm4xhiylom5wgkzboorzgcy3lfz2gsy3lmv2c6mjsha",
+      "total": 29,
       "stateCounts": {
-        "open": 23,
+        "open": 29,
         "closed": 0,
-        "completed": 8
+        "completed": 11
       }
     }
   }

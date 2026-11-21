@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ajj6ajj6duxnlthwtnob4qyuv%2Forg.tangled.track.ticket%2F698"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ada6gxbuiv7kooty5t3tkh2n7%2Forg.tangled.track.ticket%2F142"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreiexh4eybnkcuwdg6xx5xvk5s5rufjveu2at2g7hjvq7rsekvqpyve",
-          "uri": "at://did:plc:jj6ajj6duxnlthwtnob4qyuv/org.tangled.track.ticket/698",
+          "cid": "bafyreib66zcvyt6jsuz3edris535eivxp7gg2ois37oynt7elc5gx2xdue",
+          "uri": "at://did:plc:da6gxbuiv7kooty5t3tkh2n7/org.tangled.track.ticket/142",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Another big PR, yay. It's a single PR because there are very few meaningful pieces that can be merged independently, replacing `ParsedScope` means making all these changes.\n\nMost of the changes should be straightforward if you've read https://tangled.org/tranquil.farm/tranquil-pds/issues/690. Everything comes from the core change of replacing `ParsedScope` with `Scope` and `ScopeSet`, and the scopes are used all over the place. There's also some code related to handling the migration of scopes in old app passwords, to match the new design.\n\n`crates/tranquil-scopes/src/scope.rs:506` This is the kind of code I love writing (and reading). A single place that tells you exactly how scopes are parsed.\n\n`crates/tranquil-api/src/server/app_password.rs:114` for OAuth, invalid scopes are dropped since the user can't do much about the client's request. For app passwords, we reject creation because here the user can fix their request.\n\nSerialization now follows basic formatting rules based on ref pds, examples:\n\n```\nbefore  atproto repo:io.atcr.manifest repo:io.atcr.manifest?action=create&action=update&action=delete\nafter   atproto repo:io.atcr.manifest\n\nbefore  atproto account:email?action=read\nafter   atproto account:email\n\nbefore  atproto rpc?lxm=app.bsky.feed.getTimeline&aud=did:web:api.bsky.app%23bsky_appview\nafter   atproto rpc:app.bsky.feed.getTimeline?aud=did:web:api.bsky.app%23bsky_appview\n\nbefore  atproto rpc:app.bsky.feed.getTimeline?aud=did:web:api.bsky.app#bsky_appview\nafter   atproto rpc:app.bsky.feed.getTimeline?aud=did:web:api.bsky.app%23bsky_appview\n```\n\nI don't think we can go as far to say that formatting is _stable_, there are minor differences with the ref PDS and the standard doesn't specify. We can aim to avoid changes though, and most importantly, parsing will always result in the correct result.\n\nAlso note that each dashboard endpoint now requires a specific attribute, eg `account:password?action=manage`.\n\nI dropped `RpcCall` since it's not used anywhere.\n\n-----\n\nHey, at least it removes more code than it adds 🤷‍♀️"
+              "text": "A channel message to a busy Claude is queued: ~0.2 s after the write its transcript holds an exact queue-operation enqueue record, and a message absorbed mid-turn never gets a user record, so the send waited 30 s and exited 1 (DELIVERY UNCONFIRMED) although it had arrived. receipt_seen now accepts that enqueue record when it is after the snapshot, in the same session, and its content passes the existing exact channel_receipt check (source, message_id, body digest, body). Written with neither enqueue nor user record still exits 1. Tests: linked PR from test/msg-u14-channel-queue."
             },
-            "createdAt": "2026-11-20T18:35:12Z",
-            "state": "open",
+            "createdAt": "2026-11-21T09:37:49Z",
+            "state": "closed",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "feat(scopes)!: type-safe scopes"
+              "text": "AGENT-MESSAGE-SUBMIT U14 product: a busy Claude's channel enqueue is the receipt"
             },
-            "x-tngl-editor": "did:plc:bvraa6gajy4tfr3eh2sisdkr"
+            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
           }
         }
       ]

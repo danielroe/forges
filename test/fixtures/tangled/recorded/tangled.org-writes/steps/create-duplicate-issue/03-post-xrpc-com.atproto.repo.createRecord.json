@@ -8,14 +8,14 @@
       "record": {
         "title": {
           "$type": "org.tangled.markup.markdown#inline",
-          "text": "forges fixture 20261121112236: duplicate"
+          "text": "forges fixture 20261121122101: duplicate"
         },
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "Opened by run 20261121112236."
+          "text": "Opened by run 20261121122101."
         },
         "state": "open",
-        "createdAt": "2026-11-21T11:23:31.981Z"
+        "createdAt": "2026-11-21T12:21:53.279Z"
       }
     }
   },
@@ -23,14 +23,14 @@
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/125",
-      "cid": "bafyreidvqwbegyqq4i4yu2mmerq6cbjig4xg2dmjf76abvffkn6i5nvyuy",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/131",
+      "cid": "bafyreic5amls6ulxhavcd4firvuyvcqdmlzjc6mndpdq46vrbpl6coig7m",
       "commit": {
-        "cid": "bafyreihgo2qyb6olx44id34suhdqhznh2njbug2e4n5f2eb5mvubmrh3hi",
-        "rev": "3n2syfo3r7222"
+        "cid": "bafyreiecprhxizznevlcii24zhczwd6bnl6jguidniobyoddpacwqlah4m",
+        "rev": "3n2t3nzh22p22"
       },
       "validationStatus": "valid",
-      "x-tngl-change": "87599de3d25d12406390f9a8036128898162d120"
+      "x-tngl-change": "e232eccc8b67bbed7a08b82189fe8db34be0a56b"
     }
   }
 }

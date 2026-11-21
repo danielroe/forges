@@ -198,7 +198,7 @@ export function createTangledContents({ instance, webUrl, context, apiUrl, fetch
 
   async function defaultBranch(repo: RepoRef, signal?: AbortSignal): Promise<string | undefined> {
     const { view } = await repoFor(repo, signal)
-    return view.defaultBranch ?? view.git?.defaultBranch
+    return view.defaultBranch
   }
 
   async function file(repo: RepoRef, path: string, options: FileOptions = {}) {

@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://plc.directory/did:plc:ephkzpinhaqcabtkugtbzrwu"
+    "url": "https://plc.directory/did:plc:wshs7t2adsemcrrd4snkeqli"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"215-aM5UVmhczzkpw+oOMh30mwHHnCk\""
+      "etag": "W/\"22f-SRVrE/5vAA5ac20sP6YooLCDFtc\""
     },
     "body": {
       "@context": [
@@ -14,23 +14,23 @@
         "https://w3id.org/security/multikey/v1",
         "https://w3id.org/security/suites/secp256k1-2019/v1"
       ],
-      "id": "did:plc:ephkzpinhaqcabtkugtbzrwu",
+      "id": "did:plc:wshs7t2adsemcrrd4snkeqli",
       "alsoKnownAs": [
-        "at://byjp.me"
+        "at://tangled.org"
       ],
       "verificationMethod": [
         {
-          "id": "did:plc:ephkzpinhaqcabtkugtbzrwu#atproto",
+          "id": "did:plc:wshs7t2adsemcrrd4snkeqli#atproto",
           "type": "Multikey",
-          "controller": "did:plc:ephkzpinhaqcabtkugtbzrwu",
-          "publicKeyMultibase": "zQ3shaumjdWhcSEsvpXDc5zfz6XCnWmtW79EnZsQVDns8jMfg"
+          "controller": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "publicKeyMultibase": "zQ3shTJZr94zT5kRPiqScwcmLJmdG4SdFR5c3bPXZRDRsf21W"
         }
       ],
       "service": [
         {
           "id": "#atproto_pds",
           "type": "AtprotoPersonalDataServer",
-          "serviceEndpoint": "https://eurosky.social"
+          "serviceEndpoint": "https://oysterling.us-west.host.bsky.network"
         }
       ]
     }

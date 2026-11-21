@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Axtz34eivhh2bcj7pgvoipkn5%2Forg.tangled.track.ticket%2F357"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Aj5hmlfdrwkvtxm7cjmu7j2is%2Forg.tangled.track.ticket%2F4812"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreihvggmgwyqtqown4qijrrinswhqxltqpk6yj27rvalj57zepamuhe",
-          "uri": "at://did:plc:xtz34eivhh2bcj7pgvoipkn5/org.tangled.track.ticket/357",
+          "cid": "bafyreib3tadilgaaoykcfyjqr4aicp3gendb5zoaj3raq62wqxmfyig6em",
+          "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.track.ticket/4812",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "3.0.2 bumps moonlight-common-rust from a972937 to 62bf857, which\nincludes upstream's \"Add Video encryption (#17)\" (32881b5): the\ndepayloader now decrypts AES-GCM video packets itself and the stream\nsetup passes the key when Sunshine negotiates video encryption. That is\nwhat video-encryption.patch did, so the patch no longer applied (most\nhunks failed) and the nightly update failed since 2026-11-16. Drop it.\n\nAlso move the frontend's moonlight-common-rust to 62bf857, the rev of\nubrn.config.yaml and Cargo.lock in 3.0.2; nix-update doesn't touch it.\nThe crate's dependencies are unchanged, so wasm-Cargo.lock and the\nvendor hash stay valid.\n\n\nWritten by the agentd agent update-fix-moonlight-web-stream, checked by Hermes (package builds on coaxmetal, same out path). Not tested: an actual encrypted Sunshine stream with upstream decryption.\n"
+              "text": "If you were signed out but the server still had your account cookie (say, you signed out without reloading, or your session expired), the pull request page kept showing Close, Rebase & merge, Approve CI and Delete branch. Clicking them couldn't work.\n\nNow the page treats you as having no access whenever you're not signed in, so those buttons stay hidden. The comment sidebar shows the sign-up prompt instead of a disabled comment box, and the prompt shrinks to fit the narrow sidebar.\n\n| | Before | After |\n| --- | --- | --- |\n| Signed out, with a stale cookie | <img alt=\"Signed out, with a stale cookie before\" src=\"https://x.eti.tf/d66947d.png\" width=\"352\" height=\"863\"> | <img alt=\"Signed out, with a stale cookie after\" src=\"https://x.eti.tf/c040b6b.png\" width=\"352\" height=\"863\"> |\n\nThis is the first of four stacked pull requests for the pull request page:\n\n1. #4812 hide pull actions from signed-out viewers (this one)\n2. #4813 markdown editor and comment form\n3. #4814 keep the scroll position when switching versions\n4. #4815 pull actions next to the title, with a sticky bar\n\nMerge them in order. Each one also contains the commits of the ones before it, until those are merged."
             },
-            "createdAt": "2026-11-21T06:59:58Z",
+            "createdAt": "2026-11-20T18:15:37Z",
             "state": "completed",
             "targetBranch": "master",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "pkgs.moonlight-web-stream: 3.0.1 -> 3.0.2"
+              "text": "web/pulls: hide pull actions from signed-out viewers"
             },
-            "x-tngl-editor": "did:plc:6nk6tk76up7254wawocoekjr"
+            "x-tngl-editor": "did:plc:qfpnj4og54vl56wngdriaxug"
           }
         }
       ]

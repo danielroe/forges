@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Axer24egskgvsxk2pwfvn5m37%2Forg.tangled.track.ticket%2F74"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Adhwjwpl7fp23j5jnzcnrztwb%2Forg.tangled.track.ticket%2F20"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreih7wxdivrg2cl2yucr7mgntw7hjdq752mfrn4o757dgn3gvhnixd4",
-          "uri": "at://did:plc:xer24egskgvsxk2pwfvn5m37/org.tangled.track.ticket/74",
+          "cid": "bafyreiakfvbxvfxefcp3yqv54y7e7q7kmbg546m46ydsrp2yeairwdqwca",
+          "uri": "at://did:plc:dhwjwpl7fp23j5jnzcnrztwb/org.tangled.track.ticket/20",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Old airlift releases don't need to keep working against a newer root, so rollback no longer refuses to move airlift below 0.1.9. This is the follow-up commit from PR 73, which was merged without it.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+              "text": "Resolves #12.\n\n### Summary\n- Added `flake.nix` and `flake.lock` supporting `aarch64-darwin`, `x86_64-darwin`, `x86_64-linux`, and `aarch64-linux`.\n- Builds the embedded `web/` SPA reproducibly via `pkgs.buildNpmPackage` and embeds it into `pkgs.rustPlatform.buildRustPackage` with `GETAEL_SKIP_WEB_BUILD=1`.\n- Exposes `packages.<system>.default` (`getael`), `apps.<system>.default` (`nix run`), and `devShells.<system>.default` (`cargo`, `rustc`, `rustfmt`, `clippy`, `nodejs`, `sqlite`, `pkg-config`).\n- Documented `nix run`, `nix profile install`, and `nix develop` in `README.md`.\n\n### Verification\n- `nix build` succeeded on `aarch64-darwin`\n- `nix flake check` passed (`all checks passed!`)\n- `nix run . -- --help` launched `getael` cleanly\n"
             },
-            "createdAt": "2026-11-21T07:34:42Z",
+            "createdAt": "2026-11-21T08:29:01Z",
             "state": "completed",
-            "targetBranch": "main",
+            "targetBranch": "dev",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "Let rollback move airlift to any older release"
+              "text": "Add Nix flake for reproducible builds and dev shell"
             },
-            "x-tngl-editor": "did:plc:qokwkqtezyfuctbnkqxh7swf"
+            "x-tngl-editor": "did:plc:lp2lwdajhchgtga2hcrros26"
           }
         }
       ]

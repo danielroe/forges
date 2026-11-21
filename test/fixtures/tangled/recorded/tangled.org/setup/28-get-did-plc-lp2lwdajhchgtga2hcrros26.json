@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://plc.directory/did:plc:6p6flnao3djlzqjhup2rh5vl"
+    "url": "https://plc.directory/did:plc:lp2lwdajhchgtga2hcrros26"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"230-wNe41rj6WA1iQ7nPNWBIVdnE/jU\""
+      "etag": "W/\"21b-r1h8lKGfqb8n/LpQ19Vf+KDPOI0\""
     },
     "body": {
       "@context": [
@@ -14,23 +14,23 @@
         "https://w3id.org/security/multikey/v1",
         "https://w3id.org/security/suites/secp256k1-2019/v1"
       ],
-      "id": "did:plc:6p6flnao3djlzqjhup2rh5vl",
+      "id": "did:plc:lp2lwdajhchgtga2hcrros26",
       "alsoKnownAs": [
-        "at://protokill.sh"
+        "at://zip.mu.social"
       ],
       "verificationMethod": [
         {
-          "id": "did:plc:6p6flnao3djlzqjhup2rh5vl#atproto",
+          "id": "did:plc:lp2lwdajhchgtga2hcrros26#atproto",
           "type": "Multikey",
-          "controller": "did:plc:6p6flnao3djlzqjhup2rh5vl",
-          "publicKeyMultibase": "zQ3shdS3kiqJnqK9fYaqVZCTvbFLtNjm2EnkJeqei8gbkGL7z"
+          "controller": "did:plc:lp2lwdajhchgtga2hcrros26",
+          "publicKeyMultibase": "zQ3shoFKShqjhFnrkUBf87XnZpUQsQFk9fw3mjSq1daxWG3h3"
         }
       ],
       "service": [
         {
           "id": "#atproto_pds",
           "type": "AtprotoPersonalDataServer",
-          "serviceEndpoint": "https://stropharia.us-west.host.bsky.network"
+          "serviceEndpoint": "https://eurosky.social"
         }
       ]
     }

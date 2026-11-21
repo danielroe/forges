@@ -1,25 +1,28 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Axtz34eivhh2bcj7pgvoipkn5"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Aj5hmlfdrwkvtxm7cjmu7j2is"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreibftzjpiwdi7eyqvho4hxpbpx7gowyeilk5syqnzzrwyvv6sn34r4",
+      "cid": "bafyreifre5mcp6gnppyd35b4yvki7ci4yppew3ry5flpgr4il73xocssvi",
       "defaultBranch": "master",
-      "knot": "knot.lassul.us",
-      "uri": "at://did:plc:xtz34eivhh2bcj7pgvoipkn5/org.tangled.repo.manifest/self",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
-        "contributionPolicy": "members",
-        "createdAt": "2026-11-01T11:46:09Z",
+        "contributionPolicy": "anyone",
+        "createdAt": "2025-02-23T18:43:18.000000Z",
         "declaration": {
-          "name": "superconfig",
-          "owner": "did:plc:6nk6tk76up7254wawocoekjr"
+          "name": "core",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli"
         },
-        "x-tngl-editor": "did:plc:6nk6tk76up7254wawocoekjr"
+        "description": "Monorepo for Tangled",
+        "spindle": "did:web:spindle.tangled.network",
+        "website": "https://tangled.org",
+        "x-tngl-editor": "did:plc:wshs7t2adsemcrrd4snkeqli"
       }
     }
   }

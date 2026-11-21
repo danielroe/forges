@@ -1,26 +1,28 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3At73o44q7fppgagkrevtztyok"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Aj5hmlfdrwkvtxm7cjmu7j2is"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreidwqp7izr2rl2odhtkx3xnzl7gbd2hnvh727dnkpwlyvbdekitpqq",
-      "defaultBranch": "main",
+      "cid": "bafyreifre5mcp6gnppyd35b4yvki7ci4yppew3ry5flpgr4il73xocssvi",
+      "defaultBranch": "master",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-10-09T17:02:20.000000Z",
+        "createdAt": "2025-02-23T18:43:18.000000Z",
         "declaration": {
-          "name": "forges-fixtures",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          "name": "core",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli"
         },
+        "description": "Monorepo for Tangled",
         "spindle": "did:web:spindle.tangled.network",
-        "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        "website": "https://tangled.org",
+        "x-tngl-editor": "did:plc:wshs7t2adsemcrrd4snkeqli"
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "base": "b261608dbc40228caede017e0d47d5f6d427ed4a",
+  "base": "345c9802dbc67c479d038e79745824e605907a99",
   "head": "main",
   "aheadBy": 4,
   "commits": [
@@ -15,14 +15,14 @@
           "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
           "ownerHandle": "roebot.tngl.sh"
         },
-        "sha": "049494eeeb7a06cb8c911ba961347eacdab2f186"
+        "sha": "2b44876cb06e6332601b48b358f27b473c84d9d2"
       },
-      "sha": "049494eeeb7a06cb8c911ba961347eacdab2f186",
-      "message": "Add forges-fixtures/20261121083313-1.md",
+      "sha": "2b44876cb06e6332601b48b358f27b473c84d9d2",
+      "message": "Add forges-fixtures/20261121100622-1.md",
       "author": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "2026-11-21T08:33:24.000Z"
+        "date": "2026-11-21T10:06:35.000Z"
       },
       "parents": [],
       "stats": {
@@ -42,14 +42,14 @@
           "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
           "ownerHandle": "roebot.tngl.sh"
         },
-        "sha": "cfb75cfaf8227605dcba0935ccff08fb4b5ed125"
+        "sha": "00111a8c9099b56b5e8e4492373de72e4940112f"
       },
-      "sha": "cfb75cfaf8227605dcba0935ccff08fb4b5ed125",
-      "message": "Add forges-fixtures/20261121094301-1.md",
+      "sha": "00111a8c9099b56b5e8e4492373de72e4940112f",
+      "message": "Add forges-fixtures/20261121100852-1.md",
       "author": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "<now>"
+        "date": "2026-11-21T10:09:09.000Z"
       },
       "parents": [],
       "stats": {
@@ -59,5 +59,5 @@
     }
   ],
   "files": [],
-  "mergeBaseSha": "b261608dbc40228caede017e0d47d5f6d427ed4a"
+  "mergeBaseSha": "345c9802dbc67c479d038e79745824e605907a99"
 }

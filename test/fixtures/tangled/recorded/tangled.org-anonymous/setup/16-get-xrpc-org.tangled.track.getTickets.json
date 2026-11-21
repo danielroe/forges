@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ada6gxbuiv7kooty5t3tkh2n7%2Forg.tangled.track.ticket%2F142"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreib66zcvyt6jsuz3edris535eivxp7gg2ois37oynt7elc5gx2xdue",
+          "uri": "at://did:plc:da6gxbuiv7kooty5t3tkh2n7/org.tangled.track.ticket/142",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "A channel message to a busy Claude is queued: ~0.2 s after the write its transcript holds an exact queue-operation enqueue record, and a message absorbed mid-turn never gets a user record, so the send waited 30 s and exited 1 (DELIVERY UNCONFIRMED) although it had arrived. receipt_seen now accepts that enqueue record when it is after the snapshot, in the same session, and its content passes the existing exact channel_receipt check (source, message_id, body digest, body). Written with neither enqueue nor user record still exits 1. Tests: linked PR from test/msg-u14-channel-queue."
+            },
+            "createdAt": "2026-11-21T09:37:49Z",
+            "state": "closed",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "AGENT-MESSAGE-SUBMIT U14 product: a busy Claude's channel enqueue is the receipt"
+            },
+            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+          }
+        }
+      ]
+    }
+  }
+}

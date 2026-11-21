@@ -1,36 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ajj6ajj6duxnlthwtnob4qyuv"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3A6o2jgfoosrff52lbhs4pk3g4"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreib3kjqyivi2zd5gty5yeufebdys77rr6yisvvps56vszahw4egk7q",
+      "cid": "bafyreicuotyot7rlpgs3zb2iafmc5i6n527omwiciriszzcrvutfmbr57e",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:jj6ajj6duxnlthwtnob4qyuv/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:6o2jgfoosrff52lbhs4pk3g4/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-10-28T15:08:00Z",
+        "createdAt": "2026-07-10T15:51:29.000000Z",
         "declaration": {
-          "name": "tranquil-pds",
-          "owner": "did:web:tranquil.tranquil.farm"
+          "name": "lichen-orchestrator",
+          "owner": "did:plc:qfngkejlw4ghji2myc73hbdh"
         },
-        "description": "Our Personal Data Server from scratch!",
         "spindle": "did:web:spindle.tangled.network",
-        "topics": [
-          "pds",
-          "rust",
-          "database",
-          "fun",
-          "oauth",
-          "atproto"
-        ],
-        "website": "https://tranquil.farm/",
-        "x-tngl-editor": "did:web:tranquil.tranquil.farm"
+        "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
       }
     }
   }

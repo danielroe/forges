@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://plc.directory/did:plc:bvraa6gajy4tfr3eh2sisdkr"
+    "url": "https://plc.directory/did:plc:lp2lwdajhchgtga2hcrros26"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"215-dhro85xBMDyCxeD6Cpj7wCJsQSo\""
+      "etag": "W/\"21b-r1h8lKGfqb8n/LpQ19Vf+KDPOI0\""
     },
     "body": {
       "@context": [
@@ -14,23 +14,23 @@
         "https://w3id.org/security/multikey/v1",
         "https://w3id.org/security/suites/secp256k1-2019/v1"
       ],
-      "id": "did:plc:bvraa6gajy4tfr3eh2sisdkr",
+      "id": "did:plc:lp2lwdajhchgtga2hcrros26",
       "alsoKnownAs": [
-        "at://jola.dev"
+        "at://zip.mu.social"
       ],
       "verificationMethod": [
         {
-          "id": "did:plc:bvraa6gajy4tfr3eh2sisdkr#atproto",
+          "id": "did:plc:lp2lwdajhchgtga2hcrros26#atproto",
           "type": "Multikey",
-          "controller": "did:plc:bvraa6gajy4tfr3eh2sisdkr",
-          "publicKeyMultibase": "zQ3shTkHUmLuS6nCWiWnRxEHXAt7XQVtpLRia2E87mm8zpUD2"
+          "controller": "did:plc:lp2lwdajhchgtga2hcrros26",
+          "publicKeyMultibase": "zQ3shoFKShqjhFnrkUBf87XnZpUQsQFk9fw3mjSq1daxWG3h3"
         }
       ],
       "service": [
         {
           "id": "#atproto_pds",
           "type": "AtprotoPersonalDataServer",
-          "serviceEndpoint": "https://pds.cove.town"
+          "serviceEndpoint": "https://eurosky.social"
         }
       ]
     }

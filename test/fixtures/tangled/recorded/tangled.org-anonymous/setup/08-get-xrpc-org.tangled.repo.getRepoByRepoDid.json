@@ -1,34 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ae3kzdezk5gsirzh7eoqplc64"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ada6gxbuiv7kooty5t3tkh2n7"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreievv2wt3u7l3yngbw7hq7etxrvq7i5baorrw54bkmwdmu3gt2bdbi",
+      "cid": "bafyreicjgjxic6nsp2ccm6thruh3auaifgvyjz5p4ef2qbsobrw657zlru",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:e3kzdezk5gsirzh7eoqplc64/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:da6gxbuiv7kooty5t3tkh2n7/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2025-10-08T20:59:17.000000Z",
+        "createdAt": "2026-07-08T16:55:56.000000Z",
         "declaration": {
-          "name": "at-container-registry",
-          "owner": "did:plc:pddp4xt5lgnv2qsegbzzs4xg"
+          "name": "agent-orchestrator",
+          "owner": "did:plc:qfngkejlw4ghji2myc73hbdh"
         },
-        "description": "A container registry that uses the AT Protocol for manifest storage and S3 for blob storage.",
-        "spindle": "did:web:loom.jarrett.net",
-        "topics": [
-          "docker",
-          "container",
-          "atproto",
-          "go"
-        ],
-        "website": "https://atcr.io",
-        "x-tngl-editor": "did:plc:pddp4xt5lgnv2qsegbzzs4xg"
+        "spindle": "did:web:spindle.tangled.network",
+        "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
       }
     }
   }

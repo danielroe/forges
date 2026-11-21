@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.temp.review.listPatches?ticket=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F127&order=desc&limit=1"
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.review.listPatches?ticket=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F133&order=desc&limit=1"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreia2i4ps5lq5s4yfx5xq2q6pze4anlrotuk2zmp4aran747ioj7afe",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreia2i4ps5lq5s4yfx5xq2q6pze4anlrotuk2zmp4aran747ioj7afe",
+          "cid": "bafyreigzurekh2bodacp2yrcju4h7yr5mffapc7tcddhqm3po6nbg5wjxq",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreigzurekh2bodacp2yrcju4h7yr5mffapc7tcddhqm3po6nbg5wjxq",
           "value": {
             "$type": "org.tangled.review.patch",
             "base": {
-              "oid": "00111a8c9099b56b5e8e4492373de72e4940112f"
+              "oid": "62df6282010d7425d2c5cee70b0edf58aded5476"
             },
-            "createdAt": "2026-11-21T11:23:45Z",
+            "createdAt": "2026-11-21T12:22:06Z",
             "head": {
-              "oid": "6261c6953b5889fbed0098bf7fa78f76083741fe"
+              "oid": "3f8e0a6aca78ef9bd44f8bd497a7444585dbdd1f"
             },
             "source": {
-              "branch": "forges-fixtures/20261121112236-2",
+              "branch": "forges-fixtures/20261121122101-2",
               "repo": "did:plc:t73o44q7fppgagkrevtztyok"
             },
-            "ticket": "127",
+            "ticket": "133",
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         }

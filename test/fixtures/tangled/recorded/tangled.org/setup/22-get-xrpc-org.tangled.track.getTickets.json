@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Aj5hmlfdrwkvtxm7cjmu7j2is%2Forg.tangled.track.ticket%2F4815"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreiakxccfn2f7p5snma3o6jbef2ys2zge2hkbzli66ccekimlynqidm",
+          "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.track.ticket/4815",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Close and Merge used to live at the bottom of the comment sidebar, so you had to find them there. They now sit next to the pull request title.\n\nWhen you scroll past them, a thin bar sticks to the top of the page with the state, title, Close, Merge and the more menu, so they're always in reach. You can turn the bar off with \"Show header when scrolling\" in the more menu.\n\nOther changes:\n- When merging is blocked (conflicts, or the pull isn't prepared yet), Rebase & merge and Merge are disabled in the menu, with a short reason under each. Manually mark as merged stays available.\n- The pull request and issue more menus share one component. Delete now sits alone at the end.\n- The gaps between the action buttons use spacing tokens, so they're even.\n- The loading skeletons for the pull and issue pages are regenerated to match.\n\n| | Before | After |\n| --- | --- | --- |\n| Top of the page | <img alt=\"Top of the page before\" src=\"https://x.eti.tf/f33c1c4.png\" width=\"720\" height=\"450\"> | <img alt=\"Top of the page after\" src=\"https://x.eti.tf/94d410c.png\" width=\"720\" height=\"450\"> |\n| Scrolled down | <img alt=\"Scrolled down before\" src=\"https://x.eti.tf/ac5ffa4.png\" width=\"720\" height=\"130\"> | <img alt=\"Scrolled down after\" src=\"https://x.eti.tf/f1a8bdc.png\" width=\"720\" height=\"130\"> |\n| Merge menu, with conflicts | <img alt=\"Merge menu, with conflicts before\" src=\"https://x.eti.tf/28a1db7.png\" width=\"271\" height=\"175\"> | <img alt=\"Merge menu, with conflicts after\" src=\"https://x.eti.tf/cc10744.png\" width=\"368\" height=\"240\"> |\n| More menu | <img alt=\"More menu before\" src=\"https://x.eti.tf/a1b4fe1.png\" width=\"272\" height=\"201\"> | <img alt=\"More menu after\" src=\"https://x.eti.tf/87f08df.png\" width=\"311\" height=\"233\"> |\n\nPart 4 of 4, stacked on the third:\n\n1. #4812 hide pull actions from signed-out viewers\n2. #4813 markdown editor and comment form\n3. #4814 keep the scroll position when switching versions\n4. #4815 pull actions next to the title, with a sticky bar (this one)\n\nMerge them in order. Each one also contains the commits of the ones before it, until those are merged."
+            },
+            "createdAt": "2026-11-20T18:15:47Z",
+            "state": "completed",
+            "targetBranch": "master",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "web/pulls: move pull actions next to the title and add a sticky bar"
+            },
+            "x-tngl-editor": "did:plc:qfpnj4og54vl56wngdriaxug"
+          }
+        }
+      ]
+    }
+  }
+}

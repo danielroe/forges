@@ -8,22 +8,22 @@
       "record": {
         "title": {
           "$type": "org.tangled.markup.markdown#inline",
-          "text": "forges fixture 20261121112236: labelled issue"
+          "text": "forges fixture 20261121122101: labelled issue"
         },
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "Opened by run 20261121112236."
+          "text": "Opened by run 20261121122101."
         },
         "state": "open",
         "tangledLabels": [
           {
-            "key": "forges-fixture-20261121112236"
+            "key": "forges-fixture-20261121122101"
           }
         ],
         "assignees": [
           "did:plc:7qksav5io2s4qfg67pe7iqqk"
         ],
-        "createdAt": "2026-11-21T11:23:29.763Z"
+        "createdAt": "2026-11-21T12:21:51.372Z"
       }
     }
   },
@@ -31,14 +31,14 @@
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/124",
-      "cid": "bafyreihdxr4buye27xpv3x4thuiueaha3rqfygvaoeuszwot2rectwnwca",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/130",
+      "cid": "bafyreiaauwmjxwae7pjz7derhhkjgiqrfocqxct6b6xqihvivgese4llye",
       "commit": {
-        "cid": "bafyreih7p7pw3ufqam37q7c67ichsud64unqrgi6p2r2p5rkqnmyue3j7q",
-        "rev": "3n2syflymkq22"
+        "cid": "bafyreifmo2pypfrmesdr33j3fvzsx2ko7sd2p7udhiyh7zcbgiq7dvn3hu",
+        "rev": "3n2t3nxjwdl22"
       },
       "validationStatus": "valid",
-      "x-tngl-change": "8b4889bf8d51a2d5451071f22a9f6e8414a02fd6"
+      "x-tngl-change": "37bb1f8b4c75621d3bed829cf4126ae8cca7f0ed"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3A6o2jgfoosrff52lbhs4pk3g4%2Forg.tangled.track.ticket%2F1058"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Adhwjwpl7fp23j5jnzcnrztwb%2Forg.tangled.track.ticket%2F20"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreifmab7z643seulmyr3lqg4q2gbjekrsfb7j6vjzmrmttgwzbhk4ju",
-          "uri": "at://did:plc:6o2jgfoosrff52lbhs4pk3g4/org.tangled.track.ticket/1058",
+          "cid": "bafyreiakfvbxvfxefcp3yqv54y7e7q7kmbg546m46ydsrp2yeairwdqwca",
+          "uri": "at://did:plc:dhwjwpl7fp23j5jnzcnrztwb/org.tangled.track.ticket/20",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Stacked on unit/msg-u13-coordination. New scripts/test-u13-auto-nudge.py (9 tests), red on ba466fc1d (7 of 9). The composer-guard fixture gains the transport lock and deferred index; its 12 failures predate U13 and are unchanged. test-auto-nudge 83/83."
+              "text": "Resolves #12.\n\n### Summary\n- Added `flake.nix` and `flake.lock` supporting `aarch64-darwin`, `x86_64-darwin`, `x86_64-linux`, and `aarch64-linux`.\n- Builds the embedded `web/` SPA reproducibly via `pkgs.buildNpmPackage` and embeds it into `pkgs.rustPlatform.buildRustPackage` with `GETAEL_SKIP_WEB_BUILD=1`.\n- Exposes `packages.<system>.default` (`getael`), `apps.<system>.default` (`nix run`), and `devShells.<system>.default` (`cargo`, `rustc`, `rustfmt`, `clippy`, `nodejs`, `sqlite`, `pkg-config`).\n- Documented `nix run`, `nix profile install`, and `nix develop` in `README.md`.\n\n### Verification\n- `nix build` succeeded on `aarch64-darwin`\n- `nix flake check` passed (`all checks passed!`)\n- `nix run . -- --help` launched `getael` cleanly\n"
             },
-            "createdAt": "2026-11-21T05:53:06Z",
-            "state": "closed",
-            "targetBranch": "unit/msg-u13-coordination",
+            "createdAt": "2026-11-21T08:29:01Z",
+            "state": "completed",
+            "targetBranch": "dev",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "AGENT-MESSAGE-SUBMIT U13 coordination tests"
+              "text": "Add Nix flake for reproducible builds and dev shell"
             },
-            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+            "x-tngl-editor": "did:plc:lp2lwdajhchgtga2hcrros26"
           }
         }
       ]

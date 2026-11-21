@@ -6,22 +6,22 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"171-y9Qafy0KGgyMqAaIDyLWe4VP1Lk\"",
+      "etag": "W/\"171-/cqMlAUDkcXqU+lALkVb1lrLiPw\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2727",
-      "ratelimit-reset": "1795255884",
+      "ratelimit-remaining": "2671",
+      "ratelimit-reset": "1795263963",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.actor.profile/self",
-      "cid": "bafyreigbtg45uhtxhm4hcid27spbtxrhcpdscq46fshljaurrufyhdrzgy",
+      "cid": "bafyreibwaj3g7ifrg3rq25i6o6ox7hkvyqsb4ngqtz6z6flxxncjhvcrhq",
       "value": {
         "$type": "org.tangled.actor.profile",
         "links": [
           "https://forges.link"
         ],
         "location": "The scratch repository",
-        "createdAt": "2026-11-21T10:06:24.766Z",
+        "createdAt": "2026-11-21T12:23:10.477Z",
         "description": "The account forges records its Tangled fixtures with."
       }
     }

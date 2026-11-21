@@ -1,34 +1,30 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Amnfsgqhjrebz5jdw5obnkzt4"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Adhwjwpl7fp23j5jnzcnrztwb"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreibijuovnc35c46x6rku5ccgk4qbbt7uy5peqeex6yjpzng45vjc6m",
+      "cid": "bafyreiarsbg63j6yivurdsle5ubi4mua7vzuprvgnlvticrbrtevt4k2bq",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:mnfsgqhjrebz5jdw5obnkzt4/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:dhwjwpl7fp23j5jnzcnrztwb/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-10-28T16:35:18Z",
+        "createdAt": "2026-11-20T10:46:38Z",
         "declaration": {
-          "name": "protokill",
-          "owner": "did:plc:6p6flnao3djlzqjhup2rh5vl"
+          "name": "getael",
+          "owner": "did:plc:lp2lwdajhchgtga2hcrros26"
         },
-        "topics": [
-          "gamedev",
-          "game",
-          "indie",
-          "agentic",
-          "roguelike",
-          "cyberpunk"
-        ],
-        "website": "https://protokill.sh/",
-        "x-tngl-editor": "did:plc:6p6flnao3djlzqjhup2rh5vl"
+        "description": "Getǣl — Read-only macOS home directory disk usage cartography & APFS telemetry service",
+        "source": {
+          "$type": "org.tangled.repo.defs#sourceExternal",
+          "uri": "https://migrator.tangled.network/git/sJzTHQpApPfanlf1Eh-IDuhPINW5TXYUJ_QjriipHDU/getael.git"
+        },
+        "x-tngl-editor": "did:plc:lp2lwdajhchgtga2hcrros26"
       }
     }
   }

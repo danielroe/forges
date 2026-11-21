@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ada6gxbuiv7kooty5t3tkh2n7%2Forg.tangled.track.ticket%2F139"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Aj5hmlfdrwkvtxm7cjmu7j2is%2Forg.tangled.track.ticket%2F4812"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreic4ujbofjiepy5ztdafjw7vnv2tdo7psibey66ktjrdzjl3tjl63u",
-          "uri": "at://did:plc:da6gxbuiv7kooty5t3tkh2n7/org.tangled.track.ticket/139",
+          "cid": "bafyreib3tadilgaaoykcfyjqr4aicp3gendb5zoaj3raq62wqxmfyig6em",
+          "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.track.ticket/4812",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Tests half of U13, stacked on unit/msg-u13-concurrent-product. New tests/test_agent_message_u13.py (21 tests: cross-clone single inode, timeout/short deadline types nothing, other recipient proceeds, deferral exit 4 and queueing, redelivery order/ids/terminal/expiry, concurrent passes attempt each id once, concurrent large rows stay whole, harness keys skip while held). Updated: resumed-identity binding test; occupied-input expectations 1 -> DEFERRED. Red on 4e3801f (30 errors); full engine suite 618 run, only the 3 failures already present at base."
+              "text": "If you were signed out but the server still had your account cookie (say, you signed out without reloading, or your session expired), the pull request page kept showing Close, Rebase & merge, Approve CI and Delete branch. Clicking them couldn't work.\n\nNow the page treats you as having no access whenever you're not signed in, so those buttons stay hidden. The comment sidebar shows the sign-up prompt instead of a disabled comment box, and the prompt shrinks to fit the narrow sidebar.\n\n| | Before | After |\n| --- | --- | --- |\n| Signed out, with a stale cookie | <img alt=\"Signed out, with a stale cookie before\" src=\"https://x.eti.tf/d66947d.png\" width=\"352\" height=\"863\"> | <img alt=\"Signed out, with a stale cookie after\" src=\"https://x.eti.tf/c040b6b.png\" width=\"352\" height=\"863\"> |\n\nThis is the first of four stacked pull requests for the pull request page:\n\n1. #4812 hide pull actions from signed-out viewers (this one)\n2. #4813 markdown editor and comment form\n3. #4814 keep the scroll position when switching versions\n4. #4815 pull actions next to the title, with a sticky bar\n\nMerge them in order. Each one also contains the commits of the ones before it, until those are merged."
             },
-            "createdAt": "2026-11-21T05:52:53Z",
-            "state": "closed",
-            "targetBranch": "unit/msg-u13-concurrent-product",
+            "createdAt": "2026-11-20T18:15:37Z",
+            "state": "completed",
+            "targetBranch": "master",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "AGENT-MESSAGE-SUBMIT U13 tests: lock, resumed identity, deferral, single redelivery"
+              "text": "web/pulls: hide pull actions from signed-out viewers"
             },
-            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+            "x-tngl-editor": "did:plc:qfpnj4og54vl56wngdriaxug"
           }
         }
       ]

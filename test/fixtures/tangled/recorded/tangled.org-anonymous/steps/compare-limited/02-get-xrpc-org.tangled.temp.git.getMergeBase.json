@@ -1,13 +1,13 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getMergeBase?repos=did%3Aplc%3At73o44q7fppgagkrevtztyok&base=0db562669d9a901a2876b3426f526b97c38fcd53&head=cfb75cfaf8227605dcba0935ccff08fb4b5ed125"
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getMergeBase?repos=did%3Aplc%3At73o44q7fppgagkrevtztyok&base=345c9802dbc67c479d038e79745824e605907a99&head=66c23565892f29bb0c0a3b1bb362e249fa5e9223"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "commit": "0db562669d9a901a2876b3426f526b97c38fcd53"
+      "commit": "345c9802dbc67c479d038e79745824e605907a99"
     }
   }
 }

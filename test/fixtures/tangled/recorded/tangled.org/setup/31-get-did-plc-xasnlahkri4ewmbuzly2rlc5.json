@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://plc.directory/did:plc:qokwkqtezyfuctbnkqxh7swf"
+    "url": "https://plc.directory/did:plc:xasnlahkri4ewmbuzly2rlc5"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"232-5QvYd5F8HjQmrijq4kqQIss0nus\""
+      "etag": "W/\"22c-Wrrsd49Yn4JqCXwThyyGaFEl8aY\""
     },
     "body": {
       "@context": [
@@ -14,23 +14,23 @@
         "https://w3id.org/security/multikey/v1",
         "https://w3id.org/security/suites/secp256k1-2019/v1"
       ],
-      "id": "did:plc:qokwkqtezyfuctbnkqxh7swf",
+      "id": "did:plc:xasnlahkri4ewmbuzly2rlc5",
       "alsoKnownAs": [
-        "at://agocke.bsky.social"
+        "at://boltless.me"
       ],
       "verificationMethod": [
         {
-          "id": "did:plc:qokwkqtezyfuctbnkqxh7swf#atproto",
+          "id": "did:plc:xasnlahkri4ewmbuzly2rlc5#atproto",
           "type": "Multikey",
-          "controller": "did:plc:qokwkqtezyfuctbnkqxh7swf",
-          "publicKeyMultibase": "zQ3shT9h9HGDGxHKQwmtXwjJL5EwrtSSu7Qm8usXGLgUo7ZCa"
+          "controller": "did:plc:xasnlahkri4ewmbuzly2rlc5",
+          "publicKeyMultibase": "zQ3shcYf96RREJxP5gGRjtPDbz4PMJNkm1JTYDBaEPHHvqjYj"
         }
       ],
       "service": [
         {
           "id": "#atproto_pds",
           "type": "AtprotoPersonalDataServer",
-          "serviceEndpoint": "https://hydnum.us-west.host.bsky.network"
+          "serviceEndpoint": "https://woodear.us-west.host.bsky.network"
         }
       ]
     }

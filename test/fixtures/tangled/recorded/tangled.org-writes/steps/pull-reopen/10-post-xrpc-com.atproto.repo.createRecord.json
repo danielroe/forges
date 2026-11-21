@@ -8,29 +8,29 @@
       "record": {
         "$type": "org.tangled.graph.attestation",
         "subject": {
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/128",
-          "cid": "bafyreibuyghjarxjdl2faeiaosq4e7oid4h3qqwvpgxw5tqk43h5gv7y74"
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/134",
+          "cid": "bafyreihm547exhn424gvlaxe7zk3hzbhemvbjdlkryyqvi2fc6y5hix6bi"
         },
-        "change": "65ae1ec38542a24bc26e77adc9cab9076f0d5ea8",
-        "createdAt": "2026-11-21T11:24:23.687Z"
+        "change": "cfee3073d41f8324955f60528f1db270a714394c",
+        "createdAt": "2026-11-21T12:22:42.747Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"121-FBhzjy0w95Ed+NkzeOo+k6Qi6Mc\"",
+      "etag": "W/\"121-tsFs3kYDlDkWmUuFjjEqLd1zbSc\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2823",
-      "ratelimit-reset": "1795260458",
+      "ratelimit-remaining": "2817",
+      "ratelimit-reset": "1795263963",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.graph.attestation/3n2syh7lqbg2r",
-      "cid": "bafyreidgft2y2zftl6gnno5h7l4jqigvv4enk4jhyvxq45eoilicijzaii",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.graph.attestation/3n2t3pinqmg2r",
+      "cid": "bafyreieuedv6kep4cxqtsssufw6mbvcvlhptobjl2i7j5jrk5dvwl73k2e",
       "commit": {
-        "cid": "bafyreigcebbg2csqak72x4b7bjj66rtdzqhuxfnd3ys74zrkwghep3sxie",
-        "rev": "3n2syh7m6w62r"
+        "cid": "bafyreicde2jevooeehdodory6gnem7dnkio5z52ugn64cvcxomzp77l37y",
+        "rev": "3n2t3pioaag2r"
       },
       "validationStatus": "unknown"
     }
