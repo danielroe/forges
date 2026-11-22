@@ -50,9 +50,16 @@ The example above lists the notifications of two forges in a single loop. To go 
 - The [reference](https://forges.link/reference/overview) lists the API, the capability matrix, errors and JSON schemas.
 - The [examples](https://forges.link/examples) are small, tested projects that use `forges`.
 
+## agents and nerds
+
+Want forges from an agent or your terminal? [`@agntn/forges`](https://github.com/agntn/forges) is a separate package that builds on `forges` and has a very similar API. It's built by a contributor to this repository. It brings a CLI and agent tools. Agents and nerds, same test bench.
+
+Pass nothing and [`@agntn/credentials`](https://github.com/agntn/credentials) finds tokens on your machine. It checks environment variables, forge CLI logins like `gh` or `glab`, then their config files. Already logged in? No keys to paste. Your first call just works.
+
+It's experimental and keeps changing, but it's battle tested across agent harnesses and model providers. Better yet, bugs found there become improvements here. CLI or agent integration issues belong in [agntn/forges issues](https://github.com/agntn/forges/issues), not here.
+
 ## related projects
 
-- [`@agntn/forges`](https://github.com/agntn/forges): a TypeScript API for GitHub, GitLab, Gitea, Forgejo and GitBucket, with an MCP server and Pi and OMP extensions for agents.
 - [`git-pkgs/forge`](https://github.com/git-pkgs/forge): a Go library and CLI for GitHub, GitLab, Gitea, Forgejo, Bitbucket Cloud, Gerrit and Tangled.
 
 ## contributing
