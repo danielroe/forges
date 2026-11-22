@@ -54,7 +54,7 @@ The example above lists the notifications of two forges in a single loop. To go 
 
 Want forges from an agent or your terminal? [`@agntn/forges`](https://github.com/agntn/forges) is a separate package that builds on `forges` and has a very similar API. It's built by a contributor to this repository. It brings a CLI and agent tools. Agents and nerds, same test bench.
 
-Pass nothing and [`@agntn/credentials`](https://github.com/agntn/credentials) finds tokens on your machine. It checks environment variables, forge CLI logins like `gh` or `glab`, then their config files. Already logged in? No keys to paste. Your first call just works.
+Pass nothing and [`@agntn/credentials`](https://github.com/agntn/credentials) finds tokens on your machine. It checks environment variables, forge CLI logins like `gh` or `glab`, then their config files. Already logged in? No keys to paste, and your first call should just work.
 
 It's experimental and keeps changing, but it's battle tested across agent harnesses and model providers. Better yet, bugs found there become improvements here. CLI or agent integration issues belong in [agntn/forges issues](https://github.com/agntn/forges/issues), not here.
 
