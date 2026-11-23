@@ -10,6 +10,40 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
+        "id": "8873321"
+      },
+      "name": "testing.yml",
+      "state": "failure",
+      "stateRaw": "cancelled",
+      "number": "218773",
+      "eventRaw": "push",
+      "branch": "forgejo",
+      "sha": "1041044ea6bcbabeea314a5a1f16efd34fe764b1",
+      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/218773",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "mfenniak",
+        "id": "222642",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+        "url": "https://codeberg.org/mfenniak",
+        "isBotHint": false
+      },
+      "createdAt": "2026-11-22T18:57:30.000Z",
+      "startedAt": "2026-11-22T18:57:48.000Z",
+      "completedAt": "2026-11-22T20:14:46.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
         "id": "8835626"
       },
       "name": "testing.yml",
@@ -66,49 +100,15 @@
       "createdAt": "2026-11-21T11:47:58.000Z",
       "startedAt": "2026-11-21T11:48:17.000Z",
       "completedAt": "2026-11-21T13:05:22.000Z"
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "id": "8833601"
-      },
-      "name": "testing.yml",
-      "state": "failure",
-      "stateRaw": "cancelled",
-      "number": "218425",
-      "eventRaw": "push",
-      "branch": "forgejo",
-      "sha": "14d5fd7a36ba536e235f87e79df8bb6ecc562ada",
-      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/218425",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "aahlenst",
-        "id": "468676",
-        "name": "Andreas Ahlenstorf",
-        "avatarUrl": "https://codeberg.org/avatars/d15066c8d70752866771e90b9204536d",
-        "url": "https://codeberg.org/aahlenst",
-        "isBotHint": false
-      },
-      "createdAt": "2026-11-21T11:33:28.000Z",
-      "startedAt": "2026-11-21T11:33:48.000Z",
-      "completedAt": "2026-11-21T11:47:57.000Z"
     }
   ],
-  "total": 2797,
+  "total": 2798,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/actions/runs?status=failure&status=cancelled&ref=refs%2Fheads%2Fforgejo&page=2&limit=3"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1940,
+    "remaining": 1941,
     "resetAt": "<now>",
     "resource": "baseline"
   }

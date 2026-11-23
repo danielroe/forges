@@ -11,47 +11,37 @@
           "name": "forgejo"
         },
         "kind": "pull_request",
-        "number": "15358",
-        "externalId": "8248838"
+        "number": "15366",
+        "externalId": "8317916"
       },
       "kind": "pull_request",
-      "title": "feat: secrets: show inherited secrets from group",
-      "body": "Hi,\r\nThis MR allows for showing the group secrets in a repo view. A bit like what gitlab does, which is rather useful.\r\n\r\n\r\nThanks and cheers\r\n\r\nScreenshot:\r\n\r\n![screenshot-light](/attachments/ab9c93b0-472f-42cb-84bb-d9f6e51d2a11)\r\n\r\n\r\n## Checklist\r\n\r\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n(can be removed for JavaScript changes)\r\n\r\n- I added test coverage for Go changes...\r\n  - [x] in their respective `*_test.go` for unit tests.\r\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\r\n- I ran...\r\n  - [x] `make pr-go` before pushing\r\n  - [ ] \r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [x] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\r\n\r\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\r\n\r\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\r\n",
+      "title": "WIP: Allow further customization of docker container setup",
+      "body": "## Description\r\n\r\nThis PR introduces some enhancements to docker root image so it eases customizing some paths and use custom provided SSH keys.\r\n\r\nThe implementation tried hard to do the minimal changes possible and to keep the previous behaviour, so respecting original settings/values.\r\n\r\n* Replace/refactored all hard-coded paths into common variables (non-ini) FORGE_CUSTOM and FORGEJO_WORK_DIR, defaulting to GITEA_xxxx variables for compatilibity or its previous hard-coded value (/data/gitea) this eases customizing docker volume usage\r\n* Both environment and ini settings are checked for other variables paths like SSH_SERVER_HOST_KEYS and git HOME_PATH\r\n* Git ($USER) home directory updated accordingly\r\n* OpenSSH honors SSH_SERVER_HOST_KEYS (or use defaults) and they are dynamically added (Fixes https://codeberg.org/forgejo/forgejo/issues/15154#issuecomment-27542004)\r\n* Support providing only SSH private keys by auto-extracting the public pair from them\r\n* Custom configuration file variable FORGEJO_CUSTOM to support read-only docker configs.\r\n\r\nI'm open to suggestions or additional items if needed.\r\n\r\n### Testing done\r\n\r\nThe resulting image/new scripts have been tested with defaults and previous settings to confirm backward compatilibity and that changes will not affect already existing deployments/setups, so no documentation changes in that aspect.\r\n\r\nTested setting different FORGE_CUSTOM and FORGEJO_WORK_DIR paths, using provided docker configs and custom SSH keys\r\n\r\n### Documentation\r\n\r\nAdded features/flexibility previous behavior not changed so current documentation is still valid and doesn't require update. \r\n\r\n## Checklist\r\n\r\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [x] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [x] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\r\n\r\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\r\n\r\n",
       "state": "open",
       "stateRaw": "open",
-      "isDraft": false,
+      "isDraft": true,
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "Frankkkkk",
-        "id": "169626",
-        "avatarUrl": "https://codeberg.org/avatars/6d1f0e300ef044ea69bed5ba7a39274fd84ba3954dc307d2d86533b09a97191e",
-        "url": "https://codeberg.org/Frankkkkk",
+        "login": "markfqs",
+        "id": "1624728",
+        "avatarUrl": "https://codeberg.org/avatars/ccb7b24063373ef339d31e3222369006",
+        "url": "https://codeberg.org/markfqs",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [
         {
-          "name": "code/actions",
-          "colour": "eb6420",
-          "description": "Forgejo Actions feature"
-        },
-        {
-          "name": "enhancement/feature",
-          "colour": "207de5",
-          "description": "New feature"
-        },
-        {
-          "name": "test/present",
+          "name": "test/needed",
           "colour": "5319e7",
-          "description": "test has been added"
+          "description": "test should be added"
         }
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/pulls/15358",
-      "createdAt": "2026-11-21T16:54:16.000Z",
-      "updatedAt": "<now>",
-      "lastActivityAt": "<now>",
+      "url": "https://codeberg.org/forgejo/forgejo/pulls/15366",
+      "createdAt": "2026-11-22T22:06:35.000Z",
+      "updatedAt": "2026-11-22T22:26:28.000Z",
+      "lastActivityAt": "2026-11-22T22:26:28.000Z",
       "locked": false,
       "commentCount": 0
     },
@@ -66,45 +56,40 @@
           "name": "forgejo"
         },
         "kind": "pull_request",
-        "number": "15357",
-        "externalId": "8246885"
+        "number": "15363",
+        "externalId": "8289545"
       },
       "kind": "pull_request",
-      "title": "fix: resolve forgejo-actions users by id",
-      "body": "**Issue**: The activity feed said \"Ghost commented on pull request XYZ\". Nobody was deleted. The comment was actually a test-results comment posted by CI, and the pull request page itself showed the author, `forgejo-actions` user, which is not stored as an account. `forgejo-actions` is only created in memory, when needed, in `models/user/user_system.go`.\n\n**Fix**: Make the feed use the lookups that know the built-in users from `user_system.go`:\n- LoadActUser: GetPossibleUserByID instead of GetUserByID.\n- LoadActUsers: GetPossibleUserByIDs instead of the direct database query.\n\nDeleted accounts still show as Ghost, because their IDs are positive and still aren't found in the table.\n\nI looked up that Gitea fixed the same bug in [go-gitea/gitea#34703](https://github.com/go-gitea/gitea/pull/34703), backported in [#34756](https://github.com/go-gitea/gitea/pull/34756), with the same change to LoadActUser. Forgejo hasn't ported it. My PR brings it to forgejo.\n\n## Checklist\n\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\n\n### Compliance\n\n- [X] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n(can be removed for JavaScript changes)\n\n- I added test coverage for Go changes...\n  - [X] in their respective `*_test.go` for unit tests.\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [X] `make pr-go` before pushing\n\n### Tests for JavaScript changes\n\n(can be removed for Go changes)\n\n- I added test coverage for JavaScript changes...\n  - [ ] in `web_src/js/*.test.js` if it can be unit tested.\n  - [ ] in `tests/e2e/*.test.e2e.js` if it requires interactions with a live Forgejo server (see also the [developer guide for JavaScript testing](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/tests/e2e/README.md#end-to-end-tests)).\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [X] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [X] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n",
+      "title": "WIP: feat(modules/optional): add `Matches` method",
+      "body": "This fixes a code repetition in routers/web/repo/setting/lfs.go\r\n\r\nDepends on #14832.\r\n\r\n## Checklist\r\n\r\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\r\n\r\n### Compliance\r\n\r\n- [X] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n(can be removed for JavaScript changes)\r\n\r\n- I added test coverage for Go changes...\r\n  - [ ] in their respective `*_test.go` for unit tests.\r\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\r\n- I ran...\r\n  - [ ] `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [X] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [X] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\r\n\r\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\r\n\r\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\r\n",
       "state": "open",
       "stateRaw": "open",
-      "isDraft": false,
+      "isDraft": true,
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "sarumaj",
-        "id": "1641474",
-        "name": "Dawid Ciepiela",
-        "avatarUrl": "https://codeberg.org/avatars/ffb715dd1681fec0db971867232afb2dc7915fc4209d0cb729ee65c2689847d0",
-        "url": "https://codeberg.org/sarumaj",
+        "login": "fogti",
+        "id": "215579",
+        "name": "Έλλεν Εμίλια Άννα Zscheile",
+        "avatarUrl": "https://codeberg.org/avatars/1048d39743cf88572043a4cc8e595045c2c2a4c62251ee63644af5fd25dd1ded",
+        "url": "https://codeberg.org/fogti",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [
         {
-          "name": "code/actions",
-          "colour": "eb6420",
-          "description": "Forgejo Actions feature"
-        },
-        {
-          "name": "test/present",
+          "name": "test/not-needed",
           "colour": "5319e7",
-          "description": "test has been added"
+          "description": "no additional test is needed"
         }
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/pulls/15357",
-      "createdAt": "2026-11-21T13:57:08.000Z",
-      "updatedAt": "<now>",
-      "lastActivityAt": "<now>",
+      "url": "https://codeberg.org/forgejo/forgejo/pulls/15363",
+      "createdAt": "2026-11-22T12:51:40.000Z",
+      "updatedAt": "2026-11-22T13:37:40.000Z",
+      "lastActivityAt": "2026-11-22T13:37:40.000Z",
       "locked": false,
-      "commentCount": 2
+      "commentCount": 1
     },
     {
       "ref": {
@@ -116,55 +101,49 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "kind": "issue",
-        "number": "15356",
-        "externalId": "8245169"
+        "kind": "pull_request",
+        "number": "15362",
+        "externalId": "8286404"
       },
-      "kind": "issue",
-      "title": "problem: add old-to-new URL redirects to Git-over-SSH",
-      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested on a next instance)\n\n### About your usage of Forgejo\n\nI often change naming conventions and just need to rename stuff. Git repos and orgs are no difference. Forgejo is a perfect replacement for most of the things, with just one thing missing for me: **SSH repo redirects** on repo/org name changes.\n\n### Problem description\n\nGitHub allows me to rename a repo and sets up redirect to old repo. Now, Forgejo actually supports that too, but **only for HTTPS**, not for SSH. I would like it to also work for Git-over-SSH clones, which take up a majority of my deployment scenarios. The scenario is simple:\r\n- User creates a new organisation and/or new repo.\r\n- User clones this new repo using SSH URL (Git-over-SSH).\r\n- User renames the organization or repo or both at the same time.\r\n- Fetch/push now fails until I change the URL. This can be really hard to trace down as there can be many deployments of the same repo in our company. \r\n\r\nNow, Forgejo could just redirect as it does in Git-over-HTTPS, inform the user about the repo/org name change and potentially log the redirect so admin can trace this occurence and fix it without it breaking in the meantime. \r\n\r\nOf course, if the repo/org name has been shadowed by a new one, the redirect shouldn't happen at all, as GitHub or similar services do the same.\n\n### Potential workarounds\n\nI believe the fix is fairly simple, just add a few checks to `routers/private/serv.go` and a hook to `cmd/serv.go` which fires **only when the redirect happened** (`strings.EqualFold(results.OwnerName, username` and simillar `if` for the repo itself) and:\r\n- Informs the client by sending a message like: `this repository has moved to %s/%s.\\nplease update your remote: git remote set-url origin %s\\n`\r\n- Logs the redirect so an admin can trace it or SIEM can evaluate that it happened.\n\n### Forgejo Version\n\nv17.0.2, but tested also on `1a13355` (Next, commit from `2026-11-20`) and it still behaves the same.\n\n### Other details about your environment (software names and versions)\n\nI don't think this is relevant, but:\r\nForgejo v17.0.2\r\nGit: several clients: 2.56.1 on Fedora 44, 2.47.3 on Debian 13\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "kind": "pull_request",
+      "title": "perf: skip redundant commit status count",
+      "body": "There are 14 call sites of the function that retrieves the latest commit status. 13 of those don't do pagination (and pass in `db.ListOptionsAll`) so retrieving all the commit statuses inherently already has the count. No need to do another COUNT query.\r\n\r\nThis saves one query per call. And this function is called quite often. For example on commit lists, releases page, PR list etc.\r\n\r\n## Checklist\r\n\r\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n(can be removed for JavaScript changes)\r\n\r\n- I added test coverage for Go changes...\r\n  - [ ] in their respective `*_test.go` for unit tests.\r\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\r\n- I ran...\r\n  - [x] `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [x] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\r\n\r\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\r\n\r\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\r\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "lukastesar",
-        "id": "1669298",
-        "name": "Lukáš Tesař",
-        "avatarUrl": "https://codeberg.org/avatars/fe56430ef9f0a29e664511da7e6d6947ce871415e14167ed66a0f3e46254f89b",
-        "url": "https://codeberg.org/lukastesar",
+        "login": "patka",
+        "id": "260884",
+        "avatarUrl": "https://codeberg.org/avatars/91307d3c0c0620f7e516783d7a0244d02552fb80b54ec466aef4119253bb933f",
+        "url": "https://codeberg.org/patka",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [
         {
-          "name": "impact/unknown",
-          "colour": "545454",
-          "description": "Report was not yet triaged to assess impact."
-        },
-        {
-          "name": "problem",
-          "colour": "fbca04",
-          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
+          "name": "test/needed",
+          "colour": "5319e7",
+          "description": "test should be added"
         }
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/15356",
-      "createdAt": "2026-11-21T09:48:37.000Z",
-      "updatedAt": "2026-11-21T09:48:37.000Z",
-      "lastActivityAt": "2026-11-21T09:48:37.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/pulls/15362",
+      "createdAt": "2026-11-22T12:04:17.000Z",
+      "updatedAt": "2026-11-22T12:50:48.000Z",
+      "lastActivityAt": "2026-11-22T12:50:48.000Z",
       "locked": false,
-      "commentCount": 0
+      "commentCount": 1
     }
   ],
-  "total": 6935,
+  "total": 6941,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2&q=fix&state=all"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1920,
+    "remaining": 1921,
     "resetAt": "<now>",
     "resource": "baseline"
   }

@@ -6,15 +6,15 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1985;t=600",
+      "ratelimit": "\"baseline\";r=1986;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
     "body": {
       "name": "forgejo",
       "commit": {
-        "id": "9ddd410a13b7dff70f3d9f883375518420b90240",
-        "message": "fix(ci): actually run the e2e tests affected by a PR as intended (#15319)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15319\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-        "url": "https://codeberg.org/forgejo/forgejo/commit/9ddd410a13b7dff70f3d9f883375518420b90240",
+        "id": "77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
+        "message": "perf: stop loading repo topics twice (#15355)\n\nThe repo topics (the user definable labels for a repo) were already loaded and put on the context. There's no need to do it a second time.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15355\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+        "url": "https://codeberg.org/forgejo/forgejo/commit/77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
         "author": {
           "name": "patka",
           "email": "redacted@example.invalid",
@@ -32,7 +32,7 @@
           "signer": null,
           "payload": ""
         },
-        "timestamp": "2026-11-21T19:35:16+01:00",
+        "timestamp": "2026-11-22T21:14:26+01:00",
         "added": null,
         "removed": null,
         "modified": null

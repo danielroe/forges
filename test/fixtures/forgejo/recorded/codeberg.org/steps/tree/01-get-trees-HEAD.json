@@ -6,13 +6,13 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1936;t=600",
+      "ratelimit": "\"baseline\";r=1937;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "68"
     },
     "body": {
-      "sha": "9ddd410a13b7dff70f3d9f883375518420b90240",
-      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/9ddd410a13b7dff70f3d9f883375518420b90240",
+      "sha": "77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
       "tree": [
         {
           "path": ".air.toml",

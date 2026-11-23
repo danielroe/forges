@@ -905,16 +905,6 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "multicast",
-      "id": "844366",
-      "name": "Matej Kovac",
-      "avatarUrl": "https://codeberg.org/avatars/af84301db3f06605f1e7a13f12fd6892",
-      "url": "https://codeberg.org/multicast",
-      "isBotHint": false
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
       "login": "mverkleij-dlx",
       "id": "1567940",
       "avatarUrl": "https://codeberg.org/avatars/3e26323281e20242edb0800196f35d04",
@@ -1490,7 +1480,7 @@
   ],
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1965,
+    "remaining": 1966,
     "resetAt": "<now>",
     "resource": "baseline"
   }
