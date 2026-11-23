@@ -997,6 +997,32 @@ describe('forgejo actions', () => {
     expect(second.cursor?.nextUrl).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=3&limit=50')
   })
 
+  it('filters runs by workflow, and drops other workflows where Forgejo ignores `workflow_id`', async () => {
+    const urls: string[] = []
+    const provider = forgejo({
+      auth,
+      baseUrl: 'https://git.example.org',
+      instanceVersion: '14.0.5',
+      fetch: async (url) => {
+        urls.push(String(url))
+        return Response.json({
+          total_count: 2,
+          workflow_runs: [
+            { id: 2, workflow_id: 'lint.yml', status: 'success' },
+            { id: 1, workflow_id: 'test.yml', status: 'success' },
+          ],
+        })
+      },
+    })
+
+    const page = await provider.ci.runs(repo, { workflow: 'test.yml' }).page()
+
+    expect(urls).toEqual(['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?workflow_id=test.yml&page=1&limit=50'])
+    expect(page.items.map(run => [run.ref.id, run.name])).toEqual([
+      ['1', 'test.yml'],
+    ])
+  })
+
   it('streams a job log', async () => {
     const provider = forgejo({
       auth,
@@ -1041,12 +1067,12 @@ describe('gitea actions', () => {
     completed_at: zero,
   })
 
-  function serve(responses: Map<string, unknown>) {
+  function serve(responses: Map<string, unknown>, instanceVersion = '1.25.0') {
     const urls: string[] = []
     const provider = gitea({
       auth,
       baseUrl: 'https://git.example.org',
-      instanceVersion: '1.25.0',
+      instanceVersion,
       fetch: async (url) => {
         urls.push(String(url))
         return responses.has(String(url))
@@ -1178,6 +1204,69 @@ describe('gitea actions', () => {
       repo,
       id: '9',
     })).rejects.toThrow(UnsupportedOperationError)
+  })
+
+  it('reads one workflow\'s runs from its own listing on Gitea 1.27', async () => {
+    const { provider, urls } = serve(new Map([
+      [
+        'https://git.example.org/api/v1/repos/acme/widgets/actions/workflows/ci.yml/runs?status=failure&status=cancelled&branch=main&page=1&limit=50',
+        {
+          total_count: 1,
+          workflow_runs: [
+            run(4, 'completed', 'failure'),
+          ],
+        },
+      ],
+    ]), '1.27.0')
+
+    const page = await provider.ci.runs(repo, { workflow: 'ci.yml', branch: 'main', state: 'failure' }).page()
+
+    expect(urls).toHaveLength(1)
+    expect(page.items.map(item => [item.number, item.name])).toEqual([
+      ['4', 'ci.yml'],
+    ])
+  })
+
+  it('drops the runs of other workflows on a Gitea without the workflow listing', async () => {
+    const { provider, urls } = serve(new Map([
+      [
+        'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=1&limit=50',
+        {
+          total_count: 2,
+          workflow_runs: [
+            {
+              ...run(2, 'completed', 'success'),
+              path: 'lint.yml@refs/heads/main',
+            },
+            run(1, 'completed', 'success'),
+          ],
+        },
+      ],
+    ]))
+
+    const page = await provider.ci.runs(repo, { workflow: 'ci.yml' }).page()
+
+    expect(urls).toHaveLength(1)
+    expect(page.items.map(item => item.number)).toEqual(['1'])
+  })
+
+  it('switches to the workflow listing once `refreshCapabilities()` reads Gitea 1.27', async () => {
+    const urls: string[] = []
+    const provider = gitea({
+      auth,
+      baseUrl: 'https://git.example.org',
+      fetch: async (url) => {
+        urls.push(String(url))
+        return String(url).endsWith('/version')
+          ? Response.json({ version: '1.27.1' })
+          : Response.json({ total_count: 0, workflow_runs: [] })
+      },
+    })
+
+    await provider.refreshCapabilities()
+    await provider.ci.runs(repo, { workflow: 'ci.yml' }).page()
+
+    expect(urls.at(-1)).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/workflows/ci.yml/runs?page=1&limit=50')
   })
 
   it('filters runs on `branch` and on the statuses Gitea accepts', async () => {

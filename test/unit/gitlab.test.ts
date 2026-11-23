@@ -950,6 +950,17 @@ describe('gitlab merge methods', () => {
     })))
   })
 
+  it('warns that pipelines have no workflow to filter by', async () => {
+    const { instance, calls } = provider({
+      [`GET ${P}/pipelines?ref=main`]: { status: 200, body: [] },
+    })
+
+    const page = await instance.ci.runs(repo, { branch: 'main', workflow: 'ci.yml' }).page()
+
+    expect(calls.map(call => call.url)).toEqual([`${P}/pipelines?ref=main`])
+    expect(page.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
+  })
+
   it('re-runs the failed jobs of a pipeline by retrying it', async () => {
     const { instance, calls } = provider()
 

@@ -67,7 +67,7 @@ There's no endpoint that lists conversations, so `reviewThreads()` builds them t
 
 The `ci` methods read Forgejo Actions. Runs need Forgejo 12 or later, and jobs and job logs need Forgejo 16. Codeberg runs a current release, so they work there out of the box. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first.
 
-Forgejo before 15 ignores the branch filter, so `ci.runs()` drops the runs of other branches itself, and a page can come back shorter than `perPage`. Forgejo doesn't page the jobs of a run, so `ci.jobs()` returns all of them in one page. Forgejo has no API to re-run the jobs of a run, so `ci.rerunFailed()` isn't available.
+Before Forgejo 15, `ci.runs()` filters branches and workflows itself. A page can come back shorter than `perPage`. Forgejo doesn't page a run's jobs, so `ci.jobs()` returns them all in one page. Forgejo has no API to re-run a run's jobs, so `ci.rerunFailed()` isn't available.
 
 ## Branch rules
 

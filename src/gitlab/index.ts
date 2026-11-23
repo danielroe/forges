@@ -1424,6 +1424,11 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       ci: {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), {
           query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] },
+          warnings: query.workflow && isFirstPage(query.cursor)
+            ? [
+                { code: 'filter_unsupported', message: 'GitLab runs one pipeline per commit, not one per workflow; the workflow filter was ignored' },
+              ]
+            : undefined,
         })),
         getRun: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),

@@ -1,6 +1,6 @@
 import type { CapabilityPath } from './capability-table.ts'
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitCommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, ReviewThread, ReviewThreadListOptions, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, WebhookEventType } from './model.ts'
+import type { BaseOptions, Check, CiJobRef, CiRunQuery, Comment, CommentRef, CommitCommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, ReviewThread, ReviewThreadListOptions, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -679,6 +679,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
 
   const listThreads = kindGate('threads.list', spec.threads.listPage.kinds, spec.threads.listPage.run)
   const listOwnerRepos = gate('repos.byOwner', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
+  const listRuns = gate('ci.runs', spec.ci?.runsPage?.support, spec.ci?.runsPage?.run)
   const listReviewThreads = gate('threads.reviewThreads', spec.threads.reviewThreadsPage?.support, spec.threads.reviewThreadsPage?.run)
   const listComments = kindGate('threads.comments', spec.threads.commentsPage.kinds, spec.threads.commentsPage.run)
   const listEvents = kindGate('threads.events', Object.fromEntries(KINDS.map(kind => [
@@ -750,6 +751,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
         ],
       }
     },
+    'ci.runsPage': (repo: RepoRef, query: CiRunQuery = {}) => query.workflow === '.' || query.workflow === '..' || query.workflow?.includes('/')
+      ? Promise.reject(new TypeError(`\`${query.workflow}\` is not a workflow file name`))
+      : listRuns(repo, query),
     'repos.byOwnerPage': (owner: RepoRef, query: OwnerRepoQuery = {}) => nonEmptyPage(async (cursor) => {
       const page: Page<Repo> = await listOwnerRepos(owner, { ...query, cursor })
       return !query.visibility || query.visibility === 'all'

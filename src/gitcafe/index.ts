@@ -820,7 +820,7 @@ function setupGitCafe({ options, instance, origin: context, fetcher, baseUrl }: 
       // GitCafe filters runs by whether they finished, not by how, so the outcome is matched on the page.
       runsPage: verb(true, (repo, query = {}) => listed(`${repoPath(repo)}/actions/runs`, query, (raw: GitCafeRun) => {
         const run = toRun(site, repo, raw)
-        return !query.state || run.state === query.state
+        return (!query.state || run.state === query.state) && (!query.workflow || raw.workflowPath.split('/').at(-1) === query.workflow)
           ? run
           : undefined
       }, {

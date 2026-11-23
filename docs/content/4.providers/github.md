@@ -163,6 +163,8 @@ GitHub doesn't support replies to replies, so when you pass a reply to `replyToR
 
 What `checks.report()` writes depends on your credential. With the credential of an app installation, it writes a check run, and with any other credential it writes a commit status. `checks.rerun()` re-requests a check run, so it can't re-run a commit status. Only the app that created a check run can re-request it, so for a check run that GitHub Actions created, `checks.rerun()` re-runs its job instead, which needs the `actions: write` permission on a GitHub App. A check run that another app created is rejected with a `ForbiddenError` whose `reason` is `not_owner`. Such a check run has `run`, the workflow run that it's a job of, so you can re-run every failed job of that run with `ci.rerunFailed(check.run)`.
 
+`ci.runs(repo, { workflow })` lists runs by file name, like `ci.yml`, or by numeric id. An unknown workflow rejects with `NotFoundError`.
+
 `threads.get()`, `threads.getMany()`, `threads.list()` and `threads.closingPullRequests()` read the check runs and commit statuses of each pull request into `checks`, so on a GitHub App they need the `checks: read` and `statuses: read` permissions.
 
 ## Branch rules

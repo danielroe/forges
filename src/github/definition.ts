@@ -2423,7 +2423,10 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   }
 
   async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
-    const result = await fetcher.page<GitHubWorkflowRun>(`${repoPath(repo)}/actions/runs`, {
+    const path = query.workflow
+      ? `${repoPath(repo)}/actions/workflows/${encodeURIComponent(query.workflow)}/runs`
+      : `${repoPath(repo)}/actions/runs`
+    const result = await fetcher.page<GitHubWorkflowRun>(path, {
       query: {
         branch: query.branch,
         status: query.state === 'pending'

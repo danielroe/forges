@@ -2622,6 +2622,43 @@ describe('github checks and CI', () => {
     })
   })
 
+  it('reads the runs of one workflow from its own listing', async () => {
+    const { provider, calls } = tokenProvider({
+      'GET https://api.github.com/repos/acme/widgets/actions/workflows/ci.yml/runs?branch=main': {
+        status: 200,
+        body: {
+          total_count: 1,
+          workflow_runs: [
+            {
+              id: 78,
+              name: 'ci',
+              path: '.github/workflows/ci.yml',
+              status: 'completed',
+              conclusion: 'success',
+              head_branch: 'main',
+            },
+          ],
+        },
+      },
+    })
+
+    const page = await provider.ci.runs(repo, { workflow: 'ci.yml', branch: 'main' }).page()
+
+    expect(calls.map(call => call.url)).toEqual(['https://api.github.com/repos/acme/widgets/actions/workflows/ci.yml/runs?branch=main'])
+    expect(page.items.map(run => [run.ref.id, run.name])).toEqual([
+      ['78', 'ci'],
+    ])
+  })
+
+  it('refuses a workflow that is not a file name before any request', async () => {
+    const { provider, calls } = tokenProvider()
+
+    for (const workflow of ['..', '.', 'workflows/ci.yml']) {
+      await expect(provider.ci.runs(repo, { workflow }).page()).rejects.toThrow(TypeError)
+    }
+    expect(calls).toEqual([])
+  })
+
   it('re-runs the failed jobs of a workflow run', async () => {
     const { provider, calls } = tokenProvider()
 

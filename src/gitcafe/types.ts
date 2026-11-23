@@ -258,6 +258,8 @@ export interface GitCafeCollaborator {
 export interface GitCafeRun {
   id: string
   runNumber: number
+  /** Such as `.github/workflows/ci.yml`. */
+  workflowPath: string
   workflowName: string
   event: string
   ref: string

@@ -642,6 +642,30 @@ describe('fake forge', () => {
     ])
     expect(open.map(thread => thread.id)).toEqual([second!.thread!.id])
   })
+  it('filters seeded runs by workflow', async () => {
+    const forge = fake({
+      seed: {
+        ...seed,
+        runs: [
+          { repo: 'acme/widgets', name: 'ci', workflow: 'ci.yml' },
+          { repo: 'acme/widgets', name: 'release' },
+        ],
+      },
+    })
+    const repo = {
+      forge: 'fake',
+      instance: 'fake.test',
+      owner: 'acme',
+      name: 'widgets',
+    }
+
+    const ci = await forge.ci.runs(repo, { workflow: 'ci.yml' }).page()
+    const release = await forge.ci.runs(repo, { workflow: 'release' }).page()
+
+    expect(ci.items.map(run => run.name)).toEqual(['ci'])
+    expect(release.items.map(run => run.name)).toEqual(['release'])
+  })
+
   it('reports a commit status, lists it back and reads a job log', async () => {
     const forge = fake({
       seed: {
