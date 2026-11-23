@@ -6,9 +6,9 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"2e6c4c4e413dcaf59091812ad06e2855\"",
+      "etag": "W/\"33bbda0f3b3cf6a0483c29adde74bcdd\"",
       "x-ratelimit-limit": "60",
-      "x-ratelimit-remaining": "46",
+      "x-ratelimit-remaining": "49",
       "total_page": "1",
       "total_count": "5"
     },
@@ -57,7 +57,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       },
       {
         "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/comments/31012682",
@@ -103,7 +105,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       },
       {
         "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/comments/33257524",
@@ -149,7 +153,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       },
       {
         "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/comments/33257531",
@@ -195,7 +201,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       },
       {
         "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/comments/33259354",
@@ -241,7 +249,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       }
     ]
   }
