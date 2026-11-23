@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://raw.githubusercontent.com/h3js/h3/HEAD/README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"ef22052f58cac8bba3b3486f726b94e9f8cd2ab616331407dd969c9ed3588b2d\""
+    },
+    "body": "# H3\n\n<!-- automd:badges -->\n\n[![npm version](https://img.shields.io/npm/v/h3)](https://npmjs.com/package/h3)\n[![npm downloads](https://img.shields.io/npm/dm/h3)](https://npm.chart.dev/h3)\n\n<!-- /automd -->\n\nH3 (pronounced as /eɪtʃθriː/, like h-3) is a minimal h(ttp) framework built for high performance and portability.\n\n> [!NOTE]\n> You are on the v2 active branch. Check out [tree/v1](https://github.com/h3js/h3/tree/v1) and [v1.h3.dev](https://v1.h3.dev/) for legacy v1.\n\n👉 [Documentation](https://h3.dev)\n\n## Contribution\n\n<details>\n  <summary>Local development</summary>\n\n- Clone this repository\n- Install the latest LTS version of [Node.js](https://nodejs.org/en/)\n- Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`\n- Install dependencies using `pnpm install`\n- Run tests using `pnpm dev` or `pnpm test`\n\n</details>\n\n<!-- /automd -->\n\n## License\n\n<!-- automd:contributors license=MIT author=\"pi0\" -->\n\nPublished under the [MIT](https://github.com/h3js/h3/blob/main/LICENSE) license.\nMade by [@pi0](https://github.com/pi0) and [community](https://github.com/h3js/h3/graphs/contributors) 💛\n<br><br>\n<a href=\"https://github.com/h3js/h3/graphs/contributors\">\n<img src=\"https://contrib.rocks/image?repo=h3js/h3\" />\n</a>\n\n<!-- /automd -->\n\n<!-- automd:with-automd -->\n\n---\n\n_🤖 auto updated with [automd](https://automd.unjs.io)_\n\n<!-- /automd -->\n"
+  }
+}

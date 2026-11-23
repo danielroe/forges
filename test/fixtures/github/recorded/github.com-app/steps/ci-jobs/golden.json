@@ -10,7 +10,7 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "117694943258",
+        "id": "137220989706",
         "run": {
           "forge": "github",
           "instance": "github.com",
@@ -20,52 +20,22 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "39134083187"
+          "id": "45026634434"
         }
       },
-      "name": "publish",
-      "state": "failure",
+      "name": "autofix",
+      "state": "success",
       "stateRaw": "completed",
-      "url": "https://github.com/h3js/h3/actions/runs/39134083187/job/117694943258",
-      "startedAt": "2026-10-18T14:00:59.000Z",
-      "completedAt": "2026-10-18T14:01:17.000Z"
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "id": "117694944314",
-        "run": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "39134083187"
-        }
-      },
-      "name": "report-skipped",
-      "state": "neutral",
-      "stateRaw": "completed",
-      "url": "https://github.com/h3js/h3/actions/runs/39134083187/job/117694944314",
-      "startedAt": "2026-10-18T14:00:57.000Z",
-      "completedAt": "2026-10-18T14:00:57.000Z"
+      "url": "https://github.com/h3js/h3/actions/runs/45026634434/job/137220989706",
+      "startedAt": "2026-11-22T13:16:51.000Z",
+      "completedAt": "2026-11-22T13:17:07.000Z"
     }
   ],
-  "total": 2,
-  "etag": "W/\"d8b818b71fd7a4d98ba753f0036fd53c28a4469c71cc955256767298eaf34239\"",
+  "total": 1,
+  "etag": "W/\"8647acc633509015801d1a1e614cbd3bfbc20283407e0e39cc9e0da2e0de906e\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4957,
+    "remaining": 4945,
     "resetAt": "<now>",
     "resource": "core"
   }

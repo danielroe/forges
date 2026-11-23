@@ -3,376 +3,12 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17571094293",
-      "kind": "label",
-      "kindRaw": "IssuesEvent.labeled",
-      "action": "labelled",
-      "actionRaw": "labeled",
-      "detail": {
-        "type": "label",
-        "label": "bug"
-      },
-      "summary": "danielroe labeled issues",
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "beasties",
-        "externalId": "878458624"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "danielroe",
-          "name": "beasties",
-          "externalId": "878458624"
-        },
-        "kind": "issue",
-        "number": "460",
-        "externalId": "I_kwDONFw3AM8AAAABW7iO-A"
-      },
-      "threadSnapshot": {
-        "title": "inlineFonts drops @font-face when font-family is set through a custom property",
-        "body": "With `inlineFonts: true` (and `preloadFonts: true`), beasties keeps only the `@font-face` rules whose family appears in a critical `font-family` / `font` declaration. A family written through a custom property is never resolved, so its `@font-face` rules are dropped from the inlined CSS. Tailwind v4 always sets the base font this way (`font-family: var(--default-font-family, ...)` in its preflight), so a Tailwind v4 site loses all its `@font-face` rules.\n\nThis is a regression from #422, released in 0.5.4: 0.4.3 to 0.5.3 inline the rule in the reproduction below, 0.5.4 and 0.5.5 drop it, with the classic and the compiled paths alike. `main` still collects the families with `parseFontFamilies(decl.prop, decl.value)`.\n\nReproduction:\n\n```css\n@font-face { font-family: Gotham; src: url(/fonts/g.woff2) format(\"woff2\") }\n:root { --font-secondary: Gotham, sans-serif }\nbody { font-family: var(--font-secondary) }\n```\n\n```html\n<html><head><link rel=\"stylesheet\" href=\"styles.css\"></head><body><p>text</p></body></html>\n```\n\nExpected: the `@font-face` rule is inlined, as it is with `body { font-family: Gotham, sans-serif }`. Actual: it is dropped, because `parseFontFamilies('font-family', 'var(--font-secondary)')` returns `[\"var(--font-secondary)\"]`.\n\n#452 fixed the same case for `@keyframes` named through a custom property. Following `var()` the same way for `font-family` and `font` would cover this one.\n\nSeen through Angular 22.2 (`@angular/build` and `@angular/ssr` 22.2.x depend on beasties 0.5.4): in a headless Chrome holding only the inlined critical CSS, our server-rendered page loads Gotham with beasties 0.4.3 and no font at all with 0.5.4, so its text renders in the system fallback until the full stylesheet loads.\n",
-        "state": "open",
-        "stateRaw": "open",
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "gildas-refacto",
-          "id": "88440299",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/88440299?v=4",
-          "url": "https://github.com/gildas-refacto",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [
-          {
-            "name": "bug",
-            "colour": "d73a4a",
-            "description": "Something isn't working"
-          }
-        ],
-        "url": "https://github.com/danielroe/beasties/issues/460"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24489799401",
-      "kind": "ref",
-      "action": "deleted",
-      "kindRaw": "DeleteEvent",
-      "summary": "danielroe deleted branch feat/event-detail",
-      "occurredAt": "2026-10-17T08:30:33.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
-      },
-      "detail": {
-        "type": "ref",
-        "ref": "feat/event-detail",
-        "refType": "branch"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24489465703",
-      "kind": "ref",
-      "action": "created",
-      "kindRaw": "CreateEvent",
-      "summary": "danielroe created branch fix/read-state",
-      "occurredAt": "2026-10-17T07:02:53.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
-      },
-      "detail": {
-        "type": "ref",
-        "ref": "fix/read-state",
-        "refType": "branch"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24488903749",
+      "id": "28001794310",
       "kind": "push",
       "action": "other",
       "kindRaw": "PushEvent",
-      "summary": "danielroe pushed to feat/simplify-names",
-      "occurredAt": "2026-10-18T17:31:19.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
-      },
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/feat/simplify-names",
-        "before": "18f6fac8dd018a11537c22d19a33539be7cfe252",
-        "after": "726b5447453b248e8e4a2e1a6921aae59f5c7f4b",
-        "forced": false,
-        "commits": []
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24484731981",
-      "kind": "push",
-      "action": "other",
-      "kindRaw": "PushEvent",
-      "summary": "danielroe pushed to main",
-      "occurredAt": "2026-10-17T07:16:45.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
-      },
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/main",
-        "before": "24f3e71ab8b58c93bcb5869c9290efd59a4611dd",
-        "after": "77eb7e2e50ef17004580b164074cd09818f1025b",
-        "forced": false,
-        "commits": []
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24484731680",
-      "kind": "ref",
-      "action": "deleted",
-      "kindRaw": "DeleteEvent",
-      "summary": "danielroe deleted branch feat/scope-assoc",
-      "occurredAt": "2026-10-17T07:16:45.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
-      },
-      "detail": {
-        "type": "ref",
-        "ref": "feat/scope-assoc",
-        "refType": "branch"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24483433086",
-      "kind": "ref",
-      "action": "deleted",
-      "kindRaw": "DeleteEvent",
-      "summary": "danielroe deleted branch feat/on-rate-limit",
-      "occurredAt": "2026-10-17T06:57:49.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
-      },
-      "detail": {
-        "type": "ref",
-        "ref": "feat/on-rate-limit",
-        "refType": "branch"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17562591374",
-      "kind": "state_change",
-      "kindRaw": "PullRequestEvent.merged",
-      "action": "merged",
-      "actionRaw": "merged",
-      "detail": {
-        "type": "state_change",
-        "state": "merged"
-      },
-      "summary": "danielroe merged pull_request",
-      "occurredAt": "2026-10-19T01:13:54.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "nuxt",
-        "name": "devtools",
-        "externalId": "420050565"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "nuxt",
-          "name": "devtools",
-          "externalId": "420050565"
-        },
-        "kind": "pull_request",
-        "number": "1123"
-      },
-      "threadSnapshot": {
-        "branches": {
-          "head": {
-            "ref": "fix/vite-config-retriever",
-            "sha": "6a3edefca875fd519908a002a7d2b4dbd89c2abb",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "nuxt",
-              "name": "devtools",
-              "externalId": "420050565"
-            }
-          },
-          "base": {
-            "ref": "v3",
-            "sha": "be9a4cdd26a45489d37374f540e1b0c9e8176b5a"
-          }
-        }
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24480187089",
-      "kind": "ref",
-      "action": "created",
-      "kindRaw": "CreateEvent",
-      "summary": "danielroe created branch main",
-      "occurredAt": "2026-10-18T08:57:27.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "maintainers-dev-sandbox",
-        "name": "maintainers-dev-e2e-transfer-to",
-        "externalId": "1424177640"
-      },
-      "detail": {
-        "type": "ref",
-        "ref": "main",
-        "refType": "branch"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24480103292",
-      "kind": "push",
-      "action": "other",
-      "kindRaw": "PushEvent",
-      "summary": "danielroe pushed to feat/renderer-hooks",
-      "occurredAt": "2026-10-18T09:16:08.000Z",
+      "summary": "danielroe pushed to 4.x",
+      "occurredAt": "2026-11-20T19:29:55.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
@@ -390,9 +26,315 @@
       },
       "detail": {
         "type": "push",
-        "ref": "refs/heads/feat/renderer-hooks",
-        "before": "36a2157dcbc3790780476787ea0a0ec48c326fcf",
-        "after": "68d4b0513b1ea71c0eaab0ab9c61499d91535ace",
+        "ref": "refs/heads/4.x",
+        "before": "8ffdfae640bc253cfc9a2e270ed79cb8cc6580eb",
+        "after": "bee54ac23e1b15fe2809446cdf81230c453efb3b",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "28000911607",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to main",
+      "occurredAt": "2026-11-22T13:04:10.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "danielroe",
+        "name": "rollup-plugin-pure",
+        "externalId": "602629099"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "a6af6ab958209c24536d3ddc2f0da91adf713d40",
+        "after": "c57184743ddc7a2503ad4518a78453802895ad26",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "28000660238",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to main",
+      "occurredAt": "2026-11-22T13:01:47.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "danielroe",
+        "name": "nuxt-capo",
+        "externalId": "644499070"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "9d2f41fb049cdb188322b1b16510d1a5b32e6071",
+        "after": "a71762bea2bc739ec99730e6d2ab38493047cd6e",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "28000463864",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to main",
+      "occurredAt": "2026-11-22T13:00:14.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "danielroe",
+        "name": "firstcommit.is",
+        "externalId": "682162565"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "84b125fd4e601891d885c78b699e546a0858b5b4",
+        "after": "7ea501b80f69c8665f6e1f1e2c7106ba615dd707",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "27999813722",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to pwa-friction",
+      "occurredAt": "2026-11-21T23:01:02.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt",
+        "name": "module-builder",
+        "externalId": "434558841"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/pwa-friction",
+        "before": "44471f718da17a00b982c209c8cec69d7ebf8412",
+        "after": "13b7a8a5e3188ce9ea8146e59ec39835c1d85bc8",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "27999688869",
+      "kind": "ref",
+      "action": "deleted",
+      "kindRaw": "DeleteEvent",
+      "summary": "danielroe deleted branch release/v0.3.5",
+      "occurredAt": "2026-11-20T19:08:15.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt-contrib",
+        "name": "vue-sfc-transformer",
+        "externalId": "960370799"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "release/v0.3.5",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "27998508555",
+      "kind": "ref",
+      "action": "deleted",
+      "kindRaw": "DeleteEvent",
+      "summary": "danielroe deleted branch fix-nitro-legacy-batch-review",
+      "occurredAt": "2026-11-20T18:58:01.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt",
+        "name": "nuxt",
+        "externalId": "71995937"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "fix-nitro-legacy-batch-review",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "27994795136",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to perf/page-change-no-rescan",
+      "occurredAt": "2026-11-20T17:29:38.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "onmax",
+        "name": "nuxt",
+        "externalId": "918917450"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/perf/page-change-no-rescan",
+        "before": "5dd314ec11a95d8072f14939f6cc8b59bdb45d7e",
+        "after": "0b4f7e10444fe8bb10a67e4cf391859ea76694a6",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "27993156458",
+      "kind": "ref",
+      "action": "deleted",
+      "kindRaw": "DeleteEvent",
+      "summary": "danielroe deleted branch fix/init-next-steps-install",
+      "occurredAt": "2026-11-22T11:28:17.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt",
+        "name": "cli",
+        "externalId": "601577889"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "fix/init-next-steps-install",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "27993117564",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to 4.x",
+      "occurredAt": "2026-11-20T19:29:44.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt",
+        "name": "nuxt",
+        "externalId": "71995937"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/4.x",
+        "before": "98c67377d0ebe65eab885526b75903447c3a9c62",
+        "after": "8ffdfae640bc253cfc9a2e270ed79cb8cc6580eb",
         "forced": false,
         "commits": []
       },
@@ -403,12 +345,12 @@
   "total": 300,
   "cursor": {
     "nextUrl": "https://api.github.com/user/28706372/events?per_page=10&page=2",
-    "etag": "W/\"3b416bbae297128c5fbce3203d6dc1d480fe53b44a9a6ac3e89586601ae7b023\""
+    "etag": "W/\"bd3d89b414ff07abd2f4de010db7d6f08d117d144a402a7bee21a0a6ed83231c\""
   },
-  "etag": "W/\"3b416bbae297128c5fbce3203d6dc1d480fe53b44a9a6ac3e89586601ae7b023\"",
+  "etag": "W/\"bd3d89b414ff07abd2f4de010db7d6f08d117d144a402a7bee21a0a6ed83231c\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4970,
+    "remaining": 4960,
     "resetAt": "<now>",
     "resource": "core"
   },
