@@ -6,8 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitea.com/api/v1/repos/search?limit=3&page=2&q=cli>; rel=\"next\",<https://gitea.com/api/v1/repos/search?limit=3&page=122&q=cli>; rel=\"last\"",
-      "x-total-count": "366"
+      "link": "<https://gitea.com/api/v1/repos/search?limit=3&page=2&q=cli>; rel=\"next\",<https://gitea.com/api/v1/repos/search?limit=3&page=123&q=cli>; rel=\"last\"",
+      "x-total-count": "367"
     },
     "body": {
       "ok": true,

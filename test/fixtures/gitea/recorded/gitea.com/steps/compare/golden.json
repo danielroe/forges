@@ -1993,31 +1993,6 @@
       },
       "files": [
         {
-          "path": "internal/app/commits.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/commits_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/diff_filter.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/diff_filter_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/commits.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
           "path": "internal/app/app.go",
           "status": "modified",
           "statusRaw": "modified"
@@ -2041,6 +2016,31 @@
           "path": "skills/gt/references/resources.md",
           "status": "modified",
           "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/commits.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/commits_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/diff_filter.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/diff_filter_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/commits.go",
+          "status": "added",
+          "statusRaw": "added"
         }
       ]
     }

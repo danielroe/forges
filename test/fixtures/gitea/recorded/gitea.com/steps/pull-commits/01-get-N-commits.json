@@ -226,134 +226,6 @@
         ],
         "files": [
           {
-            "filename": "internal/app/activity.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/activity_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/activity_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/branch_protections.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/branch_protections_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/branch_protections_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/dry_run_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/gpg_keys_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/integration_repo_helpers_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/issue_actions_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/output_template_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/pull_actions_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/release_run_api_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/repo_templates_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/run_view_options_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/runners_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/tags.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/tags_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/tags_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/time_stopwatch_integration_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/app/time_stopwatch_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/git/reads.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/git/reads_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/activity.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/branch_protections.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/tags.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/settings/atomic_other.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/settings/atomic_windows.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/settings/atomic_windows_test.go",
-            "status": "added"
-          },
-          {
-            "filename": ".revive.toml",
-            "status": "removed"
-          },
-          {
-            "filename": "internal/settings/rename_other.go",
-            "status": "removed"
-          },
-          {
-            "filename": "internal/settings/rename_windows.go",
-            "status": "removed"
-          },
-          {
             "filename": ".golangci.yml",
             "status": "modified"
           },
@@ -1516,6 +1388,134 @@
           {
             "filename": "tools/cli-docs/main.go",
             "status": "modified"
+          },
+          {
+            "filename": "internal/app/activity.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/activity_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/activity_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/branch_protections.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/branch_protections_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/branch_protections_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/dry_run_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/gpg_keys_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/integration_repo_helpers_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/issue_actions_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/output_template_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/pull_actions_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/release_run_api_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/repo_templates_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/run_view_options_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/runners_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/tags.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/tags_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/tags_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/time_stopwatch_integration_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/app/time_stopwatch_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/git/reads.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/git/reads_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/services/activity.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/services/branch_protections.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/services/tags.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/settings/atomic_other.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/settings/atomic_windows.go",
+            "status": "added"
+          },
+          {
+            "filename": "internal/settings/atomic_windows_test.go",
+            "status": "added"
+          },
+          {
+            "filename": ".revive.toml",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/rename_other.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/rename_windows.go",
+            "status": "removed"
           }
         ],
         "stats": {
