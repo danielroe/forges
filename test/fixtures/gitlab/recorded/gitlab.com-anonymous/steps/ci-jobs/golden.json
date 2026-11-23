@@ -10,7 +10,7 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "17272413278",
+        "id": "18266812498",
         "run": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -20,23 +20,23 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2961499559"
+          "id": "3101087810"
         }
       },
       "name": "workload",
       "state": "success",
       "stateRaw": "success",
       "stage": "build",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/18266812498",
       "startedAt": "<now>",
       "completedAt": "<now>"
     }
   ],
   "total": 1,
-  "etag": "W/\"365699f5227458944a772de9dfbb56b1\"",
+  "etag": "W/\"b51f92572d2aacf4d34db8de250b8c0e\"",
   "rateLimit": {
     "limit": 500,
-    "remaining": 449,
+    "remaining": 448,
     "resetAt": "<now>",
     "resource": "throttle_unauthenticated_api"
   }

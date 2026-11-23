@@ -11,122 +11,46 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8629",
-        "externalId": "207093591"
+        "number": "8792",
+        "externalId": "211295031"
       },
       "kind": "issue",
-      "title": "govern audit sync fails with \"Too many total parameters\" for long sessions",
-      "body": "`glab govern audit sync` batches audit events by count only (500 per request), but GitLab limits that endpoint to 5,000 JSON elements, and one event is 13 to 25 or more. So a session with more than about 200 events to upload fails with:\n\n```plaintext\ncould not post audit events: could not post audit events: POST https://gitlab.com/api/v4/projects/<id>/ai_agent/audit_events: 400 {error: Too many total parameters}\n```\n\nThe cursor doesn't move on failure, so every later sync sends the same batch and the session never finishes syncing. The error prefix is also repeated.\n\nGitLab is raising the limit in https://gitlab.com/gitlab-org/gitlab/-/merge_requests/263119, but older self-managed versions keep 5,000, so glab needs to batch by size too.\n\nDetails and the customer report: https://gitlab.com/gitlab-org/gitlab/-/work_items/634442",
-      "state": "open",
-      "stateRaw": "opened",
-      "isDraft": false,
-      "assignees": [
-        {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "jeanvdw",
-          "id": "27487407",
-          "name": "Jean van der Walt",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-          "url": "https://gitlab.com/jeanvdw",
-          "isBotHint": false
-        }
-      ],
-      "reviewers": [],
-      "lastActivityAt": "2026-10-19T02:48:22.205Z",
-      "author": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jeanvdw",
-        "id": "27487407",
-        "name": "Jean van der Walt",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-        "url": "https://gitlab.com/jeanvdw",
-        "isBotHint": false
-      },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8629",
-      "createdAt": "2026-10-19T02:48:20.600Z",
-      "updatedAt": "2026-10-19T02:48:22.205Z",
-      "labels": [
-        {
-          "name": "Category:AI Governance"
-        },
-        {
-          "name": "devops::security governance"
-        },
-        {
-          "name": "group::ai governance"
-        },
-        {
-          "name": "section::sec"
-        },
-        {
-          "name": "type::bug"
-        }
-      ],
-      "commentCount": 0,
-      "reactions": {
-        "total": 0,
-        "counts": {}
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8628",
-        "externalId": "207092717"
-      },
-      "kind": "issue",
-      "title": "feat: report pipeline status via OSC 7501 in `ci status --live`",
-      "body": "### Problem to solve\n\nAs a developer running `glab ci status --live` or `glab ci status --wait`, I want my terminal tab to show whether the pipeline is still running, has passed, or has failed, so I can switch to other work without repeatedly checking the tab.\n\n### Proposal\n\nReport pipeline state from `glab ci status --live` / `--wait` using the [Program Status Protocol (OSC 7501)](https://github.com/charmbracelet/bubbletea/releases), which recent Bubble Tea releases support:\n\n| Pipeline state | Program status | Reason |\n|---|---|---|\n| `created`, `pending`, `running` | working | e.g. `pipeline #123 running (4/12 jobs)` |\n| `success` | finished | `pipeline #123 passed` |\n| `failed` | failed | e.g. `job rspec 3/8 failed` |\n| `canceled`, `skipped` | finished/failed | pipeline status |\n| `manual` (blocked) | waiting on user | `pipeline #123 waiting on manual job` |\n\nImplementation notes:\n\n- `ci status` renders through `uilive`, not a `tea.Program`, so add a small helper in `internal/iostreams` (for example `SetProgramStatus(state, reason)`) that writes the sequence directly.\n- Emit only when output is a TTY. Never emit for `--output json`, piped output, or `GITLAB_CI`.\n- Reset the status on exit, including Ctrl+C, so a stale \"working\" indicator isn't left behind.\n- Consider an opt-out (config key in `KeySchema` or env var) while terminal support is new.\n\n### Further details\n\nOnce the helper exists, other long-running or interactive commands can reuse it in follow-ups: `ci trace`, `mr merge` waiting on pipelines, `auth login`, `stack sync` conflicts, `duo ask`, and the shared `Confirm`/`Input`/`Select` prompts and spinner.\n\n### Links / references\n\n- Bubble Tea release announcing OSC 7501 support\n- `internal/commands/ci/status/status.go`",
+      "title": "stack: import an existing stack from a merge request",
+      "body": "### Problem\n\n`glab stack` keeps its metadata only in the local `.git/stacked/`.\nA stack created on another machine, or by a teammate, cannot be worked with locally.\n`glab stack infer` builds a new stack from commits, but creates new branches, so `glab stack sync` would open duplicate merge requests.\n\n### Proposal\n\n`glab stack import <mr>` rebuilds the local stack metadata from GitLab:\n\n1. From the given MR, follow `target_branch` down to the base branch, and follow MRs whose `target_branch` is the current `source_branch` up to the top.\n2. Write one `StackRef` per MR (`prev`, `next`, `branch`, `mr`, `description`) plus `BASE_BRANCH`. For glab-named branches (`<prefix>-<title>-<sha>`), title and SHA come from the branch name; otherwise from flags or generated.\n3. Create local branches tracking the remote ones and set the stack as current.\n\nAfterwards `glab stack sync` updates the existing MRs instead of creating new ones.\n\n### Open questions\n\n- Several open MRs targeting the same branch: refuse or prompt?\n- Support MRs from forks in the first version?\n\nWriting these files by hand for an existing 5-MR stack worked: `glab stack list` showed it correctly.",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
       "assignees": [],
       "reviewers": [],
-      "lastActivityAt": "2026-10-19T03:09:40.451Z",
+      "lastActivityAt": "2026-11-23T00:37:55.553Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
+        "login": "Cybertron01Z",
+        "id": "44663122",
+        "name": "Mika Ruch",
+        "avatarUrl": "https://secure.gravatar.com/avatar/c79d3a707cebba5872c40ab3b44aeca6665da523ca10b49b815c18a84f47a337?s=80&d=identicon",
+        "url": "https://gitlab.com/Cybertron01Z",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8628",
-      "createdAt": "2026-10-19T02:35:53.439Z",
-      "updatedAt": "2026-10-19T03:09:40.451Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8792",
+      "createdAt": "2026-11-20T12:28:24.798Z",
+      "updatedAt": "2026-11-23T00:37:55.553Z",
       "labels": [
         {
-          "name": "automation:quick-win-judged"
+          "name": "automation:ml"
         },
         {
-          "name": "category:gitlab cli"
+          "name": "backend"
         },
         {
-          "name": "devops::ai clients"
-        },
-        {
-          "name": "group::developer clients"
-        },
-        {
-          "name": "section::ai"
+          "name": "feature::addition"
         },
         {
           "name": "type::feature"
         }
       ],
-      "commentCount": 0,
+      "commentCount": 2,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -143,12 +67,64 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8627",
-        "externalId": "207091807"
+        "number": "8791",
+        "externalId": "211269447"
       },
       "kind": "issue",
-      "title": "Terminal background-colour query blocks every TTY command, up to 5s per query",
-      "body": "## Summary\n\nWhen stdout is a terminal, every glab command blocks on a terminal background-colour query (an OSC 11 request that waits for the terminal's reply).\n\n- `NewCmdRoot` (`internal/commands/root.go:64`) calls `f.IO().Color()` eagerly, only to colour one help string.\n- `Color()` runs `termenv.HasDarkBackground()` (`internal/iostreams/color.go:55`), which waits for the terminal to answer. Nothing caches the result, so the query runs again on every `Color()` call.\n- `termenv.HasDarkBackground()` is also called directly in `internal/iostreams/iostreams.go:373` and `internal/commands/help/help.go:31`.\n- fang runs its own query on help and error output.\n\nResult: 1 query for `glab version`, and 2 for `mr list`, `issue list` and `--help`.\n\n## Impact\n\n- Local terminal: about zero.\n- Over SSH at 50ms RTT: adds 50–100ms per command.\n- A terminal that never answers waits out `termenv.OSCTimeout` (5s) on each query: about 5s for `version` and 9s for `--help`.\n- Setting `glamour_style` or `GLAB_GLAMOUR_STYLE=dark` does not skip the query. Only `NO_COLOR` does.\n\n## Proposal\n\n1. Drop the eager `Color()` call in `NewCmdRoot`, and colour the help string lazily.\n2. Detect the background once per process and reuse the result in all call sites (`color.go`, `iostreams.go`, `help/help.go`).\n3. Honour an explicit style (`glamour_style` / `GLAB_GLAMOUR_STYLE` set to `dark` or `light`) before probing the terminal.\n4. Lower `termenv.OSCTimeout` from its 5s default.\n5. Upstream: ask fang for an option to accept a known dark/light value, so it doesn't run its own query.\n\n## Acceptance criteria\n\n- At most one background query per process, and none when the style is set explicitly or `NO_COLOR` is set.\n- A terminal that never answers does not delay commands by seconds.\n\nFound during review of https://gitlab.com/gitlab-org/cli/-/merge_requests/4139. Related: https://gitlab.com/gitlab-org/cli/-/work_items/8626 (telemetry blocks exit).",
+      "title": "glab mcp was removed",
+      "body": "Hello,\n\nI read that glab mcp was deprecated and then removed\n\n   https://gitlab.com/gitlab-org/cli/-/work_items/8618\n\nBut it was very very useful and we cannot use the new http version: we have a managed gitlab installation and we do know when we can upgrade it to the version with mcp enabled.\n\nIn the meanwhile we'll keep an old GOOD version of \"glab\" and we'll stop upgrading the cli.\n\nThanks\nMatteo",
+      "state": "open",
+      "stateRaw": "opened",
+      "isDraft": false,
+      "assignees": [],
+      "reviewers": [],
+      "lastActivityAt": "2026-11-23T00:37:54.804Z",
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "matteoredaelli",
+        "id": "2435436",
+        "name": "Matteo Redaelli",
+        "avatarUrl": "https://secure.gravatar.com/avatar/0f90312ea71a9f04be61d05233bbdd260d7bf936d12a770ae9cb47f400a46dd0?s=80&d=identicon",
+        "url": "https://gitlab.com/matteoredaelli",
+        "isBotHint": false
+      },
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8791",
+      "createdAt": "2026-11-20T08:45:09.413Z",
+      "updatedAt": "2026-11-23T00:37:54.804Z",
+      "labels": [
+        {
+          "name": "automation:ml"
+        },
+        {
+          "name": "type::feature"
+        }
+      ],
+      "commentCount": 2,
+      "reactions": {
+        "total": 1,
+        "counts": {
+          "+1": 1
+        }
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "8790",
+        "externalId": "211171533"
+      },
+      "kind": "issue",
+      "title": "mr create --wip should behave the same as of mr create --draft",
+      "body": "### Problem to solve\n\nWhen passing `--wip` to `mr create`, the resulting MR title will be prefixed with `WIP:`, which as far as I know is not very useful, as it has no special meaning to Gitlab, so I don't see any use case for `--wip`.\n\n### Proposal\n\nPassing `--wip` to `mr create` should prefix the MR title with `Draft:` instead of `WIP:`, as Draft has a meaning for Gitlab.\n\nThis mean that `--wip` should not be \"an alternative\" to `--draft`, instead, an alias.\n\nAnother possibility is to simply remove the `--wip` option completely to prevent confusion. Manually adding a `WIP:` to the MR title is simple enough not to need any special handling within the tool.\n\n### Further details",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -156,70 +132,55 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "jay_mccure",
-          "id": "11809982",
-          "name": "Jay McCure",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-          "url": "https://gitlab.com/jay_mccure",
+          "login": "jhahimanshu653",
+          "id": "39330700",
+          "name": "Himanshu Jha",
+          "avatarUrl": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "url": "https://gitlab.com/jhahimanshu653",
           "isBotHint": false
         }
       ],
       "reviewers": [],
-      "lastActivityAt": "2026-10-19T02:33:16.145Z",
+      "lastActivityAt": "2026-11-23T00:38:02.623Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
+        "login": "l.santiago.idt",
+        "id": "44167046",
+        "name": "Leandro Santiago",
+        "avatarUrl": "https://secure.gravatar.com/avatar/2684af88ea08fbec9e0fc4e8d6f714f7b98c7466fcbc6cf3c2e8f9242661dd37?s=80&d=identicon",
+        "url": "https://gitlab.com/l.santiago.idt",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8627",
-      "createdAt": "2026-10-19T02:28:20.359Z",
-      "updatedAt": "2026-10-19T02:33:16.145Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8790",
+      "createdAt": "2026-11-19T16:01:34.640Z",
+      "updatedAt": "2026-11-23T00:38:02.623Z",
       "labels": [
         {
-          "name": "agent-experience"
+          "name": "automation:ml"
         },
         {
-          "name": "category:gitlab cli"
-        },
-        {
-          "name": "devops::ai clients"
-        },
-        {
-          "name": "group::developer clients"
-        },
-        {
-          "name": "maintenance::performance"
-        },
-        {
-          "name": "section::ai"
-        },
-        {
-          "name": "type::maintenance"
+          "name": "type::bug"
         }
       ],
-      "commentCount": 0,
+      "commentCount": 3,
       "reactions": {
         "total": 0,
         "counts": {}
       }
     }
   ],
-  "total": 252,
+  "total": 275,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false",
-    "etag": "W/\"d634a1b0fcacb06d81e042fc998a0ddb\"",
+    "etag": "W/\"701e386a6994b6e5a9effef01509f5d8\"",
     "token": "0:"
   },
   "rateLimit": {
-    "limit": 1,
-    "remaining": 46,
+    "limit": 500,
+    "remaining": 465,
     "resetAt": "<now>",
-    "resource": "unauthenticated_traffic_per_ip"
+    "resource": "throttle_unauthenticated_api"
   },
-  "etag": "W/\"d634a1b0fcacb06d81e042fc998a0ddb\""
+  "etag": "W/\"701e386a6994b6e5a9effef01509f5d8\""
 }
