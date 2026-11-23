@@ -17,61 +17,13 @@
       "data": {
         "user": {
           "repositories": {
-            "cursor": "gAAAAABq1ztnMmiR9Rw7UEEmW_Suhwula0L-1g3qLjOcEK2jIl1kC_sKH2F6WWbJx_MNXo7qSuT-iu_MHbr462VYWyYyIYQuchxnz-588a41arDqItZFsuNsKRlv_50LnAUb0GRw4UW9anjTclj5szXFzO-ZUpXHjg==",
+            "cursor": "gAAAAABrA8FSkgqlBtbP9xTbtq5xWFB15C3a7jxOPw6W1_ec940J_MVRRF_QGAzXr9zJdex91WKWbpjGkqSwx6pexpuGtg96AJmhy267M1p3WmUW3rSXal5YJtoXWiLGbtNmRZOBURgky-41TLnF0oVaATHPP7sdbQ==",
             "results": [
-              {
-                "id": 306162,
-                "rid": "06dy9xv7wxzmz2f3z66f20bhn8",
-                "created": "2023-04-17T14:20:51.102493Z",
-                "updated": "2026-10-19T18:23:34.182795Z",
-                "owner": {
-                  "canonicalName": "~bitfehler",
-                  "id": 23515,
-                  "updated": "2026-03-16T09:23:49.545673Z",
-                  "username": "bitfehler",
-                  "email": "redacted@example.invalid",
-                  "url": "https://bitfehler.net",
-                  "location": "Orion arm.",
-                  "bio": "I turn computers on and off. Sometimes also this one."
-                },
-                "name": "bitfehler-ns",
-                "description": "Anemos definitions for the bitfehler.net nameservers",
-                "visibility": "PUBLIC",
-                "HEAD": {
-                  "name": "refs/heads/master",
-                  "target": "b0fe4be5ab2cc39daf4bc6dd113ff63c3d179b7f"
-                },
-                "access": "RO"
-              },
-              {
-                "id": 289908,
-                "rid": "06dy9xv7yssy31p2xm13caqa28",
-                "created": "2023-03-20T15:28:19.389268Z",
-                "updated": "2026-09-07T10:25:36.245231Z",
-                "owner": {
-                  "canonicalName": "~bitfehler",
-                  "id": 23515,
-                  "updated": "2026-03-16T09:23:49.545673Z",
-                  "username": "bitfehler",
-                  "email": "redacted@example.invalid",
-                  "url": "https://bitfehler.net",
-                  "location": "Orion arm.",
-                  "bio": "I turn computers on and off. Sometimes also this one."
-                },
-                "name": "anemos.io",
-                "description": "anemos.io website",
-                "visibility": "PUBLIC",
-                "HEAD": {
-                  "name": "refs/heads/master",
-                  "target": "a88999149554a5e992cb5db37aa140be258c6259"
-                },
-                "access": "RO"
-              },
               {
                 "id": 420248,
                 "rid": "06dy9xv8shyef10jrczz5n13j0",
                 "created": "2023-10-25T14:28:15.977121Z",
-                "updated": "2026-08-20T20:03:33.689441Z",
+                "updated": "2026-11-20T19:43:16.513704Z",
                 "owner": {
                   "canonicalName": "~bitfehler",
                   "id": 23515,
@@ -87,7 +39,55 @@
                 "visibility": "PUBLIC",
                 "HEAD": {
                   "name": "refs/heads/master",
-                  "target": "0e9be211d3c46d2aaa455c7477abd1fd6d0c6d3a"
+                  "target": "5b9222b1a9e8ee4bbd1d30a930c1ac28297187f4"
+                },
+                "access": "RO"
+              },
+              {
+                "id": 445054,
+                "rid": "06dy9xvcrnzdd0d85g2abj5m8r",
+                "created": "2024-04-04T20:34:13.199648Z",
+                "updated": "2026-10-23T12:03:13.87575Z",
+                "owner": {
+                  "canonicalName": "~bitfehler",
+                  "id": 23515,
+                  "updated": "2026-03-16T09:23:49.545673Z",
+                  "username": "bitfehler",
+                  "email": "redacted@example.invalid",
+                  "url": "https://bitfehler.net",
+                  "location": "Orion arm.",
+                  "bio": "I turn computers on and off. Sometimes also this one."
+                },
+                "name": "dmos",
+                "description": "Djot HTML renderer with advanced features",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "79a1cc834f775cbd77aed7b49273e006b833a9a1"
+                },
+                "access": "RO"
+              },
+              {
+                "id": 443656,
+                "rid": "06dy9xv8qhwdz1vkqgs0xae7fg",
+                "created": "2024-03-19T22:03:07.11909Z",
+                "updated": "2026-10-22T10:12:19.43648Z",
+                "owner": {
+                  "canonicalName": "~bitfehler",
+                  "id": 23515,
+                  "updated": "2026-03-16T09:23:49.545673Z",
+                  "username": "bitfehler",
+                  "email": "redacted@example.invalid",
+                  "url": "https://bitfehler.net",
+                  "location": "Orion arm.",
+                  "bio": "I turn computers on and off. Sometimes also this one."
+                },
+                "name": "m2dir",
+                "description": "The m2dir specification",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "f2ea983c0c8c52a54d00b6af03a907ea54c004c4"
                 },
                 "access": "RO"
               }
