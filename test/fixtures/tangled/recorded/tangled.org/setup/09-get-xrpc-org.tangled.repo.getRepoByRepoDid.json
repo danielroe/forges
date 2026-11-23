@@ -1,33 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ahwdjucqfadjzmonr5oafsdok"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3At73o44q7fppgagkrevtztyok"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreicqpubnwobyb2tq3ol7mc76giksw6qqqtyaebcky2drgl4uqd42oy",
+      "cid": "bafyreidwqp7izr2rl2odhtkx3xnzl7gbd2hnvh727dnkpwlyvbdekitpqq",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:hwdjucqfadjzmonr5oafsdok/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2025-05-22T18:01:27.000000Z",
+        "createdAt": "2026-10-09T17:02:20.000000Z",
         "declaration": {
-          "name": "grain",
-          "owner": "did:plc:e7rftrdyz5e2rw4y6ocszew2"
+          "name": "forges-fixtures",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk"
         },
-        "description": "grain.social is a photo sharing platform built on atproto.",
         "spindle": "did:web:spindle.tangled.network",
-        "topics": [
-          "appview",
-          "atproto",
-          "photography"
-        ],
-        "website": "https://grain.social",
-        "x-tngl-editor": "did:plc:e7rftrdyz5e2rw4y6ocszew2"
+        "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
       }
     }
   }

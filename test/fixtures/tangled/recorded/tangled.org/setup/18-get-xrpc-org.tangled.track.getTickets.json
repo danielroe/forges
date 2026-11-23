@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3A4gz5bnlcchmi22lwgkvraofj%2Forg.tangled.track.ticket%2F11"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Amnfsgqhjrebz5jdw5obnkzt4%2Forg.tangled.track.ticket%2F354"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreihf7m67l6nwntfnqt4q6ejstoh2jvvobqdn63pyjtxesikn6katdi",
-          "uri": "at://did:plc:4gz5bnlcchmi22lwgkvraofj/org.tangled.track.ticket/11",
+          "cid": "bafyreihlckqlbdf3m6de435kqyt3zakinoyrd7bi32sevxlmo2bdftpmie",
+          "uri": "at://did:plc:mnfsgqhjrebz5jdw5obnkzt4/org.tangled.track.ticket/354",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Implements iPhone Duo (foldable / dual-panel) support (resolving #9).\n\n### Changes\n- **Orientation support** (`project.yml`, `Resources/Info.plist`): Added `UIInterfaceOrientationLandscapeLeft` and `UIInterfaceOrientationLandscapeRight` alongside `UIInterfaceOrientationPortrait` so the unfolded inner display (`951×669pt`) and landscape orientation are supported.\n- **Hinge pose observation** (`Support/HingeObserver.swift`): Added `HingeObserver` and `HingeReaderView` using `UIHingeInteraction` (`iOS 27.1+`, guarded with `#available(iOS 27.1, *)`) to track `.closed`, `.partiallyOpen`, and `.fullyOpen` hinge states.\n- **Adaptive layouts** (`ListeningView.swift`, `SignInView.swift`):\n  - `ListeningView` switches to a two-column `insetGrouped` layout on wide/unfolded displays (`width >= 600`, `.regular` horizontal size class, or unfolded hinge posture), placing the listening control and `Just heard` on the left and `Heard recently` on the right, while preserving the single-column layout on the closed outer display (`466×678pt`).\n  - `SignInView` constrains the form to `maxWidth: 560` centered on wide/unfolded displays so fields and buttons do not stretch edge-to-edge.\n- **Active-scene OAuth anchor** (`Auth/OAuthBrowser.swift`): `presentationAnchor(for:)` prefers the `.foregroundActive` `UIWindowScene`'s key window.\n\n### Verification\n- `swift test` in `StamperCore/` — all 90 tests pass.\n- Built and verified on the `iPhone Duo` simulator (`iOS 27.2`, `iPhone19,4`) across `closed` (`466×678pt`, `1398×2034 @3x`), `open` (`951×669pt`, `2853×2007 @3x`), and `half-open` (`132.5°`) poses:\n  - Atmosphere OAuth sign-in (`chromextensiontest.bsky.social`) and callback redirect into `ListeningView`.\n  - Microphone permission prompt and active listening state.\n  - `Settings` sheet presentation and dismissal in unfolded mode."
+              "text": "Adds §10, \"Time economy (future)\", to the planning-table note. It is not in the vertical slice.\n\n- Sleep, a shift at a day job and other commitments are recurring obligations on the abstract prep clock. Each is a data record with a period, a duration and optional skip effects. They eat into the contract's prep budget.\n- An action that crosses a due point pays the obligation's hours first. The action's shown cost includes those hours, using the same function as the clock.\n- Traits carry modifiers that remove, shorten, stretch or make an obligation skippable. Implants reach the clock through their traits, and consumables through temporary traits. An addictive consumable can add its own dependency obligation.\n- Hours are integers. Obligation blocks are derived from the action log, so replay is unchanged.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n"
             },
-            "createdAt": "2026-11-21T17:22:32Z",
-            "state": "open",
+            "createdAt": "2026-11-23T01:37:07Z",
+            "state": "completed",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "Add iPhone Duo support (#9)"
+              "text": "docs(planning): sketch a future time economy on the prep clock"
             },
-            "x-tngl-editor": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq"
+            "x-tngl-editor": "did:plc:nlzmjyfv6loqtxyzvdcznwgf"
           }
         }
       ]

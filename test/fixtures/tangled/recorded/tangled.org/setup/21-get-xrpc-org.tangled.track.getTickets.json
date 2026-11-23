@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Awj53zt2oo653zr3wgnvn4llg%2Forg.tangled.track.ticket%2F4261"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreibostnu5xmelq3vtsgqdxbyr4sdre2hzj2e5de6zrtif7lnatqudq",
+          "uri": "at://did:plc:wj53zt2oo653zr3wgnvn4llg/org.tangled.track.ticket/4261",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "description:\nThe operator's marked exception (plan 8bb147da, 598f4da6, 5dfd746c):\n- **One reader:** `site_remote::read` is the front's one read of a site's area. It reads exactly two fields of `remote.toml`, the knot1 repository DID in `url` and `auto_pull`, bounded at 64 KiB, with the DID checked. Anything else reads as not on Tangled and not pulling.\n- **One fieldless tell:** `Told::Sync` and `Told::TangledSource` become `Told::RemoteChanged`. The front reads the record on it, and every site's record as it starts.\n- **No copy:** the `auto_pulls` cache is gone; `auto_pull` is read where it is used. A deleted site leaves the front's DID map.\n- **Docs:** `docs/SECURITY.md` and `SANDBOX.md` name the exception.\n\n---\n\ninfo:\nD3c, second pair. Parent: s/1435. Tip: `945e7ddb0b87af557774b4e844a2d6a97e0d64f2`.\n"
+            },
+            "createdAt": "2026-11-22T16:06:28Z",
+            "state": "open",
+            "targetBranch": "s/1435-tangled-no-start-tests",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "product: the front reads a site's Tangled source and auto-pull from its record"
+            },
+            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+          }
+        }
+      ]
+    }
+  }
+}

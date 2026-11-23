@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3A4gz5bnlcchmi22lwgkvraofj%2Forg.tangled.track.ticket%2F11"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Aakmh2xiv3o33rhjl6v3iyn6n%2Forg.tangled.track.ticket%2F355"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,21 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreihf7m67l6nwntfnqt4q6ejstoh2jvvobqdn63pyjtxesikn6katdi",
-          "uri": "at://did:plc:4gz5bnlcchmi22lwgkvraofj/org.tangled.track.ticket/11",
+          "cid": "bafyreicvp2gmmeymvv4ufmeojjkzkaxu42tka5kh7cckea6aogqe7mpj6m",
+          "uri": "at://did:plc:akmh2xiv3o33rhjl6v3iyn6n/org.tangled.track.ticket/355",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Implements iPhone Duo (foldable / dual-panel) support (resolving #9).\n\n### Changes\n- **Orientation support** (`project.yml`, `Resources/Info.plist`): Added `UIInterfaceOrientationLandscapeLeft` and `UIInterfaceOrientationLandscapeRight` alongside `UIInterfaceOrientationPortrait` so the unfolded inner display (`951×669pt`) and landscape orientation are supported.\n- **Hinge pose observation** (`Support/HingeObserver.swift`): Added `HingeObserver` and `HingeReaderView` using `UIHingeInteraction` (`iOS 27.1+`, guarded with `#available(iOS 27.1, *)`) to track `.closed`, `.partiallyOpen`, and `.fullyOpen` hinge states.\n- **Adaptive layouts** (`ListeningView.swift`, `SignInView.swift`):\n  - `ListeningView` switches to a two-column `insetGrouped` layout on wide/unfolded displays (`width >= 600`, `.regular` horizontal size class, or unfolded hinge posture), placing the listening control and `Just heard` on the left and `Heard recently` on the right, while preserving the single-column layout on the closed outer display (`466×678pt`).\n  - `SignInView` constrains the form to `maxWidth: 560` centered on wide/unfolded displays so fields and buttons do not stretch edge-to-edge.\n- **Active-scene OAuth anchor** (`Auth/OAuthBrowser.swift`): `presentationAnchor(for:)` prefers the `.foregroundActive` `UIWindowScene`'s key window.\n\n### Verification\n- `swift test` in `StamperCore/` — all 90 tests pass.\n- Built and verified on the `iPhone Duo` simulator (`iOS 27.2`, `iPhone19,4`) across `closed` (`466×678pt`, `1398×2034 @3x`), `open` (`951×669pt`, `2853×2007 @3x`), and `half-open` (`132.5°`) poses:\n  - Atmosphere OAuth sign-in (`chromextensiontest.bsky.social`) and callback redirect into `ListeningView`.\n  - Microphone permission prompt and active listening state.\n  - `Settings` sheet presentation and dismissal in unfolded mode."
+              "text": "Move canonical source and issue tracking to https://tangled.org/samclemente.me/the-social-wire while retaining existing Vercel projects/domains, Turso databases, Blob objects and encryption keys.\n\nDecisions:\n- Direct deployment from Tangled CI; no GitHub deployment mirror.\n- Deployment credentials remain in the application repository, with Tangled's documented same-repository workflow secret visibility understood.\n- Scope now: Web and Go backend. iOS will use Xcode Cloud later; no Namespace activation.\n- L@tr provisioning remains explicitly on hold; do not rotate or reconfigure it.\n\nWork:\n- Snapshot GitHub/Tangled refs; fast-forward existing Tangled main/dev without deleting historical branches; set Tangled as local origin and retain GitHub archive remote.\n- Export/import all open+closed GitHub issues, comments and labels with original authors/dates/URLs in provenance and an idempotent source-to-target map. Preserve unsupported metadata in the archive.\n- Run Web coverage/spec/type/lint/image and Go vet/tests/image verification on Spindle. Bind results to exact commit; enforce Development-before-Production parity.\n- Gate Vercel CLI release on all required exact-commit Tangled checks; preserve environment isolation and the current two-project topology until #992's separate cutover is accepted.\n- Verify Tangled runs and direct Development deployment before disabling GitHub CI/deployment integration. Keep existing deployments serving until replacement acceptance.\n\nInitial inventory: 354 issues (55 open), 730 comments,17 labels; Tangled main/dev are stale ancestors of current GitHub releases. Issue import planning and Linux workflow implementation are in progress. Existing live deployments and storage remain unchanged.\n\n---\n\nImported from [GitHub #994](https://github.com/CountableNewt/the-social-wire/issues/994). Original author: `CountableNewt`.\n\nOriginal creation: `2026-11-22T21:48:07Z`; last update: `2026-11-22T21:48:10Z`; closed: `unknown`.\n\nOriginal state: `open`; reason: `unknown`. Tangled attribution belongs to the importing account."
             },
-            "createdAt": "2026-11-21T17:22:32Z",
+            "createdAt": "2026-11-23T00:35:50Z",
             "state": "open",
-            "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "Add iPhone Duo support (#9)"
+              "text": "Make Tangled canonical for source, issues and Web/Go CI with direct Vercel deployment"
             },
-            "x-tngl-editor": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq"
+            "x-tngl-editor": "did:plc:qy5pluw2bsuq2x6albsgkvx3"
           }
         }
       ]

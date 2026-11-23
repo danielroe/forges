@@ -1,29 +1,37 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3A4gz5bnlcchmi22lwgkvraofj"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Aakmh2xiv3o33rhjl6v3iyn6n"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreihssazg656nrp6ssgces62pe5jpfueoz6rxqwfwz5kebeb4usykke",
+      "cid": "bafyreibytsjal5aj2cweljotlixbiem2eokhsun4k4pcuvqcdwxzgenv54",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:4gz5bnlcchmi22lwgkvraofj/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:akmh2xiv3o33rhjl6v3iyn6n/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-11-14T04:15:19Z",
+        "createdAt": "2026-10-28T15:21:25Z",
         "declaration": {
-          "name": "audio-stamper",
-          "owner": "did:plc:tas6hj2xjrqben5653v5kohk"
+          "name": "the-social-wire",
+          "owner": "did:plc:qy5pluw2bsuq2x6albsgkvx3"
         },
+        "description": "The Social Wire — an ATProto publication reader.",
+        "spindle": "did:web:spindle.tangled.network",
         "topics": [
-          "teal.fm",
-          "teal-fm"
+          "atprotocol",
+          "bluesky",
+          "news",
+          "standard.site",
+          "blog",
+          "social",
+          "social-media-management"
         ],
-        "x-tngl-editor": "did:plc:tas6hj2xjrqben5653v5kohk"
+        "website": "https://thesocialwire.app/",
+        "x-tngl-editor": "did:plc:qy5pluw2bsuq2x6albsgkvx3"
       }
     }
   }
