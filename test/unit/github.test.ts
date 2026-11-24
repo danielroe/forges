@@ -2653,7 +2653,13 @@ describe('github checks and CI', () => {
   it('refuses a workflow that is not a file name before any request', async () => {
     const { provider, calls } = tokenProvider()
 
-    for (const workflow of ['..', '.', 'workflows/ci.yml']) {
+    for (const workflow of [
+      '..',
+      '.',
+      '',
+      'sub/../ci.yml',
+      'sub//ci.yml',
+    ]) {
       await expect(provider.ci.runs(repo, { workflow }).page()).rejects.toThrow(TypeError)
     }
     expect(calls).toEqual([])

@@ -751,8 +751,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
         ],
       }
     },
-    'ci.runsPage': (repo: RepoRef, query: CiRunQuery = {}) => query.workflow === '.' || query.workflow === '..' || query.workflow?.includes('/')
-      ? Promise.reject(new TypeError(`\`${query.workflow}\` is not a workflow file name`))
+    'ci.runsPage': (repo: RepoRef, query: CiRunQuery = {}) => query.workflow?.split('/').some(segment => segment === '' || segment === '.' || segment === '..')
+      ? Promise.reject(new TypeError(`\`${query.workflow}\` is not a workflow file: it has an empty, \`.\` or \`..\` segment`))
       : listRuns(repo, query),
     'repos.byOwnerPage': (owner: RepoRef, query: OwnerRepoQuery = {}) => nonEmptyPage(async (cursor) => {
       const page: Page<Repo> = await listOwnerRepos(owner, { ...query, cursor })

@@ -1008,6 +1008,7 @@ describe('forgejo actions', () => {
         return Response.json({
           total_count: 2,
           workflow_runs: [
+            { id: 3, workflow_id: 'sub/test.yml', status: 'success' },
             { id: 2, workflow_id: 'lint.yml', status: 'success' },
             { id: 1, workflow_id: 'test.yml', status: 'success' },
           ],
@@ -1016,11 +1017,16 @@ describe('forgejo actions', () => {
     })
 
     const page = await provider.ci.runs(repo, { workflow: 'test.yml' }).page()
+    const nested = await provider.ci.runs(repo, { workflow: 'sub/test.yml' }).page()
 
-    expect(urls).toEqual(['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?workflow_id=test.yml&page=1&limit=50'])
+    expect(urls).toEqual([
+      'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?workflow_id=test.yml&page=1&limit=50',
+      'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?workflow_id=sub%2Ftest.yml&page=1&limit=50',
+    ])
     expect(page.items.map(run => [run.ref.id, run.name])).toEqual([
       ['1', 'test.yml'],
     ])
+    expect(nested.items.map(run => run.ref.id)).toEqual(['3'])
   })
 
   it('streams a job log', async () => {
@@ -1248,6 +1254,39 @@ describe('gitea actions', () => {
 
     expect(urls).toHaveLength(1)
     expect(page.items.map(item => item.number)).toEqual(['1'])
+  })
+
+  it('matches a nested workflow by its path in the workflows directory, also on Gitea 1.27', async () => {
+    const listing = {
+      total_count: 2,
+      workflow_runs: [
+        {
+          ...run(3, 'completed', 'success'),
+          path: 'sub/nested.yml@refs/heads/main',
+        },
+        {
+          ...run(2, 'completed', 'success'),
+          path: 'nested.yml@refs/heads/main',
+        },
+      ],
+    }
+    const url = 'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=1&limit=50'
+    const { provider: old, urls: oldUrls } = serve(new Map([
+      [url, listing],
+    ]))
+    const { provider: current, urls: currentUrls } = serve(new Map([
+      [url, listing],
+    ]), '1.27.0')
+
+    const fromOld = await old.ci.runs(repo, { workflow: 'sub/nested.yml' }).page()
+    const fromCurrent = await current.ci.runs(repo, { workflow: 'sub/nested.yml' }).page()
+
+    expect([
+      ...oldUrls,
+      ...currentUrls,
+    ]).toEqual([url, url])
+    expect(fromOld.items.map(item => item.name)).toEqual(['sub/nested.yml'])
+    expect(fromCurrent.items.map(item => item.name)).toEqual(['sub/nested.yml'])
   })
 
   it('switches to the workflow listing once `refreshCapabilities()` reads Gitea 1.27', async () => {

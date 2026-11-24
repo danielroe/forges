@@ -827,7 +827,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       : ''
     if (isGitea) {
       const workflow = query.workflow
-      const byWorkflow = Boolean(workflow) && giteaWorkflowRuns()
+      /** A nested workflow is filtered on the page, not sent as a path segment. */
+      const byWorkflow = Boolean(workflow) && !workflow!.includes('/') && giteaWorkflowRuns()
       const path = byWorkflow
         ? `${repoPath(repo)}/actions/workflows/${encodeURIComponent(workflow!)}/runs${statuses}`
         : `${repoPath(repo)}/actions/runs${statuses}`

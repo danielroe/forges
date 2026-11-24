@@ -831,7 +831,7 @@ export interface CiJob {
 /** Filters for `ci.runs()`. */
 export interface CiRunQuery extends PageOptions {
   branch?: string
-  /** The workflow's file name, such as `ci.yml`. GitHub also takes the workflow's numeric id. */
+  /** The workflow file from its directory, such as `ci.yml` or `sub/ci.yml`, or a GitHub id. */
   workflow?: string
   /** Normalised state; forges that filter on their own names translate it. */
   state?: Exclude<CheckState, 'unknown'>
