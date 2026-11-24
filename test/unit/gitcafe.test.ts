@@ -604,11 +604,16 @@ describe('gitcafe reads', () => {
       workflowPath: '.github/workflows/lint.yml',
       workflowName: 'lint',
     }
+    const nested = {
+      ...run('run_5', 'completed', 'success'),
+      workflowPath: '.github/workflows/sub/ci.yml',
+    }
     const { forge: other } = provider({
       [`GET ${base}/actions/runs`]: {
         status: 200,
         body: {
           items: [
+            nested,
             lint,
             run('run_1', 'completed', 'success'),
           ],
@@ -617,8 +622,10 @@ describe('gitcafe reads', () => {
       },
     })
     const ci = await other.ci.runs(repo, { workflow: 'ci.yml' }).page()
+    const sub = await other.ci.runs(repo, { workflow: 'sub/ci.yml' }).page()
 
     expect(ci.items.map(item => item.ref.id)).toEqual(['run_1'])
+    expect(sub.items.map(item => item.ref.id)).toEqual(['run_5'])
   })
 
   it('reports a commit status with the link in `target_url`', async () => {

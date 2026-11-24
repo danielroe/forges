@@ -531,6 +531,11 @@ export function toStatusCheck(site: Site, repo: RepoRef, raw: GitCafeStatus): Ch
   }
 }
 
+/** The workflow file from its directory, such as `sub/ci.yml` for `.github/workflows/sub/ci.yml`. */
+export function workflowFile(raw: GitCafeRun): string {
+  return raw.workflowPath.replace(/^\.[^/]+\/workflows\//, '')
+}
+
 /** GitCafe says `running` where the shared mapping expects GitHub's `in_progress`; neither is `completed`, so both stay pending. */
 export function toRun(site: Site, repo: RepoRef, raw: GitCafeRun): CiRun {
   return {
