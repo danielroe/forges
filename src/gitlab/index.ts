@@ -1426,7 +1426,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] },
           warnings: query.workflow && isFirstPage(query.cursor)
             ? [
-                { code: 'filter_unsupported', message: 'GitLab runs one pipeline per commit, not one per workflow; the workflow filter was ignored' },
+                { code: 'filter_unsupported', message: 'GitLab pipelines have no workflow to filter by; the workflow filter was ignored' },
               ]
             : undefined,
         })),

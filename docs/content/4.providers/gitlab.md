@@ -101,7 +101,7 @@ GitLab reports the number of changed files on a single merge request, but not th
 
 `ci.rerunFailed()` retries the pipeline, so GitLab re-runs its canceled jobs as well as its failed ones. The jobs that `threads.checks()` returns have the pipeline in `run`. When the pipeline ran in a fork, their refs name the fork.
 
-GitLab runs one pipeline per commit from `.gitlab-ci.yml`, so there's no workflow to pick. `ci.runs()` ignores `workflow` and says so with a `filter_unsupported` warning on the first page.
+GitLab pipelines have no workflow to pick, so `ci.runs()` ignores `workflow` and says so with a `filter_unsupported` warning on the first page.
 
 ## Branch rules
 
