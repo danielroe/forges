@@ -162,6 +162,9 @@ const GITEA_RERUN_FAILED = '1.26'
 /** Gitea version with replies to review comments. */
 const GITEA_REVIEW_REPLIES = '1.27'
 
+/** Gitea version with the runs of one workflow. */
+const GITEA_WORKFLOW_RUNS = '1.27'
+
 /** The Forgejo and Gitea version with activity feeds. */
 const ACTIVITY_FEEDS = '1.20'
 
@@ -808,25 +811,45 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     })
   }
 
+  /** The version `refreshCapabilities()` read. */
+  let probedVersion: string | undefined
+
+  /** Whether Gitea lists the runs of one workflow, from 1.27. */
+  function giteaWorkflowRuns(): boolean {
+    return hostOf(baseUrl) === hostOf(profile.web.baseUrl) || versionAtLeast(options.instanceVersion ?? probedVersion, GITEA_WORKFLOW_RUNS)
+  }
+
+  /** Forgejo before 15.0 ignores `ref` and `workflow_id`, so both are checked on the page too. */
   async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
     const states = isGitea ? GITEA_ACTION_STATES : ACTION_STATES
     const statuses = query.state
       ? `?${states[query.state].map(status => `status=${status}`).join('&')}`
       : ''
-    const path = `${repoPath(repo)}/actions/runs${statuses}`
     if (isGitea) {
-      return toPage(await actionsPage<GiteaActionRun>(path, 'workflow_runs', { branch: query.branch, page: 1, limit: query.perPage ?? 50 }, query), raw => toGiteaActionRun(repo, raw))
+      const workflow = query.workflow
+      /** A nested workflow is filtered on the page, not sent as a path segment. */
+      const byWorkflow = Boolean(workflow) && !workflow!.includes('/') && giteaWorkflowRuns()
+      const path = byWorkflow
+        ? `${repoPath(repo)}/actions/workflows/${encodeURIComponent(workflow!)}/runs${statuses}`
+        : `${repoPath(repo)}/actions/runs${statuses}`
+      const result = await actionsPage<GiteaActionRun>(path, 'workflow_runs', { branch: query.branch, page: 1, limit: query.perPage ?? 50 }, query)
+      return toPage(result, (raw) => {
+        const run = toGiteaActionRun(repo, raw)
+        return byWorkflow || !workflow || run.name === workflow
+          ? run
+          : undefined
+      })
     }
     // Without `page`, Forgejo ignores `limit` and sends the whole run history.
-    const result = await actionsPage<ForgejoActionRun>(path, 'workflow_runs', {
+    const result = await actionsPage<ForgejoActionRun>(`${repoPath(repo)}/actions/runs${statuses}`, 'workflow_runs', {
       ref: query.branch
         ? `refs/heads/${query.branch}`
         : undefined,
+      workflow_id: query.workflow || undefined,
       page: 1,
       limit: query.perPage ?? 50,
     }, query)
-    // Forgejo before 15.0 ignores `ref`, so the branch is checked here too.
-    return toPage(result, raw => query.branch && actionBranch(raw) !== query.branch
+    return toPage(result, raw => (query.branch && actionBranch(raw) !== query.branch) || (query.workflow && raw.workflow_id !== query.workflow)
       ? undefined
       : toActionRun(repo, raw))
   }
@@ -1003,7 +1026,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),
     },
-    probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
+    probeVersion: async () => {
+      probedVersion = (await fetcher.json<{ version?: string }>('/version')).data.version
+      return probedVersion
+    },
     users: {
       get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),
       me: verb(true, options => readUser('/user', options?.signal)),

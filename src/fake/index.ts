@@ -173,6 +173,8 @@ export interface FakeRunSeed {
   /** The repository as `owner/name`. */
   repo: string
   name: string
+  /** The file name that `ci.runs({ workflow })` matches. Defaults to `name`. */
+  workflow?: string
   state?: CheckState
   branch?: string
   sha?: string
@@ -291,6 +293,7 @@ export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
 
 interface FakeRunState {
   run: CiRun
+  workflow: string
   jobs: Array<{ job: CiJob, log: string }>
 }
 
@@ -1104,6 +1107,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     const id = String(repo.runs.length + 1)
     const ref: CiRunRef = { ...origin, repo: repo.repo.ref, id }
     repo.runs.push({
+      workflow: seed.workflow ?? seed.name,
       run: {
         ref,
         name: seed.name,
@@ -2290,6 +2294,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       ci: {
         runsPage: verb(support('ci.runs', true), async (repo, query = {}) => pageOf(
           repoState(repo).runs
+            .filter(item => !query.workflow || item.workflow === query.workflow)
             .map(item => item.run)
             .filter(run => (!query.branch || run.branch === query.branch) && (!query.state || run.state === query.state))
             .toReversed(),

@@ -809,6 +809,11 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
                     { code: 'filter_unsupported' as const, message: 'Sourcehut cannot filter builds by branch or state' },
                   ]
                 : [],
+              ...query.workflow
+                ? [
+                    { code: 'filter_unsupported' as const, message: 'Sourcehut builds have manifests, not workflows; the workflow filter was ignored' },
+                  ]
+                : [],
             ]
           : undefined
         return {

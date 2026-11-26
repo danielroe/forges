@@ -4639,6 +4639,10 @@
         "branch": {
           "type": "string"
         },
+        "workflow": {
+          "type": "string",
+          "description": "The workflow file from its directory, such as `ci.yml` or `sub/ci.yml`, or a GitHub id."
+        },
         "state": {
           "type": "string",
           "enum": [

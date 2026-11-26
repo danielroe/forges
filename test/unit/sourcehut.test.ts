@@ -537,6 +537,13 @@ describe('sourcehut', () => {
     expect(await new Response(await forge.ci.log(jobRef)).text()).toBe('the log')
   })
 
+  it('warns that builds have no workflow to filter by', async () => {
+    const { forge } = provider()
+    const page = await forge.ci.runs(repo, { workflow: 'ci.yml' }).page()
+
+    expect(page.warnings?.map(warning => warning.message)).toContain('Sourcehut builds have manifests, not workflows; the workflow filter was ignored')
+  })
+
   it('attributes an account-wide build to its account, not the queried repository', async () => {
     // `jobs` lists the authenticated account's builds and never names a job's
     // repository, so the run ref follows the job's account rather than `repo`.
