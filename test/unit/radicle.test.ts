@@ -287,4 +287,137 @@ describe('radicle', () => {
     })).rejects.toThrow('is not a Radicle patch id')
     expect(calls).toEqual([])
   })
+
+  it('lists archived and then merged patches for `closed`', async () => {
+    const merged = {
+      ...patch('3'.repeat(40), 'open'),
+      state: {
+        status: 'merged',
+        revision: '3'.repeat(40),
+        commit: head,
+      },
+    }
+    const { forge } = node({
+      [`/api/v1/repos/rad:${repo.name}`]: project,
+      [`/api/v1/repos/rad:${repo.name}/patches?status=archived&page=0&perPage=30`]: [
+        {
+          ...patch('4'.repeat(40), 'open'),
+          state: { status: 'archived' },
+        },
+      ],
+      [`/api/v1/repos/rad:${repo.name}/patches?status=merged&page=0&perPage=30`]: [merged],
+    })
+
+    const archived = await forge.threads.list(repo, { kind: 'pull_request', state: 'closed' }).page()
+    const rest = await forge.threads.list(repo, { kind: 'pull_request', state: 'closed', cursor: archived.cursor }).page()
+
+    expect([
+      ...archived.items,
+      ...rest.items,
+    ].map(thread => thread.state)).toEqual(['closed', 'merged'])
+  })
+
+  it('keeps a comment edited after `since`, and links a ref without `externalId`', async () => {
+    const edited = {
+      ...comment('1'.repeat(40), 100),
+      edits: [
+        { author, body: 'old', timestamp: 100 },
+        { author, body: 'new', timestamp: 300 },
+      ],
+    }
+    const { forge } = node({
+      [`/api/v1/repos/rad:${repo.name}/issues/${'f'.repeat(40)}`]: {
+        id: 'f'.repeat(40),
+        author,
+        title: 'An issue',
+        state: { status: 'open' },
+        assignees: [],
+        discussion: [
+          comment('f'.repeat(40), 50),
+          edited,
+        ],
+        labels: [],
+      },
+    })
+    const ref = {
+      ...origin,
+      repo,
+      kind: 'issue',
+      number: 'f'.repeat(40),
+    } as const
+
+    const recent = await forge.threads.comments(ref, {
+      since: new Date(250_000),
+    }).page()
+    const thread = await forge.threads.get(ref)
+
+    expect(recent.items.map(item => item.body)).toEqual(['new'])
+    expect(thread.url).toBe(`https://radicle.network/nodes/seed.radicle.dev/rad:${repo.name}/issues/${'f'.repeat(40)}`)
+  })
+
+  it('diffs the merged revision, pages the files, and counts the merge as activity', async () => {
+    const [first, second] = [
+      '5'.repeat(40),
+      '6'.repeat(40),
+    ]
+    const revision = (id: string, base: string, oid: string) => ({
+      ...patch(id, 'open').revisions[0],
+      id,
+      base,
+      oid,
+      timestamp: 10,
+    })
+    const raw = {
+      ...patch(first, 'open'),
+      state: { status: 'merged', revision: first, commit: head },
+      merges: [
+        {
+          author,
+          commit: head,
+          timestamp: 500,
+          revision: first,
+        },
+      ],
+      revisions: [
+        revision(first, 'a'.repeat(40), 'b'.repeat(40)),
+        revision(second, 'c'.repeat(40), 'd'.repeat(40)),
+      ],
+    }
+    const files = ['a', 'b', 'c'].map(path => ({
+      status: 'added',
+      path,
+      new: { oid: head, mode: 'blob' },
+      diff: { type: 'empty' },
+    }))
+    const { forge, calls } = node({
+      [`/api/v1/repos/rad:${repo.name}`]: project,
+      [`/api/v1/repos/rad:${repo.name}/patches/${first}`]: raw,
+      [`/api/v1/repos/rad:${repo.name}/diff/${'a'.repeat(40)}/${'b'.repeat(40)}`]: {
+        diff: { files, stats: {} },
+        commits: [],
+      },
+    })
+    const ref = {
+      ...origin,
+      repo,
+      kind: 'pull_request',
+      number: first,
+    } as const
+
+    const page = await forge.threads.files(ref, { perPage: 2 }).page()
+    const next = await forge.threads.files(ref, { perPage: 2, cursor: page.cursor }).page()
+    const thread = await forge.threads.get(ref)
+
+    expect([
+      page.items.map(file => file.path),
+      next.items.map(file => file.path),
+      next.cursor,
+    ]).toEqual([
+      ['a', 'b'],
+      ['c'],
+      undefined,
+    ])
+    expect(calls.some(url => url.includes(`/diff/${'c'.repeat(40)}`))).toBe(false)
+    expect(thread.lastActivityAt).toEqual(new Date(500_000))
+  })
 })

@@ -1,6 +1,6 @@
 import type { Actor, ChangedFile, Comment, Commit, CommitSignature, ForgeOrigin, Label, ReactionContent, ReactionSummary, Repo, RepoRef, ResolvedThreadRef, Review, ReviewComment, ReviewState, Thread, ThreadState, TreeEntry } from '../model.ts'
 import type { RadicleAuthor, RadicleComment, RadicleCommit, RadicleFileDiff, RadicleIssue, RadiclePatch, RadicleReaction, RadicleRepository, RadicleRevision, RadicleTreeEntry } from './types.ts'
-import { radicleRepoRef } from './web.ts'
+import { radicleRepoRef, ridOf } from './web.ts'
 
 export const FORGE = 'radicle'
 
@@ -79,7 +79,7 @@ export function toRepo(origin: ForgeOrigin, raw: RadicleRepository, webUrl: stri
     isFork: false,
     isArchived: false,
     topics: [],
-    url: `${webUrl}/${ref.externalId}`,
+    url: `${webUrl}/${ridOf(ref)}`,
     cloneUrls: { https: `https://${origin.instance}/${ref.name}.git` },
     ...issues
       ? { openIssueCount: issues.open }
@@ -97,7 +97,7 @@ export function toThreadRef(origin: ForgeOrigin, repo: RepoRef, kind: 'issue' | 
 }
 
 function threadUrl(webUrl: string, ref: ResolvedThreadRef): string {
-  return `${webUrl}/${ref.repo.externalId}/${ref.kind === 'issue'
+  return `${webUrl}/${ridOf(ref.repo)}/${ref.kind === 'issue'
     ? 'issues'
     : 'patches'}/${ref.number}`
 }
@@ -164,7 +164,7 @@ const PATCH_STATES: Record<RadiclePatch['state']['status'], ThreadState> = {
 }
 
 /** The revision a patch is judged by: the merged one, or else the latest. */
-function currentRevision(raw: RadiclePatch): RadicleRevision | undefined {
+export function currentRevision(raw: RadiclePatch): RadicleRevision | undefined {
   return raw.state.status === 'merged'
     ? raw.revisions.find(revision => revision.id === (raw.state as { revision: string }).revision) ?? raw.revisions.at(-1)
     : raw.revisions.at(-1)
@@ -196,7 +196,14 @@ export function toPatch(origin: ForgeOrigin, repo: RepoRef, raw: RadiclePatch, w
     labels: toLabels(raw.labels),
     url: threadUrl(webUrl, ref),
     createdAt: fromSeconds(first?.timestamp),
-    lastActivityAt: fromSeconds(Math.max(...raw.revisions.map(entry => entry.timestamp), lastTimestamp(comments) ?? 0)),
+    lastActivityAt: fromSeconds(Math.max(
+      ...raw.revisions.flatMap(entry => [
+        entry.timestamp,
+        ...entry.reviews.map(review => review.timestamp),
+      ]),
+      ...raw.merges.map(entry => entry.timestamp),
+      lastTimestamp(comments) ?? 0,
+    )),
     mergedAt: fromSeconds(merge?.timestamp),
     ...merge
       ? {
@@ -319,7 +326,7 @@ export function toCommit(origin: ForgeOrigin, repo: RepoRef, raw: RadicleCommit,
     author: signature(raw.author),
     committer: signature(raw.committer, raw.committer.time),
     parents: raw.parents,
-    url: `${webUrl}/${repo.externalId}/commits/${raw.id}`,
+    url: `${webUrl}/${ridOf(repo)}/commits/${raw.id}`,
     ...files
       ? { files }
       : {},

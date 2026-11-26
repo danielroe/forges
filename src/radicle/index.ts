@@ -8,7 +8,7 @@ import { decodeText, isSha } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { NotFoundError, UnsupportedOperationError } from '../errors.ts'
 import { getManyConcurrently, phased, requireIssueOrPull } from '../utils.ts'
-import { FORGE, toChangedFile, toComment, toCommit, toIssue, toPatch, toRepo, toReviews, toTreeEntry } from './normalise.ts'
+import { currentRevision, FORGE, toChangedFile, toComment, toCommit, toIssue, toPatch, toRepo, toReviews, toTreeEntry } from './normalise.ts'
 import { RADICLE_EXPLORER, RADICLE_WEB, ridOf } from './web.ts'
 
 /** A seed node serves its API to anyone, so there's nothing to sign in with. */
@@ -56,6 +56,22 @@ function numbered<T>(items: T[], index: number, size: number): Page<T> {
           token: String(index + 1),
         },
       }
+}
+
+/** One page of a list that httpd returns whole. */
+function sliced<T>(all: T[], options: PageOptions): Page<T> {
+  const index = pageIndex(options.cursor)
+  const size = pageSize(options.perPage)
+  const items = all.slice(index * size, (index + 1) * size)
+  return (index + 1) * size < all.length
+    ? {
+        items,
+        cursor: {
+          token: String(index + 1),
+        },
+        total: all.length,
+      }
+    : { items, total: all.length }
 }
 
 const ISSUE_STATUS = { open: 'open', closed: 'closed', all: 'all' } as const
@@ -227,7 +243,9 @@ function setupRadicle({ origin, fetcher, baseUrl }: ProviderContext<RadicleOptio
     if (query.kind !== 'issue') {
       const statuses = state === 'open'
         ? ['open', 'draft']
-        : [PATCH_STATUS[state]]
+        : state === 'closed'
+          ? ['archived', 'merged']
+          : [PATCH_STATUS[state]]
       phases.push(...statuses.map(status => (cursor?: { token?: string }) => patchesPage(repoRef, query, status, cursor)))
     }
     return phased(phases, query.cursor)
@@ -242,41 +260,20 @@ function setupRadicle({ origin, fetcher, baseUrl }: ProviderContext<RadicleOptio
     const since = listOptions.since && listOptions.since.getTime() / 1000
     const kept = since === undefined
       ? comments
-      : comments.filter(comment => comment.timestamp >= since)
-    const index = pageIndex(listOptions.cursor)
-    const size = pageSize(listOptions.perPage)
-    const slice = kept.slice(index * size, (index + 1) * size)
-    return {
-      ...numbered(slice.map(raw => toComment(origin, ref, raw, webUrl)), index, size),
-      ...(index + 1) * size >= kept.length
-        ? { cursor: undefined }
-        : {},
-      total: kept.length,
-    }
+      : comments.filter(comment => Math.max(comment.timestamp, ...comment.edits.map(edit => edit.timestamp)) >= since)
+    return sliced(kept.map(raw => toComment(origin, ref, raw, webUrl)), listOptions)
   }
 
   async function reviewsPage(thread: ThreadRef, listOptions: PageOptions = {}): Promise<Page<Review>> {
     const ref = requirePatch(thread, 'reviewed')
-    const reviews = toReviews(origin, ref, await patch(ref, listOptions.signal))
-    const index = pageIndex(listOptions.cursor)
-    const size = pageSize(listOptions.perPage)
-    const items = reviews.slice(index * size, (index + 1) * size)
-    return (index + 1) * size < reviews.length
-      ? {
-          items,
-          cursor: {
-            token: String(index + 1),
-          },
-          total: reviews.length,
-        }
-      : { items, total: reviews.length }
+    return sliced(toReviews(origin, ref, await patch(ref, listOptions.signal)), listOptions)
   }
 
-  /** The latest revision of a patch, against the base it was written on. */
+  /** The revision a patch is judged by, against the base it was written on. */
   async function revisionDiff(thread: ThreadRef, signal?: AbortSignal): Promise<{ ref: ResolvedThreadRef, comparison: RadicleComparison }> {
     const ref = requirePatch(thread, 'compared')
     const raw = await patch(ref, signal)
-    const revision = raw.revisions.at(-1)
+    const revision = currentRevision(raw)
     if (!revision) {
       throw new NotFoundError(`Patch ${ref.number} has no revision`, 404, '', origin)
     }
@@ -390,15 +387,11 @@ function setupRadicle({ origin, fetcher, baseUrl }: ProviderContext<RadicleOptio
       reviewsPage: verb(true, reviewsPage),
       filesPage: verb(true, async (thread, listOptions: PageOptions = {}) => {
         const { comparison } = await revisionDiff(thread, listOptions.signal)
-        return {
-          items: comparison.diff.files.map(toChangedFile),
-        }
+        return sliced(comparison.diff.files.map(toChangedFile), listOptions)
       }),
       commitsPage: verb(true, async (thread, listOptions: PageOptions = {}) => {
         const { ref, comparison } = await revisionDiff(thread, listOptions.signal)
-        return {
-          items: comparison.commits.map(commit => toCommit(origin, ref.repo, commit, webUrl)),
-        }
+        return sliced(comparison.commits.map(commit => toCommit(origin, ref.repo, commit, webUrl)), listOptions)
       }),
     },
     contents: {
