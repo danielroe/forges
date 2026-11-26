@@ -201,6 +201,7 @@ export function toPatch(origin: ForgeOrigin, repo: RepoRef, raw: RadiclePatch, w
         entry.timestamp,
         ...entry.reviews.map(review => review.timestamp),
       ]),
+      lastTimestamp(raw.revisions.flatMap(entry => entry.reviews.flatMap(review => review.comments))) ?? 0,
       ...raw.merges.map(entry => entry.timestamp),
       lastTimestamp(comments) ?? 0,
     )),

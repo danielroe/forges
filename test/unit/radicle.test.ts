@@ -420,4 +420,47 @@ describe('radicle', () => {
     expect(calls.some(url => url.includes(`/diff/${'c'.repeat(40)}`))).toBe(false)
     expect(thread.lastActivityAt).toEqual(new Date(500_000))
   })
+
+  it('counts an inline review comment edited late as activity', async () => {
+    const id = '7'.repeat(40)
+    const inline = {
+      ...comment('8'.repeat(40), 20),
+      edits: [
+        { author, body: 'x', timestamp: 20 },
+        { author, body: 'y', timestamp: 900 },
+      ],
+    }
+    const base = patch(id, 'open')
+    const raw = {
+      ...base,
+      revisions: [
+        {
+          ...base.revisions[0],
+          reviews: [
+            {
+              id: '9'.repeat(40),
+              author,
+              verdict: null,
+              summary: null,
+              comments: [inline],
+              timestamp: 30,
+            },
+          ],
+        },
+      ],
+    }
+    const { forge } = node({
+      [`/api/v1/repos/rad:${repo.name}`]: project,
+      [`/api/v1/repos/rad:${repo.name}/patches/${id}`]: raw,
+    })
+
+    const thread = await forge.threads.get({
+      ...origin,
+      repo,
+      kind: 'pull_request',
+      number: id,
+    })
+
+    expect(thread.lastActivityAt).toEqual(new Date(900_000))
+  })
 })
