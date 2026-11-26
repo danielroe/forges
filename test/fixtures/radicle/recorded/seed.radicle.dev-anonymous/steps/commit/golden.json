@@ -1,0 +1,58 @@
+{
+  "ref": {
+    "forge": "radicle",
+    "instance": "seed.radicle.dev",
+    "repo": {
+      "forge": "radicle",
+      "instance": "seed.radicle.dev",
+      "owner": "rad",
+      "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+      "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+    },
+    "sha": "e37ff3447ec38823361c71910455bec5ad74035c"
+  },
+  "sha": "e37ff3447ec38823361c71910455bec5ad74035c",
+  "message": "cli: add timestamp to output\n\nWith the Run storing the timestamp, it can be added to the CLI output\nas well.\n\nWhen pretty printing the timestamp, `chrono` is used to have a\ndate-time format.",
+  "author": {
+    "name": "Fintan Halpenny",
+    "email": "redacted@example.invalid"
+  },
+  "committer": {
+    "name": "Fintan Halpenny",
+    "email": "redacted@example.invalid",
+    "date": "2025-12-28T15:16:29.000Z"
+  },
+  "parents": [
+    "c2697d78543ec59a072b0561edbe88e62f6c90a3"
+  ],
+  "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/e37ff3447ec38823361c71910455bec5ad74035c",
+  "files": [
+    {
+      "path": "Cargo.lock",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "ec13c01716c30972ce1423d2c05eb288c995e556",
+      "isBinary": false,
+      "additions": 10,
+      "deletions": 0
+    },
+    {
+      "path": "Cargo.toml",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "6d635a7f3dd9034adb24b4f7081ae11bfce21d6d",
+      "isBinary": false,
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "path": "src/display.rs",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "67f512e7340fab9593e9c1f33f493235bdeca4ad",
+      "isBinary": false,
+      "additions": 11,
+      "deletions": 2
+    }
+  ]
+}

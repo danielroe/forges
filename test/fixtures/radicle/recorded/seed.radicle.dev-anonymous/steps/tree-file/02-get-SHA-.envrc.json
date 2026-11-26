@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/blob/c6d10d40f5aadaa1898f65b8d77ca524336cb1f9/.envrc"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "binary": false,
+      "name": ".envrc",
+      "content": "use flake\n",
+      "path": ".envrc",
+      "lastCommit": {
+        "id": "d5685cb7557203878fc9f5ba8e71e2b617ba1d2d",
+        "author": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "radicle-job",
+        "description": "The genesis of the `Job` collaborative object",
+        "parents": [],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1743000740
+        }
+      }
+    }
+  }
+}

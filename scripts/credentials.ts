@@ -268,7 +268,7 @@ function credentialCell({ required, credentials }: ForgeRequirements): string {
   const sets = credentials.map(({ fields }) => code(fields)).join(', or ')
   return required.length
     ? `${code(required)}, and ${sets}`
-    : sets
+    : sets || 'None'
 }
 
 function optionalCell({ credentials }: ForgeRequirements): string {

@@ -1,0 +1,1114 @@
+{
+  "base": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+  "head": "e37ff3447ec38823361c71910455bec5ad74035c",
+  "aheadBy": 36,
+  "commits": [
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "e37ff3447ec38823361c71910455bec5ad74035c"
+      },
+      "sha": "e37ff3447ec38823361c71910455bec5ad74035c",
+      "message": "cli: add timestamp to output\n\nWith the Run storing the timestamp, it can be added to the CLI output\nas well.\n\nWhen pretty printing the timestamp, `chrono` is used to have a\ndate-time format.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-12-28T15:16:29.000Z"
+      },
+      "parents": [
+        "c2697d78543ec59a072b0561edbe88e62f6c90a3"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/e37ff3447ec38823361c71910455bec5ad74035c"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "c2697d78543ec59a072b0561edbe88e62f6c90a3"
+      },
+      "sha": "c2697d78543ec59a072b0561edbe88e62f6c90a3",
+      "message": "lib: add timestamp to Run\n\nFor each Run, the timestamp can be easily tracked using the\noperation's timestamp. This field is added to Run to provide more\ninformation to end users.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-12-28T15:15:18.000Z"
+      },
+      "parents": [
+        "525dc9a9e43217e038aa26a1dcb082ada32f1192"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/c2697d78543ec59a072b0561edbe88e62f6c90a3"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "525dc9a9e43217e038aa26a1dcb082ada32f1192"
+      },
+      "sha": "525dc9a9e43217e038aa26a1dcb082ada32f1192",
+      "message": "Release 0.4.0",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-10-20T10:49:17.000Z"
+      },
+      "parents": [
+        "1ac2251ac8b08dcbd23e3d72fde03e0485d93352"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/525dc9a9e43217e038aa26a1dcb082ada32f1192"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "1ac2251ac8b08dcbd23e3d72fde03e0485d93352"
+      },
+      "sha": "1ac2251ac8b08dcbd23e3d72fde03e0485d93352",
+      "message": "feat: add --version flag",
+      "author": {
+        "name": "Defelo",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-10-08T13:53:43.000Z"
+      },
+      "parents": [
+        "8935de56d3bd09c8f512472eb811326615c53728"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/1ac2251ac8b08dcbd23e3d72fde03e0485d93352"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "8935de56d3bd09c8f512472eb811326615c53728"
+      },
+      "sha": "8935de56d3bd09c8f512472eb811326615c53728",
+      "message": "chore: update radicle 0.20.0",
+      "author": {
+        "name": "Sebastian Martinez",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Sebastian Martinez",
+        "email": "redacted@example.invalid",
+        "date": "2025-10-08T13:46:12.000Z"
+      },
+      "parents": [
+        "6a23756c2ea6b1d6e23f0778ec81851db6e7df54"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/8935de56d3bd09c8f512472eb811326615c53728"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "6a23756c2ea6b1d6e23f0778ec81851db6e7df54"
+      },
+      "sha": "6a23756c2ea6b1d6e23f0778ec81851db6e7df54",
+      "message": "fix(src/bin/radicle-job.rs): add missing elided hidden lifetime\n\nThe elided hidden lifetime in the return type can lead to confusion,\nand from Rust 1.89.0 the compiler warns about it by default. Avoid the\nwarning by making the elided lifetime explicit.\n\nThe release blog post explains this:\nhttps://blog.rust-lang.org/2025/08/07/Rust-1.89.0/#mismatched-lifetime-syntaxes-lint\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-08-19T14:51:08.000Z"
+      },
+      "parents": [
+        "127f2e281afcaa12aea60ca491fde01f4b642c71"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/6a23756c2ea6b1d6e23f0778ec81851db6e7df54"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "127f2e281afcaa12aea60ca491fde01f4b642c71"
+      },
+      "sha": "127f2e281afcaa12aea60ca491fde01f4b642c71",
+      "message": "chore: Release radicle-job version 0.3.0",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-08-15T10:34:39.000Z"
+      },
+      "parents": [
+        "19df819950d35a97039b6e20316f6cdaf66e1075"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/127f2e281afcaa12aea60ca491fde01f4b642c71"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "19df819950d35a97039b6e20316f6cdaf66e1075"
+      },
+      "sha": "19df819950d35a97039b6e20316f6cdaf66e1075",
+      "message": "chore: update CHANGELOG for v0.3.0",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-08-15T10:34:00.000Z"
+      },
+      "parents": [
+        "648bdb82e5c939554d0a92712a99f6c78c6a8172"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/19df819950d35a97039b6e20316f6cdaf66e1075"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "648bdb82e5c939554d0a92712a99f6c78c6a8172"
+      },
+      "sha": "648bdb82e5c939554d0a92712a99f6c78c6a8172",
+      "message": "chore(nix): add cargo-release\n\nAdding `cargo-release` for managing crate releases",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-08-15T10:29:29.000Z"
+      },
+      "parents": [
+        "979476291c035d4bc4e3f92187fadedfc3daef65"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/648bdb82e5c939554d0a92712a99f6c78c6a8172"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "979476291c035d4bc4e3f92187fadedfc3daef65"
+      },
+      "sha": "979476291c035d4bc4e3f92187fadedfc3daef65",
+      "message": "chore: radicle 0.18.0",
+      "author": {
+        "name": "Sebastian Martinez",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-08-15T09:07:07.000Z"
+      },
+      "parents": [
+        "857df23f49ecd785da280c674dfda047f62b9446"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/979476291c035d4bc4e3f92187fadedfc3daef65"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "857df23f49ecd785da280c674dfda047f62b9446"
+      },
+      "sha": "857df23f49ecd785da280c674dfda047f62b9446",
+      "message": "chore: v0.2.0 crates release",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-07-23T12:48:08.000Z"
+      },
+      "parents": [
+        "edf0eed0a5637924e17b66ee4b3e382de2844656"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/857df23f49ecd785da280c674dfda047f62b9446"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "edf0eed0a5637924e17b66ee4b3e382de2844656"
+      },
+      "sha": "edf0eed0a5637924e17b66ee4b3e382de2844656",
+      "message": "chore: add CHANGELOG.md",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-07-23T12:41:21.000Z"
+      },
+      "parents": [
+        "b9d8df7d33df0db25f05a6696935eb0e6f82ae57"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/edf0eed0a5637924e17b66ee4b3e382de2844656"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "b9d8df7d33df0db25f05a6696935eb0e6f82ae57"
+      },
+      "sha": "b9d8df7d33df0db25f05a6696935eb0e6f82ae57",
+      "message": "chore: radicle 0.16.1\n\nUpdate the `radicle` dependency to `0.16.1`.",
+      "author": {
+        "name": "Rūdolfs Ošiņš",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Rūdolfs Ošiņš",
+        "email": "redacted@example.invalid",
+        "date": "2025-07-23T12:23:38.000Z"
+      },
+      "parents": [
+        "8530300d045448b7b7173d8a5280d18e493edbbb"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/b9d8df7d33df0db25f05a6696935eb0e6f82ae57"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "8530300d045448b7b7173d8a5280d18e493edbbb"
+      },
+      "sha": "8530300d045448b7b7173d8a5280d18e493edbbb",
+      "message": "feat: add --pretty to 'rad-job show'\n\nThis involves moving pretty-printing of individual jobs from\ndisplay::Jobs to display::Job.\n\nSigned-off-by: Richard Levitte <redacted@example.invalid>",
+      "author": {
+        "name": "Richard Levitte",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-07-18T09:35:40.000Z"
+      },
+      "parents": [
+        "841ea446c09563b642ae805f3626d6eac5884e69"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/8530300d045448b7b7173d8a5280d18e493edbbb"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "841ea446c09563b642ae805f3626d6eac5884e69"
+      },
+      "sha": "841ea446c09563b642ae805f3626d6eac5884e69",
+      "message": "feat: add program to manipulate and inspect job COBs",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-07-18T09:35:18.000Z"
+      },
+      "parents": [
+        "4e85d1cef3bd6d06ed4c2ad99cf0f8701c2a32bf"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/841ea446c09563b642ae805f3626d6eac5884e69"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "4e85d1cef3bd6d06ed4c2ad99cf0f8701c2a32bf"
+      },
+      "sha": "4e85d1cef3bd6d06ed4c2ad99cf0f8701c2a32bf",
+      "message": "feat: display module\n\nAdds a `display` module to hold types that are useful in tools that can display\ndata, e.g. a `rad-job` CLI",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-07-18T07:39:11.000Z"
+      },
+      "parents": [
+        "0c82a9a934564c825dbdc2d9b3d38ae314d217f0"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/4e85d1cef3bd6d06ed4c2ad99cf0f8701c2a32bf"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "0c82a9a934564c825dbdc2d9b3d38ae314d217f0"
+      },
+      "sha": "0c82a9a934564c825dbdc2d9b3d38ae314d217f0",
+      "message": "feat: add FindByCommit iterator\n\nIntroducing a `FindByCommit` iterator, which can be constructed using\n`Jobs::find_by_commit`.\n\nThis allows the caller to supply a `git::Oid` and get back an `Iterator` of all\n`Job`s that are running for that commit.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-07-18T07:39:11.000Z"
+      },
+      "parents": [
+        "574129a2d0008294818aa99ba99b3ad64ffdaeab"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/0c82a9a934564c825dbdc2d9b3d38ae314d217f0"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "574129a2d0008294818aa99ba99b3ad64ffdaeab"
+      },
+      "sha": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+      "message": "fix: inline variable in format string\n\nThis is now considered idiomatic Rust style. Found by clippy in Rust\n1.88, but will work with Rust 1.84.1.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-30T06:37:08.000Z"
+      },
+      "parents": [
+        "68cac715acaa4b2a8f8a01b590f5807f0aaa2286"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/574129a2d0008294818aa99ba99b3ad64ffdaeab"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "68cac715acaa4b2a8f8a01b590f5807f0aaa2286"
+      },
+      "sha": "68cac715acaa4b2a8f8a01b590f5807f0aaa2286",
+      "message": "fix: add https:// to homepage",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T09:30:21.000Z"
+      },
+      "parents": [
+        "83edfbc761795beffc348ca20073c0a4d5290df1"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/68cac715acaa4b2a8f8a01b590f5807f0aaa2286"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "83edfbc761795beffc348ca20073c0a4d5290df1"
+      },
+      "sha": "83edfbc761795beffc348ca20073c0a4d5290df1",
+      "message": "fix: MSRV of 1.84\n\nIt would seem like the crate `base64ct` bumped their MSRV to 1.85 and added the\nnew edition:\n\n- https://github.com/RustCrypto/formats/commit/ea10f3b1337faf08f14ba3e25edde10cad2dd07e\n- https://github.com/RustCrypto/formats/pull/1859/files\n\nThis blocks us from publishing using `rust-version = 1.82`. We bump to `1.84` to\nallow us to publish the crate.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T09:24:25.000Z"
+      },
+      "parents": [
+        "94f74a8fd209683304671c9acd40651f328b37ec"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/83edfbc761795beffc348ca20073c0a4d5290df1"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "94f74a8fd209683304671c9acd40651f328b37ec"
+      },
+      "sha": "94f74a8fd209683304671c9acd40651f328b37ec",
+      "message": "chore: add homepage and repository",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T08:20:55.000Z"
+      },
+      "parents": [
+        "5b86be0fbc94a3728fb5c7a1964648021e85c7de"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/94f74a8fd209683304671c9acd40651f328b37ec"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "5b86be0fbc94a3728fb5c7a1964648021e85c7de"
+      },
+      "sha": "5b86be0fbc94a3728fb5c7a1964648021e85c7de",
+      "message": "chore: add README file",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T06:09:34.000Z"
+      },
+      "parents": [
+        "0ce659a60bf964bb704f0f18967c0409bb7193cd"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/5b86be0fbc94a3728fb5c7a1964648021e85c7de"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "0ce659a60bf964bb704f0f18967c0409bb7193cd"
+      },
+      "sha": "0ce659a60bf964bb704f0f18967c0409bb7193cd",
+      "message": "fix: allow accessing the log URL for a run\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-11T14:08:28.000Z"
+      },
+      "parents": [
+        "4512b1091fdb41ea508d3a9dc732e18aa5d263ec"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/0ce659a60bf964bb704f0f18967c0409bb7193cd"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "4512b1091fdb41ea508d3a9dc732e18aa5d263ec"
+      },
+      "sha": "4512b1091fdb41ea508d3a9dc732e18aa5d263ec",
+      "message": "fix: make JobId (de)serializable\n\nThis makes it easier to embed in a struct that gets serialized.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-11T14:05:54.000Z"
+      },
+      "parents": [
+        "6fef4ae5309426d663129ef0d4a90753d4b366ef"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/4512b1091fdb41ea508d3a9dc732e18aa5d263ec"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "6fef4ae5309426d663129ef0d4a90753d4b366ef"
+      },
+      "sha": "6fef4ae5309426d663129ef0d4a90753d4b366ef",
+      "message": "fix: drop unused type parameter C from Jobs::get_mut\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-11T07:44:52.000Z"
+      },
+      "parents": [
+        "524dfdb12a3c88cee5919aefd3456d55f8258f97"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/6fef4ae5309426d663129ef0d4a90753d4b366ef"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "524dfdb12a3c88cee5919aefd3456d55f8258f97"
+      },
+      "sha": "524dfdb12a3c88cee5919aefd3456d55f8258f97",
+      "message": "docs: document `Jobs::get` and `Jobs::get_mut`\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>\nCo-authored-by: Fintan Halpenny <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-11T06:30:25.000Z"
+      },
+      "parents": [
+        "1ce12295c23c773b8f828326e3bc77bc66788c30"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/524dfdb12a3c88cee5919aefd3456d55f8258f97"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "1ce12295c23c773b8f828326e3bc77bc66788c30"
+      },
+      "sha": "1ce12295c23c773b8f828326e3bc77bc66788c30",
+      "message": "refactor: introduce `JobId`\n\nIntroduce a newtype `JobId` to differentiate it from the more general\n`ObjectId`.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-11T06:29:10.000Z"
+      },
+      "parents": [
+        "e917ef069e1214e80eba2d3c6bd228a3bd889091"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/1ce12295c23c773b8f828326e3bc77bc66788c30"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "e917ef069e1214e80eba2d3c6bd228a3bd889091"
+      },
+      "sha": "e917ef069e1214e80eba2d3c6bd228a3bd889091",
+      "message": "fix: infallible `action`\n\nThe `action` method does not actually return any errors.\n\nChange the return type to unit, and remove the unneccessary error handling.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-10T08:47:26.000Z"
+      },
+      "parents": [
+        "f9d9f1f1826daa25f29ba618f98d2a0cf9ea28b6"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/e917ef069e1214e80eba2d3c6bd228a3bd889091"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "f9d9f1f1826daa25f29ba618f98d2a0cf9ea28b6"
+      },
+      "sha": "f9d9f1f1826daa25f29ba618f98d2a0cf9ea28b6",
+      "message": "fix: make `Transaction` private\n\nFor the time being, it is better to hide the `Transaction` type since actions\nmight need to stay fine-grained.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-10T08:47:26.000Z"
+      },
+      "parents": [
+        "24750667f094f31ee6e5632563c9eba94e7ac953"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/f9d9f1f1826daa25f29ba618f98d2a0cf9ea28b6"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "24750667f094f31ee6e5632563c9eba94e7ac953"
+      },
+      "sha": "24750667f094f31ee6e5632563c9eba94e7ac953",
+      "message": "docs: add documentation comments to all public items that lack them\n\nSome public items of the crate were undocumented. These items are now better\ndescribed in detail, and the missing docs pragma is added to catch further\nmissing items in the future.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>\nCo-authored-by: Fintan Halpenny <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-10T08:46:18.000Z"
+      },
+      "parents": [
+        "256242f1ff8d8cb3a07435bea806b7d5f7f82d08"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/24750667f094f31ee6e5632563c9eba94e7ac953"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "256242f1ff8d8cb3a07435bea806b7d5f7f82d08"
+      },
+      "sha": "256242f1ff8d8cb3a07435bea806b7d5f7f82d08",
+      "message": "chore: radicle 0.15\n\nUpdate the `radicle` dependency to `0.15`, fixing the required API changes.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-03T13:55:55.000Z"
+      },
+      "parents": [
+        "7cd8b06c07612e2f29c9969add95be7c0a762d6c"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/256242f1ff8d8cb3a07435bea806b7d5f7f82d08"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "7cd8b06c07612e2f29c9969add95be7c0a762d6c"
+      },
+      "sha": "7cd8b06c07612e2f29c9969add95be7c0a762d6c",
+      "message": "docs: add a doc test to library, for documetation\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-05-15T12:42:35.000Z"
+      },
+      "parents": [
+        "b41229ca07af04e310b70fba24ec99f1cafc3913"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/7cd8b06c07612e2f29c9969add95be7c0a762d6c"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "b41229ca07af04e310b70fba24ec99f1cafc3913"
+      },
+      "sha": "b41229ca07af04e310b70fba24ec99f1cafc3913",
+      "message": "build(Cargo.toml): set minimum supported Rust version\n\nSets the MSRV for the crate. The `rust-toolchain.toml` file is dropped since\nthis is too retrictive when choosing choosing a toolchain for developing the\ncrate – uses exact semantics.\n\nIt is necessary to change the `flake.nix` to read this version from the\n`Cargo.toml` so that it can select the rust toolchain to use via `rust-overlay`.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>\nCo-authored-by: Fintan Halpenny <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-05-15T12:40:10.000Z"
+      },
+      "parents": [
+        "1238715ff43252c9e429abafc9a9a01db7699826"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/b41229ca07af04e310b70fba24ec99f1cafc3913"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "1238715ff43252c9e429abafc9a9a01db7699826"
+      },
+      "sha": "1238715ff43252c9e429abafc9a9a01db7699826",
+      "message": "ci(.radicle/ambient.yaml): add CI plan for Radicle CI with Ambient\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "author": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Lars Wirzenius",
+        "email": "redacted@example.invalid",
+        "date": "2025-05-15T10:16:42.000Z"
+      },
+      "parents": [
+        "8b8cb49458b8fb0a02c395fee962a409853e8501"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/1238715ff43252c9e429abafc9a9a01db7699826"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "8b8cb49458b8fb0a02c395fee962a409853e8501"
+      },
+      "sha": "8b8cb49458b8fb0a02c395fee962a409853e8501",
+      "message": "chore: update to latest radicle\n\nUse `refs/heads/master` to ensure the latest updates – including the\n`Transaction::initial` changes. This is a stop-gap until a new version of\n`radicle` is published to crates.io.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-05-14T12:03:12.000Z"
+      },
+      "parents": [
+        "d5685cb7557203878fc9f5ba8e71e2b617ba1d2d"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/8b8cb49458b8fb0a02c395fee962a409853e8501"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "d5685cb7557203878fc9f5ba8e71e2b617ba1d2d"
+      },
+      "sha": "d5685cb7557203878fc9f5ba8e71e2b617ba1d2d",
+      "message": "radicle-job\n\nThe genesis of the `Job` collaborative object",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-03-26T14:52:20.000Z"
+      },
+      "parents": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/d5685cb7557203878fc9f5ba8e71e2b617ba1d2d"
+    }
+  ],
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "850cc378efe68d7cfb5ce20881c79d88a4c8b83c",
+      "isBinary": false,
+      "additions": 0,
+      "deletions": 44
+    },
+    {
+      "path": "Cargo.lock",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "ec13c01716c30972ce1423d2c05eb288c995e556",
+      "isBinary": false,
+      "additions": 382,
+      "deletions": 931
+    },
+    {
+      "path": "Cargo.toml",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "6d635a7f3dd9034adb24b4f7081ae11bfce21d6d",
+      "isBinary": false,
+      "additions": 7,
+      "deletions": 8
+    },
+    {
+      "path": "flake.nix",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "b731c5e815ed299c7c40b169f284474488c8397f",
+      "isBinary": false,
+      "additions": 0,
+      "deletions": 2
+    },
+    {
+      "path": "src/bin/rad-job.rs",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "49c974ffa44ff4c83779e4f30d3a4550b4f83387",
+      "isBinary": false,
+      "additions": 49,
+      "deletions": 128
+    },
+    {
+      "path": "src/error.rs",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "f56fff17793bbdf65a23c2f902699b45922017d2",
+      "isBinary": false,
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "path": "src/lib.rs",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "6200a0f058ed13b7d54d560c4eadef719af6cb50",
+      "isBinary": false,
+      "additions": 91,
+      "deletions": 104
+    }
+  ]
+}

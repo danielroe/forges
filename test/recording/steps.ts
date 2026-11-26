@@ -704,6 +704,8 @@ export const STEPS: Step[] = [
   {
     name: 'owner repos',
     verb: 'repos.byOwner',
+    /** A Radicle repository has delegates, which `user repos` reads, and no owner. */
+    when: provider => provider.forge !== 'radicle',
     run: (provider, manifest) => provider.repos.byOwner(namespaceOf(manifest.repo, manifest.repo.owner), {
       visibility: 'public',
       sort: 'updated',

@@ -15,7 +15,7 @@ import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { ForgeApiError } from '../src/errors.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitcafe, gitea, gitee, github, gitlab, pushin, sourcehut, tangled, upstream } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitcafe, gitea, gitee, github, gitlab, pushin, radicle, sourcehut, tangled, upstream } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
@@ -59,10 +59,11 @@ const TOKEN_VARIABLES: Record<string, string> = {
   'gitbucket': 'GITBUCKET_TOKEN',
   'gitcafe': 'GITCAFE_TOKEN',
   'upstream': 'UPSTREAM_TOKEN',
+  'radicle': 'RADICLE_TOKEN',
 }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket|gitcafe|upstream> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket|gitcafe|upstream|radicle> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -865,6 +866,42 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           issue: ref('upstream', provider.instance, slug, 'issue', env.FIXTURE_UPSTREAM_ISSUE ?? '20'),
           feedUser: env.FIXTURE_UPSTREAM_FEED_USER,
           ...setupRepos('UPSTREAM', slug => repoRef('upstream', provider.instance, slug)),
+        },
+      }
+    }
+    case 'radicle': {
+      const provider = radicle({
+        baseUrl: env.RADICLE_BASE_URL,
+        fetch,
+        timeout,
+      })
+      const rid = (env.FIXTURE_RADICLE_REPO ?? 'rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M').replace(/^rad:/, '')
+      const repo = {
+        forge: 'radicle',
+        instance: provider.instance,
+        owner: 'rad',
+        name: rid,
+        externalId: `rad:${rid}`,
+      }
+      return {
+        provider,
+        manifest: {
+          repo,
+          issue: {
+            forge: 'radicle',
+            instance: provider.instance,
+            repo,
+            kind: 'issue',
+            number: env.FIXTURE_RADICLE_ISSUE ?? '0209a238514e946440f76f2d4184b370897a3055',
+          },
+          pull: {
+            forge: 'radicle',
+            instance: provider.instance,
+            repo,
+            kind: 'pull_request',
+            number: env.FIXTURE_RADICLE_PULL ?? '40b77f9a8f76edba228810932752b22380600fe6',
+          },
+          feedUser: env.FIXTURE_RADICLE_FEED_USER ?? 'did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM',
         },
       }
     }

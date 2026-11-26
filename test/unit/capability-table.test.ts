@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { declaredCapabilities } from '../../src/capabilities.ts'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 import { fake } from '../../src/fake/index.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitcafe, gitea, gitee, github, gitlab, pushin, sourcehut, tangled, upstream } from '../../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitcafe, gitea, gitee, github, gitlab, pushin, radicle, sourcehut, tangled, upstream } from '../../src/index.ts'
 
 const specs: ProviderSpec[] = []
 
@@ -301,6 +301,7 @@ describe('capability table', () => {
       gitbucket({ baseUrl: 'https://gitbucket.example.com' }),
       gitcafe({}),
       upstream({}),
+      radicle(),
     ]) {
       expect([
         provider.forge,

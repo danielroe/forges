@@ -1,0 +1,103 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches/40b77f9a8f76edba228810932752b22380600fe6"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": "40b77f9a8f76edba228810932752b22380600fe6",
+      "author": {
+        "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+        "alias": "fintohaps"
+      },
+      "title": "Add timestamp to Run information",
+      "state": {
+        "status": "merged",
+        "revision": "40b77f9a8f76edba228810932752b22380600fe6",
+        "commit": "e37ff3447ec38823361c71910455bec5ad74035c"
+      },
+      "target": "delegates",
+      "labels": [],
+      "merges": [
+        {
+          "author": {
+            "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+            "alias": "fintohaps"
+          },
+          "commit": "e37ff3447ec38823361c71910455bec5ad74035c",
+          "timestamp": 1772646986,
+          "revision": "40b77f9a8f76edba228810932752b22380600fe6"
+        }
+      ],
+      "assignees": [],
+      "revisions": [
+        {
+          "id": "40b77f9a8f76edba228810932752b22380600fe6",
+          "author": {
+            "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+            "alias": "fintohaps"
+          },
+          "description": "Use the COB operation timestamp to add a timestamp to each Run.\n\nThis information is also output when using the `rad job` CLI.",
+          "edits": [
+            {
+              "author": {
+                "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                "alias": "fintohaps"
+              },
+              "body": "Use the COB operation timestamp to add a timestamp to each Run.\n\nThis information is also output when using the `rad job` CLI.",
+              "timestamp": 1766935121,
+              "embeds": []
+            }
+          ],
+          "reactions": [],
+          "base": "525dc9a9e43217e038aa26a1dcb082ada32f1192",
+          "oid": "e37ff3447ec38823361c71910455bec5ad74035c",
+          "refs": [],
+          "discussions": [
+            {
+              "id": "94bb18beee41cd23b8f41be5c61d8724a013c653",
+              "author": {
+                "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                "alias": "liw"
+              },
+              "body": "For tracking how much Radicle CI is used, I would benefit from this patch in a `radicle-job` crate release. I would also benefit from having a timestamp for when a run finishes. I can compute the duration from there.\n\nThis is not a high priority or urgent request.",
+              "edits": [
+                {
+                  "author": {
+                    "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                    "alias": "liw"
+                  },
+                  "body": "For tracking how much Radicle CI is used, I would benefit from this patch in a `radicle-job` crate release. I would also benefit from having a timestamp for when a run finishes. I can compute the duration from there.\n\nThis is not a high priority or urgent request.",
+                  "timestamp": 1771595860,
+                  "embeds": []
+                }
+              ],
+              "embeds": [],
+              "reactions": [],
+              "timestamp": 1771595860,
+              "replyTo": null,
+              "location": null,
+              "resolved": false
+            }
+          ],
+          "timestamp": 1766935121,
+          "reviews": [
+            {
+              "id": "217568bc9362e5bdc9d48e5b08217c633bc59a92",
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "verdict": "accept",
+              "summary": "",
+              "comments": [],
+              "timestamp": 1767091913
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

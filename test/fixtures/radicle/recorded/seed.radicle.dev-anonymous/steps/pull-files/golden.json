@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "path": "Cargo.lock",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "ec13c01716c30972ce1423d2c05eb288c995e556",
+      "isBinary": false,
+      "additions": 10,
+      "deletions": 0
+    },
+    {
+      "path": "Cargo.toml",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "6d635a7f3dd9034adb24b4f7081ae11bfce21d6d",
+      "isBinary": false,
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "path": "src/display.rs",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "67f512e7340fab9593e9c1f33f493235bdeca4ad",
+      "isBinary": false,
+      "additions": 11,
+      "deletions": 2
+    },
+    {
+      "path": "src/lib.rs",
+      "status": "modified",
+      "statusRaw": "modified",
+      "sha": "6200a0f058ed13b7d54d560c4eadef719af6cb50",
+      "isBinary": false,
+      "additions": 37,
+      "deletions": 27
+    }
+  ]
+}

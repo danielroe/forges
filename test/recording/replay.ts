@@ -15,6 +15,7 @@ import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { pushin } from '../../src/pushin/index.ts'
+import { radicle } from '../../src/radicle/index.ts'
 import { sourcehut } from '../../src/sourcehut/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { upstream } from '../../src/upstream/index.ts'
@@ -172,6 +173,13 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
       auth: authFor(manifest),
       baseUrl: manifest.baseUrl,
       webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'radicle',
+    create: (fetch, manifest) => radicle({
+      baseUrl: manifest.baseUrl,
       fetch,
     }),
   },

@@ -250,6 +250,8 @@ export type {
 } from './provider.ts'
 export { pushin } from './pushin/index.ts'
 export type { PushinAuth, PushinOptions } from './pushin/index.ts'
+export { radicle } from './radicle/index.ts'
+export type { RadicleAuth, RadicleOptions } from './radicle/index.ts'
 export { sourcehut } from './sourcehut/index.ts'
 export type { SourcehutAuth, SourcehutOptions } from './sourcehut/index.ts'
 export { can, support } from './supports.ts'

@@ -1,0 +1,97 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits?parent=c6d10d40f5aadaa1898f65b8d77ca524336cb1f9&page=0&perPage=5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+        "author": {
+          "name": "Daniel Norman",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "feat: add --latest flag to get the latest job run",
+        "description": "",
+        "parents": [
+          "d462bc66d02e984671b45dac387d45c760c562d5"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1781012845
+        }
+      },
+      {
+        "id": "d462bc66d02e984671b45dac387d45c760c562d5",
+        "author": {
+          "name": "Daniel Norman",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "feat: add support for shorthand oids in show",
+        "description": "",
+        "parents": [
+          "ea565f777c3fadc9b96e191874e05957475be310"
+        ],
+        "committer": {
+          "name": "Daniel Norman",
+          "email": "redacted@example.invalid",
+          "time": 1780315171
+        }
+      },
+      {
+        "id": "ea565f777c3fadc9b96e191874e05957475be310",
+        "author": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "chore: Release radicle-job 0.6.0",
+        "description": "",
+        "parents": [
+          "b736670212593c5da0a76b5b98737f76e5322671"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1778139924
+        }
+      },
+      {
+        "id": "b736670212593c5da0a76b5b98737f76e5322671",
+        "author": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "chore: Add test-log for automatic log output on test failures",
+        "description": "Add test-log dev-dependency and import it in the test module so that\nall #[test] functions automatically capture log output, displaying it\nonly when a test fails. Note that `RUST_LOG` needs to be set when\nrunning the tests to see the log output.",
+        "parents": [
+          "9d951a17a5a18907e1db9ef6d32a8439f3ff5f32"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1778139772
+        }
+      },
+      {
+        "id": "9d951a17a5a18907e1db9ef6d32a8439f3ff5f32",
+        "author": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "chore: Add log crate with debug and warn statements",
+        "description": "Add structured logging throughout the COB evaluation and mutation\npaths to aid debugging:\n\n- debug: job creation, root initialisation, op application, run\n  insertion, finishing, and log-setting\n- warn: no-op situations like duplicate runs, missing nodes, or\n  missing UUIDs",
+        "parents": [
+          "536de308967646831d81d2bc807f6cede24aaf99"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1778139741
+        }
+      }
+    ]
+  }
+}

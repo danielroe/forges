@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "e37ff3447ec38823361c71910455bec5ad74035c"
+      },
+      "sha": "e37ff3447ec38823361c71910455bec5ad74035c",
+      "message": "cli: add timestamp to output\n\nWith the Run storing the timestamp, it can be added to the CLI output\nas well.\n\nWhen pretty printing the timestamp, `chrono` is used to have a\ndate-time format.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-12-28T15:16:29.000Z"
+      },
+      "parents": [
+        "c2697d78543ec59a072b0561edbe88e62f6c90a3"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/e37ff3447ec38823361c71910455bec5ad74035c"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "c2697d78543ec59a072b0561edbe88e62f6c90a3"
+      },
+      "sha": "c2697d78543ec59a072b0561edbe88e62f6c90a3",
+      "message": "lib: add timestamp to Run\n\nFor each Run, the timestamp can be easily tracked using the\noperation's timestamp. This field is added to Run to provide more\ninformation to end users.",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2025-12-28T15:15:18.000Z"
+      },
+      "parents": [
+        "525dc9a9e43217e038aa26a1dcb082ada32f1192"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/c2697d78543ec59a072b0561edbe88e62f6c90a3"
+    }
+  ]
+}

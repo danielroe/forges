@@ -57,6 +57,7 @@ const FORGE_NAMES: Record<string, string> = {
   'gitbucket': 'GitBucket',
   'gitcafe': 'GitCafe',
   'upstream': 'Upstream',
+  'radicle': 'Radicle',
 }
 
 function sameRequest(a: string, b: string): boolean {

@@ -14,6 +14,7 @@ import { github } from './github/index.ts'
 import { gitlab } from './gitlab/index.ts'
 import { createForges } from './provider.ts'
 import { pushin } from './pushin/index.ts'
+import { radicle } from './radicle/index.ts'
 import { sourcehut } from './sourcehut/index.ts'
 import { tangled } from './tangled/index.ts'
 import { upstream } from './upstream/index.ts'
@@ -35,6 +36,7 @@ const KINDS = [
   'GITBUCKET',
   'GITCAFE',
   'UPSTREAM',
+  'RADICLE',
 ] as const
 
 /** Field names, longest first so `INSTANCE_VERSION` is not read as `INSTANCE` with suffix `VERSION`. */
@@ -343,6 +345,13 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
             : {},
         }),
       }
+    case 'RADICLE':
+      return anonymous
+        ? {
+            ...entry,
+            provider: radicle(base),
+          }
+        : { ...entry, skipped: 'needs ENABLED, as a Radicle node takes no credentials' }
     default: {
       if (!fields.TOKEN && !anonymous) {
         return { ...entry, skipped: 'needs TOKEN, or ENABLED for anonymous reads' }

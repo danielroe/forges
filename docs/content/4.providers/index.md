@@ -30,6 +30,7 @@ A provider is what connects `forges` to one particular forge. It translates the 
 | [GitBucket](/providers/gitbucket) | `forges/gitbucket` | `gitbucket()` |
 | [GitCafe](/providers/gitcafe) | `forges/gitcafe` | `gitcafe()` |
 | [Upstream](/providers/upstream) | `forges/upstream` | `upstream()` |
+| [Radicle](/providers/radicle) | `forges/radicle` | `radicle()` |
 ::
 <!-- capabilities:end -->
 
