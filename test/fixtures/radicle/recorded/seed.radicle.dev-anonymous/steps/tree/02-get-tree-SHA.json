@@ -1,0 +1,99 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/tree/c6d10d40f5aadaa1898f65b8d77ca524336cb1f9/"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "entries": [
+        {
+          "path": ".radicle",
+          "oid": "5412a367980b0f1ef3dd5e3ca1a4a0dd8ba2a981",
+          "name": ".radicle",
+          "kind": "tree"
+        },
+        {
+          "path": "src",
+          "oid": "e16f824712dc89e1320bd55f9ded1b9f71da6796",
+          "name": "src",
+          "kind": "tree"
+        },
+        {
+          "path": ".envrc",
+          "oid": "3550a30f2de389e537ee40ca5e64a77dc185c79b",
+          "name": ".envrc",
+          "kind": "blob"
+        },
+        {
+          "path": ".gitignore",
+          "oid": "ea8c4bf7f35f6f77f75d92ad8ce8349f6e81ddba",
+          "name": ".gitignore",
+          "kind": "blob"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "oid": "37d8f26c833c565fcde359bf2dae57216d5bfa72",
+          "name": "CHANGELOG.md",
+          "kind": "blob"
+        },
+        {
+          "path": "Cargo.lock",
+          "oid": "47a6499990dc316efac4808d2e9b3f8620829015",
+          "name": "Cargo.lock",
+          "kind": "blob"
+        },
+        {
+          "path": "Cargo.toml",
+          "oid": "87440e048443b498d6327de5e91f1c157bb046b8",
+          "name": "Cargo.toml",
+          "kind": "blob"
+        },
+        {
+          "path": "README.md",
+          "oid": "0331b1988286859d725cf68b4850364342fcff05",
+          "name": "README.md",
+          "kind": "blob"
+        },
+        {
+          "path": "flake.lock",
+          "oid": "eea34c940ededeeb1e7056fe10333fa793914f3a",
+          "name": "flake.lock",
+          "kind": "blob"
+        },
+        {
+          "path": "flake.nix",
+          "oid": "abc35916860e75a112a35d0a9f482479b3f4f2a1",
+          "name": "flake.nix",
+          "kind": "blob"
+        },
+        {
+          "path": "release.toml",
+          "oid": "d94c1526249827a8ccfed7de4e519bc2c311f620",
+          "name": "release.toml",
+          "kind": "blob"
+        }
+      ],
+      "lastCommit": {
+        "id": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+        "author": {
+          "name": "Daniel Norman",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "feat: add --latest flag to get the latest job run",
+        "description": "",
+        "parents": [
+          "d462bc66d02e984671b45dac387d45c760c562d5"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1781012845
+        }
+      },
+      "name": "",
+      "path": ""
+    }
+  }
+}

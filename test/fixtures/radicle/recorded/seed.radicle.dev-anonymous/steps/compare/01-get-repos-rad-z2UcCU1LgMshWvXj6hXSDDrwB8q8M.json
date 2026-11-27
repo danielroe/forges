@@ -1,0 +1,146 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "payloads": {
+        "xyz.radicle.crefs": {
+          "data": {
+            "rules": {
+              "refs/tags/releases/*": {
+                "allow": [
+                  "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM"
+                ],
+                "threshold": 1
+              }
+            }
+          }
+        },
+        "xyz.radicle.project": {
+          "data": {
+            "defaultBranch": "main",
+            "description": "Radicle Job Collaborative Object",
+            "name": "radicle-job"
+          },
+          "meta": {
+            "head": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+            "issues": {
+              "open": 12,
+              "closed": 1
+            },
+            "patches": {
+              "open": 3,
+              "draft": 0,
+              "archived": 4,
+              "merged": 18
+            },
+            "releases": 0
+          }
+        }
+      },
+      "delegates": [
+        {
+          "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+          "alias": "fintohaps"
+        },
+        {
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "alias": "liw"
+        },
+        {
+          "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+          "alias": "levitte"
+        }
+      ],
+      "threshold": 1,
+      "visibility": {
+        "type": "public"
+      },
+      "rid": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+      "seeding": 34,
+      "refs": {
+        "tags": {
+          "refs/tags/releases/v0.1.0": {
+            "commit": "68cac715acaa4b2a8f8a01b590f5807f0aaa2286",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1754404971
+            },
+            "message": "v0.1.0\n------\n\nInitial crate release of the `Job` collaborative object and its API.\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQGAjjM9CPyAcyQewlYTZXbqe0xsdxP6zZqnRhwQyhhdF2q3WVN8ZaO/50pOMq2H1dW\ngec5pf7s+n08h5SuCURQM=\n-----END SSH SIGNATURE-----\n"
+          },
+          "refs/tags/releases/v0.2.0": {
+            "commit": "857df23f49ecd785da280c674dfda047f62b9446",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1754404950
+            },
+            "message": "v0.2.0\n------\n\n=== Highlights\n\n==== `rad-job`\n\nA CLI tool was published so that it makes it easier to interact with and view\n`Job`s.\n\n=== Commits\n\n* `b9d8df7` **chore: radicle 0.16.1** *<redacted@example.invalid>*\n* `8530300` **feat: add --pretty to 'rad-job show'** *<redacted@example.invalid>*\n* `841ea44` **feat: add program to manipulate and inspect job COBs** *<redacted@example.invalid>*\n* `4e85d1c` **feat: display module** *<redacted@example.invalid>*\n* `0c82a9a` **feat: add FindByCommit iterator** *<redacted@example.invalid>*\n* `574129a` **fix: inline variable in format string** *<redacted@example.invalid>*\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQOGRN6pUJ6H4XEGcKN5vvG+p8WxyfRpZRlMojItHwvcaAytigOHAzafE3BooawLvqz\n0RskE9owx/6I64crxi4wM=\n-----END SSH SIGNATURE-----\n"
+          },
+          "refs/tags/releases/v0.3.0": {
+            "commit": "127f2e281afcaa12aea60ca491fde01f4b642c71",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1755254134
+            },
+            "message": "chore: Release radicle-job version 0.3.0\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQAfB431K9+h9yOYxU+beraEQVyK8UD59b7XOLWCjYPct0MsVY7EO80PLNA1Y8Qup5a\nfyH/5fV7ls0z6Of46v+QI=\n-----END SSH SIGNATURE-----\n"
+          },
+          "refs/tags/releases/v0.4.0": {
+            "commit": "525dc9a9e43217e038aa26a1dcb082ada32f1192",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1760957582
+            },
+            "message": "Release v0.4.0\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQNoVjmZ/ovl2l/4jxq04mEfZRS9xM5D3Vrpnps33hRkC3smCKNrm1LvFPsqFkUE+A9\nqXMRUAN4WGRjMo9eZzVgA=\n-----END SSH SIGNATURE-----\n"
+          },
+          "refs/tags/releases/v0.5.0": {
+            "commit": "07feea6ea1a877bc5c70f4973d13c823038f4f7e",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1772647038
+            },
+            "message": "0.5.0\n\n- The timestamp of runs are adopted from the COB actions, so that they can be\n  surfaced as part of the `Run` data.\n- The `radicle` crate is updated to 0.21.0, which includes transitive dependency\n  updates that contained reported vulnerabilities.\n\n* `57f2ad0` **chore: update to radicle to 0.21.0** *<redacted@example.invalid>*\n* `e37ff34` **cli: add timestamp to output** *<redacted@example.invalid>*\n* `c2697d7` **lib: add timestamp to Run** *<redacted@example.invalid>\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQJZF6GwLwaw4W8TW9KQM8qn3IRgzWfJgqE/7N7uBs6BLpUmVO0zKYvDJvL/kE1mHHb\n64DUOF3+r8s3KNx+7/YA4=\n-----END SSH SIGNATURE-----\n"
+          },
+          "refs/tags/releases/v0.5.1": {
+            "commit": "8799f728bc1b2e8d1824d2e06557059f8c82127d",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1772786047
+            },
+            "message": "0.5.1\n\n- Use an iterative loop to avoid stack overflow, through recursion, when using\n  `FindByCommit` iterator.\n\n* `eb8ecae` **fix: Use loop in FindByCommit::next to avoid stack overflow** *<redacted@example.invalid>*\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQIYperg8B374r4kb1qN73SP09iTgZbjkkhSxoS56nGpXMRIZW5x1P1LypMMQFd5PUk\nsFF3oHrF6/S97tDSarqgw=\n-----END SSH SIGNATURE-----\n"
+          },
+          "refs/tags/releases/v0.5.2": {
+            "commit": "13062baa49e022883da0508b77b5bc02e784f13d",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1774112995
+            },
+            "message": "- Update `radicle` to `0.22`, where `0.22.1` is the recommended patch version to use.\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQK0eGqLYJ++d2rtMp/EOwZN+l/RptTJuMsrfeWUE1TaOX2Qg030U90+b3he9L0sknz\nW565pzXWR5AxBzLTZ8KQI=\n-----END SSH SIGNATURE-----\n"
+          },
+          "refs/tags/releases/v0.6.0": {
+            "commit": "ea565f777c3fadc9b96e191874e05957475be310",
+            "tagger": {
+              "name": "Fintan Halpenny",
+              "email": "redacted@example.invalid",
+              "timestamp": 1778140024
+            },
+            "message": "- Update to `radicle-0.24.0`. This update introduces the change of the\n  `radicle::cob::store` API changes. The `Store` structure now requires an\n  `Access` parameter. This is fulfilled by `access::ReadOnly` or\n  `access::WriteAs`. `ReadOnly` is trivially constructed, and provides read\n  access to `Jobs`. `WriteAs` is constructed with the signer of the node, and\n  provides read and write access to `Jobs`. Since the signer is provided at\n  construction, it is no longer needed to be passed into `Jobs` operations.\n- The MSRV is updated to `1.86.0` due to transitive dependencies of\n  `radicle-0.24.0`.\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQWxpGoAnWvpsEXCVxbMko3sN2M\ni1AO6YI1zTCrDoO+QAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQPa/wAhKl/8VR7zrBaTumU8kR+tCBhkrY7fBjuuw6u5IcDLuJjpb+QrZMoh+BKzq1r\nC5Cra7tRUlckU5vH0iLQQ=\n-----END SSH SIGNATURE-----\n"
+          }
+        },
+        "refs": {
+          "refs/heads/main": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9"
+        }
+      }
+    }
+  }
+}

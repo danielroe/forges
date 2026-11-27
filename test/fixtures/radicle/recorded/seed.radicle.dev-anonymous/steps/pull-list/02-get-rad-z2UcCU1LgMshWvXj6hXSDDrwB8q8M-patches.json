@@ -1,0 +1,390 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches?status=open&page=0&perPage=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": "da55667860741ee221483fc42fa7cbbb58e0cfc2",
+        "author": {
+          "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+          "alias": "rudolfs"
+        },
+        "title": "chore: upgrade to radicle 0.25.1",
+        "state": {
+          "status": "open"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "da55667860741ee221483fc42fa7cbbb58e0cfc2",
+            "author": {
+              "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+              "alias": "rudolfs"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+                  "alias": "rudolfs"
+                },
+                "body": "",
+                "timestamp": 1784789704,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+            "oid": "6d78d36cd32f3f8ec27b6681936d0a7510938f25",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1784789704,
+            "reviews": []
+          },
+          {
+            "id": "f4ceb0510910d494cc7626c2dc0784f2aea5746c",
+            "author": {
+              "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+              "alias": "rudolfs"
+            },
+            "description": "Bump to 0.25.1",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+                  "alias": "rudolfs"
+                },
+                "body": "Bump to 0.25.1",
+                "timestamp": 1785154667,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+            "oid": "77cf8fb415f1f9026fb8a0bd5ef807eca54f69d4",
+            "refs": [
+              "refs/heads/patches/da55667860741ee221483fc42fa7cbbb58e0cfc2"
+            ],
+            "discussions": [],
+            "timestamp": 1785154667,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "a8ec6d69e668c81ad502f189fcf02cd1904e1b90",
+        "author": {
+          "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+          "alias": "levitte"
+        },
+        "title": "feat: add an action to set the log of a run to another URL",
+        "state": {
+          "status": "open"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "a8ec6d69e668c81ad502f189fcf02cd1904e1b90",
+            "author": {
+              "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+              "alias": "levitte"
+            },
+            "description": "This allows storing the log as a commit in a repository, and referring\nto that commit by commit id.\n\nThis also allows starting with a live / interactive log while the run\nis running, and change that to a stored log when the run is done.",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "This allows storing the log as a commit in a repository, and referring\nto that commit by commit id.\n\nThis also allows starting with a live / interactive log while the run\nis running, and change that to a stored log when the run is done.",
+                "timestamp": 1773734898,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "8799f728bc1b2e8d1824d2e06557059f8c82127d",
+            "oid": "538c1b38169bc687adfdbfed915590529c05c4ff",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1773734898,
+            "reviews": [
+              {
+                "id": "b9b5aa7ea9882a63cc8900feb64265f5ce68294d",
+                "author": {
+                  "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                  "alias": "liw"
+                },
+                "verdict": null,
+                "summary": "Is this a breaking change? The commit message should be explicit about that.\n\nI would actually prefer to separate the setting of URL into its own action, distinct from setting success or failure.",
+                "comments": [
+                  {
+                    "id": "a722eadcdb5d681370f49c43089f0a4a89125f63",
+                    "author": {
+                      "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                      "alias": "levitte"
+                    },
+                    "body": "Making it an action of its own is a great idea!  I'll make it so.",
+                    "edits": [
+                      {
+                        "author": {
+                          "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                          "alias": "levitte"
+                        },
+                        "body": "Making it an action of its own is a great idea!  I'll make it so.",
+                        "timestamp": 1773748488,
+                        "embeds": []
+                      }
+                    ],
+                    "embeds": [],
+                    "reactions": [],
+                    "timestamp": 1773748488,
+                    "replyTo": null,
+                    "location": null,
+                    "resolved": false
+                  }
+                ],
+                "timestamp": 1773737910
+              }
+            ]
+          },
+          {
+            "id": "8723ba80d9f2027d46c24c5ad3f9cf739d26f7ab",
+            "author": {
+              "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+              "alias": "levitte"
+            },
+            "description": "This allows storing the log as a commit in a repository when finishing\na run, and referring to that commit by commit id.\n\nThis also allows starting with a live / interactive log while the run\nis running, and change that to a stored log when the run is done.\n\nThe CLI commands `rad-job succeeded` and `rad-job failed` are modified\nto allow an optional third URL command line argument.",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "feat: add an action to set the log of a run to another URL\n\nThis allows storing the log as a commit in a repository when finishing\na run, and referring to that commit by commit id.\n\nThis also allows starting with a live / interactive log while the run\nis running, and change that to a stored log when the run is done.\n\nThe CLI commands `rad-job succeeded` and `rad-job failed` are modified\nto allow an optional third URL command line argument.",
+                "timestamp": 1773749007,
+                "embeds": []
+              },
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "This allows storing the log as a commit in a repository when finishing\na run, and referring to that commit by commit id.\n\nThis also allows starting with a live / interactive log while the run\nis running, and change that to a stored log when the run is done.\n\nThe CLI commands `rad-job succeeded` and `rad-job failed` are modified\nto allow an optional third URL command line argument.",
+                "timestamp": 1773749068,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "8799f728bc1b2e8d1824d2e06557059f8c82127d",
+            "oid": "687ee1b857d25f77243dcff64a128b9493c564bf",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1773749007,
+            "reviews": []
+          },
+          {
+            "id": "b210f23e7b066d027586595384692701264c8fce",
+            "author": {
+              "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+              "alias": "levitte"
+            },
+            "description": "Updates to appease the actions in .radicle/ambient.yaml",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "Updates to appease the actions in .radicle/ambient.yaml",
+                "timestamp": 1773765647,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "8799f728bc1b2e8d1824d2e06557059f8c82127d",
+            "oid": "56485001b7925fefa77301e82bb87bfb80c15686",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1773765647,
+            "reviews": []
+          },
+          {
+            "id": "f180fc74052918eacd11b0872f080955959c5275",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "REVIEW\n\nSee commits.\n\nCan we also add a CHANGELOG entry? Note that this\nbackwards-compatible, but not forwards compatible, so it is a breaking\nchange for clients that see the new `Action`.",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "REVIEW\n\nSee commits.\n\nCan we also add a CHANGELOG entry? Note that this\nbackwards-compatible, but not forwards compatible, so it is a breaking\nchange for clients that see the new `Action`.",
+                "timestamp": 1773847312,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "8799f728bc1b2e8d1824d2e06557059f8c82127d",
+            "oid": "4b5adb5c31f70e11953256f48956bdd03662f853",
+            "refs": [
+              "refs/heads/patches/a8ec6d69e668c81ad502f189fcf02cd1904e1b90"
+            ],
+            "discussions": [],
+            "timestamp": 1773847312,
+            "reviews": []
+          },
+          {
+            "id": "235b7fa0db2d867206079de6f77c485bb64f5d0b",
+            "author": {
+              "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+              "alias": "levitte"
+            },
+            "description": "Integrated @fintohaps' review commits",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "Integrated @fintohaps' review commits",
+                "timestamp": 1773854793,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "8799f728bc1b2e8d1824d2e06557059f8c82127d",
+            "oid": "0ed8ffeb763dcace6f111f8fec0a73b591c07e6b",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1773854793,
+            "reviews": []
+          },
+          {
+            "id": "4596fdd6c4c572b31a143a358ce0274fca71e382",
+            "author": {
+              "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+              "alias": "levitte"
+            },
+            "description": "Use a real URI in tests",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "Use a real URI in tests",
+                "timestamp": 1776321836,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "8799f728bc1b2e8d1824d2e06557059f8c82127d",
+            "oid": "ae8ca10b59e521180aa245561dadc854d7052531",
+            "refs": [
+              "refs/heads/patches/a8ec6d69e668c81ad502f189fcf02cd1904e1b90"
+            ],
+            "discussions": [],
+            "timestamp": 1776321836,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "0687b87fea5336ac7187805a3b3569a38313a52f",
+        "author": {
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "alias": "liw"
+        },
+        "title": "feat: add function to announce changes to other nodes",
+        "state": {
+          "status": "open"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "0687b87fea5336ac7187805a3b3569a38313a52f",
+            "author": {
+              "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+              "alias": "liw"
+            },
+            "description": "Most users of applications that make job COB changes will probably\nwant them announced sooner rather than later. It'd be good to avoid\nhaving to duplicate the announcement code in every such application.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                  "alias": "liw"
+                },
+                "body": "Most users of applications that make job COB changes will probably\nwant them announced sooner rather than later. It'd be good to avoid\nhaving to duplicate the announcement code in every such application.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+                "timestamp": 1752638814,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "4eaf59cde82eba7b3ae52c6322d9da5b7c17a32a",
+            "refs": [
+              "refs/heads/patches/0687b87fea5336ac7187805a3b3569a38313a52f"
+            ],
+            "discussions": [],
+            "timestamp": 1752638814,
+            "reviews": [
+              {
+                "id": "d980e67460c10ff2d00cbcd145d0d6809b1c9018",
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "verdict": "reject",
+                "summary": "I'm a little surprised that there is no function like this in the relevant crates in heartwood?  This does look like general COB code, not specifically related to `rad job`, does it not?",
+                "comments": [
+                  {
+                    "id": "f81abe02a9287bcd8952474b66989c675828a110",
+                    "author": {
+                      "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                      "alias": "levitte"
+                    },
+                    "body": "(apologies for the rejected verdict...  it appears I can't unset a verdict once I've set it)",
+                    "edits": [
+                      {
+                        "author": {
+                          "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                          "alias": "levitte"
+                        },
+                        "body": "(apologies for the rejected verdict...  it appears I can't unset a verdict once I've set it)",
+                        "timestamp": 1773834568,
+                        "embeds": []
+                      }
+                    ],
+                    "embeds": [],
+                    "reactions": [],
+                    "timestamp": 1773834568,
+                    "replyTo": null,
+                    "location": null,
+                    "resolved": false
+                  }
+                ],
+                "timestamp": 1773767074
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

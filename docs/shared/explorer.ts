@@ -696,6 +696,26 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
       head: 'main',
     }),
   },
+  {
+    name: 'Radicle',
+    factory: 'radicle',
+    module: 'radicle',
+    load: () => import('forges/radicle'),
+    forge: 'radicle',
+    instance: 'seed.radicle.dev',
+    credentials: [],
+    /** The repository and merged patch the recordings read. */
+    sample: sample({
+      owner: 'rad',
+      name: 'z2UcCU1LgMshWvXj6hXSDDrwB8q8M',
+      number: '40b77f9a8f76edba228810932752b22380600fe6',
+      login: 'did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM',
+      tag: 'releases/v0.5.0',
+      sha: 'e37ff3447ec38823361c71910455bec5ad74035c',
+      base: '525dc9a9e43217e038aa26a1dcb082ada32f1192',
+      head: 'main',
+    }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */

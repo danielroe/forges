@@ -93,6 +93,11 @@ const cases: Array<[keyof typeof web & keyof typeof providers, WebOptions, strin
     ['https://upstream.codes/acme/widgets/changes/2'],
   ],
   [
+    'radicle',
+    {},
+    ['https://radicle.network/nodes/seed.radicle.dev/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/patches/8fd4163ba9c6d0ea6a65f82df6a704b5f9676608', 'https://radicle.network/nodes/seed.radicle.dev/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/issues/fc087e00df8abcce89e0a26f62e2580ffdd4352e'],
+  ],
+  [
     'tangled',
     {},
     ['https://tangled.sh/@acme.dev/core/issues/4', 'https://tangled.sh/@acme.dev/core/compare/main...feat'],

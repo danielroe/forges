@@ -138,9 +138,9 @@ describe('explorer operations', () => {
 })
 
 describe('explorer credentials', () => {
-  it('offer every forge a credential, and only run the kinds the browser can build', () => {
+  it('offer a credential to every forge that needs one, and only run the kinds the browser can build', () => {
     for (const forge of EXPLORER_FORGES) {
-      expect(forge.credentials.length, forge.forge).toBeGreaterThan(0)
+      expect(forge.credentials.length > 0 || !forge.signedIn, forge.forge).toBe(true)
       for (const credential of forge.credentials) {
         expect(credential.fields.every(field => field.env || field.value), `${forge.forge} ${credential.kind}`).toBe(true)
         if (credential.runnable) {

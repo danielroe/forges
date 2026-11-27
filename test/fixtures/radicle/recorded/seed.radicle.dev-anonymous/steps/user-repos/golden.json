@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "owner": "rad",
+        "name": "z6cFWeWpnZNHh9rUW8phgA3b5yGt",
+        "externalId": "rad:z6cFWeWpnZNHh9rUW8phgA3b5yGt"
+      },
+      "displayName": "radicle-git",
+      "description": "Git libraries for Radicle",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z6cFWeWpnZNHh9rUW8phgA3b5yGt",
+      "cloneUrls": {
+        "https": "https://seed.radicle.dev/z6cFWeWpnZNHh9rUW8phgA3b5yGt.git"
+      },
+      "openIssueCount": 1,
+      "openPullCount": 2,
+      "watchers": 24
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "owner": "rad",
+        "name": "z254T5p17bdFPmzfDojsdjo4HjpoZ",
+        "externalId": "rad:z254T5p17bdFPmzfDojsdjo4HjpoZ"
+      },
+      "displayName": "radicle-infra",
+      "description": "Radicle Infrastructure as Code (NixOS, OpenTofu, …)",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z254T5p17bdFPmzfDojsdjo4HjpoZ",
+      "cloneUrls": {
+        "https": "https://seed.radicle.dev/z254T5p17bdFPmzfDojsdjo4HjpoZ.git"
+      },
+      "openIssueCount": 0,
+      "openPullCount": 2,
+      "watchers": 32
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "owner": "rad",
+        "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+        "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+      },
+      "displayName": "radicle-job",
+      "description": "Radicle Job Collaborative Object",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+      "cloneUrls": {
+        "https": "https://seed.radicle.dev/z2UcCU1LgMshWvXj6hXSDDrwB8q8M.git"
+      },
+      "openIssueCount": 12,
+      "openPullCount": 3,
+      "watchers": 34
+    }
+  ],
+  "cursor": {
+    "token": "1"
+  }
+}

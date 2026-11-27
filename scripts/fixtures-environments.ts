@@ -37,6 +37,7 @@ const PREFIXES: Record<string, string[]> = {
   'cursor-origin': ['CURSOR_', 'FIXTURE_CURSOR_ORIGIN_'],
   'gitcafe': ['GITCAFE_', 'FIXTURE_GITCAFE_'],
   'upstream': ['UPSTREAM_', 'FIXTURE_UPSTREAM_'],
+  'radicle': ['RADICLE_', 'FIXTURE_RADICLE_'],
 }
 
 /** Variables only write recordings and seeding use: the bot accounts, apart from Tangled's, and the Tangled reviewer. */

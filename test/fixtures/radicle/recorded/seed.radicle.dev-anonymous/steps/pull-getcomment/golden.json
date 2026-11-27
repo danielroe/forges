@@ -1,0 +1,31 @@
+{
+  "ref": {
+    "forge": "radicle",
+    "instance": "seed.radicle.dev",
+    "thread": {
+      "forge": "radicle",
+      "instance": "seed.radicle.dev",
+      "repo": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "owner": "rad",
+        "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+        "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+      },
+      "kind": "pull_request",
+      "number": "40b77f9a8f76edba228810932752b22380600fe6"
+    },
+    "id": "94bb18beee41cd23b8f41be5c61d8724a013c653"
+  },
+  "body": "For tracking how much Radicle CI is used, I would benefit from this patch in a `radicle-job` crate release. I would also benefit from having a timestamp for when a run finishes. I can compute the duration from there.\n\nThis is not a high priority or urgent request.",
+  "author": {
+    "forge": "radicle",
+    "instance": "seed.radicle.dev",
+    "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+    "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+    "name": "liw",
+    "isBotHint": false
+  },
+  "createdAt": "2026-02-20T13:57:40.000Z",
+  "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches/40b77f9a8f76edba228810932752b22380600fe6"
+}

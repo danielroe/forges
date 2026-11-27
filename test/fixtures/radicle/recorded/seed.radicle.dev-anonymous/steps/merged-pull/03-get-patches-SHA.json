@@ -1,0 +1,95 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches/f324183ad1833f1de4bba7537218bfb4f77bb763"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": "f324183ad1833f1de4bba7537218bfb4f77bb763",
+      "author": {
+        "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+        "alias": "2color"
+      },
+      "title": "feat: add --latest flag to get the latest job run",
+      "state": {
+        "status": "merged",
+        "revision": "00c085e56f05d451072904be25b2f9be4bc1134e",
+        "commit": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9"
+      },
+      "target": "delegates",
+      "labels": [],
+      "merges": [
+        {
+          "author": {
+            "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+            "alias": "fintohaps"
+          },
+          "commit": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+          "timestamp": 1781012926,
+          "revision": "00c085e56f05d451072904be25b2f9be4bc1134e"
+        }
+      ],
+      "assignees": [],
+      "revisions": [
+        {
+          "id": "f324183ad1833f1de4bba7537218bfb4f77bb763",
+          "author": {
+            "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+            "alias": "2color"
+          },
+          "description": "",
+          "edits": [
+            {
+              "author": {
+                "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+                "alias": "2color"
+              },
+              "body": "",
+              "timestamp": 1780390013,
+              "embeds": []
+            }
+          ],
+          "reactions": [],
+          "base": "ea565f777c3fadc9b96e191874e05957475be310",
+          "oid": "7a5422765bd978183801d39ae205500b1c4cc3c9",
+          "refs": [
+            "refs/heads/patches/f324183ad1833f1de4bba7537218bfb4f77bb763"
+          ],
+          "discussions": [],
+          "timestamp": 1780390013,
+          "reviews": []
+        },
+        {
+          "id": "00c085e56f05d451072904be25b2f9be4bc1134e",
+          "author": {
+            "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+            "alias": "fintohaps"
+          },
+          "description": "Changes:\n- Remove unnecessary comment",
+          "edits": [
+            {
+              "author": {
+                "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                "alias": "fintohaps"
+              },
+              "body": "Changes:\n- Remove unnecessary comment",
+              "timestamp": 1781012897,
+              "embeds": []
+            }
+          ],
+          "reactions": [],
+          "base": "ea565f777c3fadc9b96e191874e05957475be310",
+          "oid": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+          "refs": [
+            "refs/heads/main"
+          ],
+          "discussions": [],
+          "timestamp": 1781012897,
+          "reviews": []
+        }
+      ]
+    }
+  }
+}

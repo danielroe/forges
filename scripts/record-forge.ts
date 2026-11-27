@@ -272,6 +272,15 @@ export const PLANS: Record<string, { reads: Recording[], writes: Recording[], lo
       },
     ],
   },
+  'radicle': {
+    reads: [
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [],
+  },
 }
 
 /** Starts the server of `script` and returns the variables it wrote, with a function that removes the server. */

@@ -1,0 +1,199 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "kind": "pull_request",
+        "number": "da55667860741ee221483fc42fa7cbbb58e0cfc2"
+      },
+      "kind": "pull_request",
+      "title": "chore: upgrade to radicle 0.25.1",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+        "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+        "name": "rudolfs",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches/da55667860741ee221483fc42fa7cbbb58e0cfc2",
+      "createdAt": "2026-07-23T06:55:04.000Z",
+      "lastActivityAt": "2026-07-27T12:17:47.000Z",
+      "commentCount": 0,
+      "participants": [
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+          "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+          "name": "rudolfs",
+          "isBotHint": false
+        }
+      ],
+      "branches": {
+        "head": {
+          "ref": "patches/da55667860741ee221483fc42fa7cbbb58e0cfc2",
+          "sha": "77cf8fb415f1f9026fb8a0bd5ef807eca54f69d4"
+        },
+        "base": {
+          "ref": "main",
+          "sha": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9"
+        }
+      }
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "kind": "pull_request",
+        "number": "a8ec6d69e668c81ad502f189fcf02cd1904e1b90"
+      },
+      "kind": "pull_request",
+      "title": "feat: add an action to set the log of a run to another URL",
+      "body": "This allows storing the log as a commit in a repository, and referring\nto that commit by commit id.\n\nThis also allows starting with a live / interactive log while the run\nis running, and change that to a stored log when the run is done.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "name": "levitte",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "radicle",
+            "instance": "seed.radicle.dev",
+            "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+            "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+            "name": "liw",
+            "isBotHint": false
+          },
+          "state": "commented"
+        }
+      ],
+      "labels": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches/a8ec6d69e668c81ad502f189fcf02cd1904e1b90",
+      "createdAt": "2026-03-17T08:08:18.000Z",
+      "lastActivityAt": "2026-04-16T06:43:56.000Z",
+      "commentCount": 0,
+      "participants": [
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+          "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+          "name": "levitte",
+          "isBotHint": false
+        }
+      ],
+      "branches": {
+        "head": {
+          "ref": "patches/a8ec6d69e668c81ad502f189fcf02cd1904e1b90",
+          "sha": "ae8ca10b59e521180aa245561dadc854d7052531"
+        },
+        "base": {
+          "ref": "main",
+          "sha": "8799f728bc1b2e8d1824d2e06557059f8c82127d"
+        }
+      }
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "kind": "pull_request",
+        "number": "0687b87fea5336ac7187805a3b3569a38313a52f"
+      },
+      "kind": "pull_request",
+      "title": "feat: add function to announce changes to other nodes",
+      "body": "Most users of applications that make job COB changes will probably\nwant them announced sooner rather than later. It'd be good to avoid\nhaving to duplicate the announcement code in every such application.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+        "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+        "name": "liw",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "radicle",
+            "instance": "seed.radicle.dev",
+            "login": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "name": "levitte",
+            "isBotHint": false
+          },
+          "state": "changes_requested",
+          "stateRaw": "reject"
+        }
+      ],
+      "labels": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches/0687b87fea5336ac7187805a3b3569a38313a52f",
+      "createdAt": "2025-07-16T04:06:54.000Z",
+      "lastActivityAt": "2026-03-18T11:49:28.000Z",
+      "commentCount": 0,
+      "participants": [
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "name": "liw",
+          "isBotHint": false
+        }
+      ],
+      "branches": {
+        "head": {
+          "ref": "patches/0687b87fea5336ac7187805a3b3569a38313a52f",
+          "sha": "4eaf59cde82eba7b3ae52c6322d9da5b7c17a32a"
+        },
+        "base": {
+          "ref": "main",
+          "sha": "574129a2d0008294818aa99ba99b3ad64ffdaeab"
+        }
+      }
+    }
+  ],
+  "cursor": {
+    "token": "0:1"
+  }
+}

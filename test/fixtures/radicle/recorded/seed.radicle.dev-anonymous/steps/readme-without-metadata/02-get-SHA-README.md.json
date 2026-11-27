@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/blob/c6d10d40f5aadaa1898f65b8d77ca524336cb1f9/README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "binary": false,
+      "name": "README.md",
+      "content": "# `radicle-job`\n\nA crate for all† your automated job needs on the [Radicle\nNetwork](https://radicle.xyz).\n\n†: _well maybe almost all._\n\n## Overview\n\n`radicle-job` provides a collaborative framework for managing automated tasks\nacross the Radicle peer-to-peer network. Multiple nodes can pick up and execute\njobs (like CI/CD pipelines) for any given Git commit, with results synchronized\nacross the network using Radicle's Collaborative Objects (COBs).\n\n### Key Features\n\n- **Decentralized Execution**: Any node in the network can pick up and run jobs\n- **Collaborative Tracking**: Multiple nodes can contribute runs for the same\n  job\n- **Rich Status Reporting**: Track job lifecycle from start to completion with\n  success/failure reasons\n- **External Log Integration**: Link to external logging services via URLs\n- **Git Integration**: Jobs are tied to specific Git commits using OIDs\n\n## Key Concepts\n\n- **Job**: Represents an automated task for a specific Git commit that can be\n  executed by multiple nodes\n- **Run**: A single execution attempt of a job by a particular node, identified\n  by a UUID\n- **Status**: The current state of a run (`Started`, `Finished(Succeeded)`,\n  `Finished(Failed)`)\n- **COB (Collaborative Object)**: The underlying Radicle primitive that enables\n  decentralized synchronization of job data\n\n## Installation\n\nAdd this to your `Cargo.toml`:\n\n```toml\n[dependencies]\nradicle-job = \"0.1\"\nradicle >= \"0.15\" # Required for core Radicle functionality\n```\n\nThis crate is designed to work seamlessly with the\n[`radicle`](https://crates.io/crates/radicle) ecosystem.\n\n## Quick Start\n\n### Creating and Managing Jobs\n\n```rust\nuse radicle_job::{Jobs, Reason};\nuse radicle::git::Oid;\nuse url::Url;\nuse uuid::Uuid;\n\n// Open the jobs store for a repository\nlet mut jobs = Jobs::open(&repo)?;\n\n// Create a new job for a specific commit\nlet commit_oid = /* your commit OID */;\nlet mut job = jobs.create(commit_oid, &signer)?;\n\n// Node starts a run\nlet run_id = Uuid::new_v4();\nlet log_url = Url::parse(\"https://ci.example.com/logs/run-123\")?;\njob.run(run_id, log_url, &signer)?;\n\n// Node reports completion\njob.finish(run_id, Reason::Succeeded, &signer)?;\n```\n\n### Querying Job Status\n\n```rust\n// Get all runs that are currently in progress\nlet started_runs = job.started();\n\n// Get successful runs from all nodes\nlet successful_runs = job.succeeded();\n\n// Get the latest run from a specific node\nif let Some((uuid, run)) = job.latest_of(&node_id) {\n    println!(\"Latest run: {} - Status: {:?}\", uuid, run.status());\n    println!(\"Logs available at: {}\", run.log());\n}\n\n// Partition runs by status\nlet all_nodes_status = job.partition();\nfor (node_id, (started, succeeded, failed)) in all_nodes_status {\n    println!(\"Node {}: {} started, {} succeeded, {} failed\", \n             node_id, started.len(), succeeded.len(), failed.len());\n}\n```\n\n## Use Cases\n\n### Continuous Integration\n\nThe primary use case is distributed CI execution:\n\n1. A developer creates a patch\n2. The job is broadcast to the network\n3. Available CI nodes pick up the job and execute tests\n4. Results are reported back with logs and status\n5. The developer can see which nodes ran CI and their results\n\n### Future Possibilities\n\n- **Continuous Deployment**: Automated deployment pipelines\n- **Code Analysis**: Static analysis, security scanning, performance\n  benchmarking\n- **Marketplace**: Nodes could offer specialized compute resources for different\n  job types\n\n## API Overview\n\n### Core Types\n\n- **`Jobs<R>`**: The main store for managing jobs in a repository\n- **`Job`**: A read-only view of a job and its runs across all nodes\n- **`JobMut`**: A mutable job handle for adding runs and updating status\n- **`Run`**: Represents a single execution attempt with status and log URL\n- **`Runs`**: A collection of runs with insertion-order iteration\n\n### Key Methods\n\n- **`Jobs::create()`**: Create a new job for a commit\n- **`Jobs::get()`** / **`Jobs::get_mut()`**: Retrieve existing jobs\n- **`JobMut::run()`**: Start a new run\n- **`JobMut::finish()`**: Mark a run as completed\n- **`Job::latest()`**: Get the most recent run\n\n## Collaborative Nature\n\nJobs in `radicle-job` are inherently collaborative:\n\n- **Multiple Executors**: Many nodes can run the same job independently\n- **Decentralized Results**: Each node reports its own results without requiring\n  coordination\n- **Automatic Synchronization**: The Radicle protocol handles data\n  synchronization across nodes\n- **No Consensus Required**: This crate doesn't enforce consensus on results —\n  that's left to higher-level applications\n\nThis design enables resilient, distributed job execution where no single point\nof failure can prevent job completion.\n\n## License\n\nThis project is licensed under the [MIT License](LICENSE-MIT) or [Apache License\n2.0](LICENSE-APACHE) at your option.\n\n## Related Projects\n\n- [`radicle`](https://crates.io/crates/radicle) - Core Radicle protocol\n  implementation\n- [`radicle-ci-broker`](https://crates.io/crates/radicle-ci-broker) - Radicle\n  library for brokering CI events\n",
+      "path": "README.md",
+      "lastCommit": {
+        "id": "5b86be0fbc94a3728fb5c7a1964648021e85c7de",
+        "author": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "chore: add README file",
+        "description": "",
+        "parents": [
+          "0ce659a60bf964bb704f0f18967c0409bb7193cd"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1749708574
+        }
+      }
+    }
+  }
+}

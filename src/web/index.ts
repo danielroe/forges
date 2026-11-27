@@ -14,6 +14,7 @@ import { GITEE_WEB } from '../gitee/web.ts'
 import { GITHUB_WEB } from '../github/web.ts'
 import { GITLAB_WEB } from '../gitlab/web.ts'
 import { PUSHIN_WEB } from '../pushin/web.ts'
+import { RADICLE_WEB } from '../radicle/web.ts'
 import { SOURCEHUT_WEB } from '../sourcehut/web.ts'
 import { TANGLED_WEB } from '../tangled/web.ts'
 import { UPSTREAM_WEB } from '../upstream/web.ts'
@@ -48,6 +49,8 @@ export const pushin: (options?: WebOptions) => ForgeWeb<'pushin'> = /* @__PURE__
 export const sourcehut: (options?: WebOptions) => ForgeWeb<'sourcehut'> = /* @__PURE__ */ defineForgeWeb(SOURCEHUT_WEB)
 /** The web links of Tangled. */
 export const tangled: (options?: WebOptions) => ForgeWeb<'tangled'> = /* @__PURE__ */ defineForgeWeb(TANGLED_WEB)
+/** The web links of a Radicle seed node, which the Radicle explorer shows. */
+export const radicle: (options?: WebOptions) => ForgeWeb<'radicle'> = /* @__PURE__ */ defineForgeWeb(RADICLE_WEB)
 /** The web links of upstream.codes. */
 export const upstream: (options?: WebOptions) => ForgeWeb<'upstream'> = /* @__PURE__ */ defineForgeWeb(UPSTREAM_WEB)
 

@@ -1,0 +1,153 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "kind": "issue",
+        "number": "8ef762009c13ff825056b488da0c4b542301f369"
+      },
+      "kind": "issue",
+      "title": "version 0.6.0 depends on radicle 0.24.0, which is not current",
+      "body": "`radicle-ci-broker` depends on `radicle-job` and also `radicle`. For reasons of compatibility, at least for the `Oid` type, this forces `-broker` to depend on 0.24.0, too.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+        "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+        "name": "liw",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/8ef762009c13ff825056b488da0c4b542301f369",
+      "createdAt": "2026-08-11T13:59:02.000Z",
+      "lastActivityAt": "2026-08-11T13:59:02.000Z",
+      "commentCount": 0,
+      "participants": [
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "name": "liw",
+          "isBotHint": false
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "kind": "issue",
+        "number": "a3facb5b54bb94adc2e9758f73a80b0801bf5d36"
+      },
+      "kind": "issue",
+      "title": "Could return timestamp of the job COB",
+      "body": "I collect some data on job COBs to track Radicle CI use. For this, it'd be convenient to have time stamps for when job COBs are created and marked as finished. It would be nice if this crate would provide those timestamps without its caller having to dig into the storage directly.\n\nI tried looking into how to figure this out, but I got lost in the `radicle` crate and couldn't figure out how to do what I wanted to do, sorry.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+        "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+        "name": "liw",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/a3facb5b54bb94adc2e9758f73a80b0801bf5d36",
+      "createdAt": "2026-03-17T09:21:34.000Z",
+      "lastActivityAt": "2026-03-17T09:21:34.000Z",
+      "commentCount": 0,
+      "participants": [
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "name": "liw",
+          "isBotHint": false
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "kind": "issue",
+        "number": "f24a8db1e5d4491d179a8217ab51453f8bfc6404"
+      },
+      "kind": "issue",
+      "title": "Add optional `artifact` field to `Run` for referencing build artifacts",
+      "body": "## Problem\n\nThe `Run` type currently has two fields: `status` and `log` (a URL pointing to where run information is logged). There's no way to associate build artifacts with a completed run.\n\nA natural use case is referencing build outputs — binaries, container images, signed checksums, etc. — from a job run. I initially considered encoding a hash or CID into the `log` URL field, but that breaks its semantics: `log` is meant to point to where information is logged by the node, not to reference produced artifacts.\n\n## Proposal\n\nAdd an optional `artifact` field to `Run` that can store a content-addressed reference (hash, multihash, or CID) to a build artifact.\n\n```rust\npub struct Run {\n    status: Status,\n    log: Url,\n    /// Optional content-addressed reference to a build artifact.\n    artifact: Option<String>, // or a dedicated type for CID/multihash\n}\n```\n\nBeing optional keeps this backwards-compatible with existing job-cob data.\n\n## Open questions\n\n1. **Is there wider interest in an `artifact` field on `Run`?** Are there other use cases beyond what's described here?\n2. **Should the field be a single value or a collection?** A run might produce multiple artifacts (e.g. binaries for different architectures, plus checksums).\n3. **What type should it be?** A plain `String`, a `Url`, or a dedicated content-addressed type (e.g. CID)? A CID would be self-describing (includes codec + hash algorithm) and could be serialised as a Url.\n4. **Prior art on evolving COBs?** What's the expected approach for schema evolution — strictly optional/additive fields? Is there an existing pattern to follow?",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+        "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+        "name": "2color",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/f24a8db1e5d4491d179a8217ab51453f8bfc6404",
+      "createdAt": "2026-03-04T10:44:44.000Z",
+      "lastActivityAt": "2026-08-31T17:55:33.000Z",
+      "commentCount": 1,
+      "participants": [
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+          "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+          "name": "2color",
+          "isBotHint": false
+        },
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MkigNngL5ChA1Z6CWL3aDafj7ScwEzizGeWMyNDhfVpjc5",
+          "id": "did:key:z6MkigNngL5ChA1Z6CWL3aDafj7ScwEzizGeWMyNDhfVpjc5",
+          "name": "kaiya",
+          "isBotHint": false
+        }
+      ]
+    }
+  ],
+  "cursor": {
+    "token": "0:1"
+  }
+}

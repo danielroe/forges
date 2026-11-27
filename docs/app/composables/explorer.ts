@@ -69,12 +69,16 @@ export function explorerProviders(id: string): Promise<ExplorerProviders> {
     const forge = EXPLORER_FORGES.find(entry => entry.forge === id)!
     // Options can be required, such as Azure DevOps' `organization`; the forge's own options provide them.
     const options = forge.options?.(forge.sample) ?? {}
+    /** Absent on a forge with nothing to sign in with, such as Radicle. */
+    const [credential] = forge.credentials
     loaded = explorerFactory(id).then(factory => ({
       anonymous: factory(options),
-      signedIn: factory({
-        ...options,
-        auth: placeholderAuth(forge.credentials[0]!),
-      }),
+      signedIn: credential
+        ? factory({
+            ...options,
+            auth: placeholderAuth(credential),
+          })
+        : factory(options),
     }))
     loaded.catch(() => providers.delete(id))
     providers.set(id, loaded)

@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "path": ".radicle",
+      "type": "directory",
+      "sha": "5412a367980b0f1ef3dd5e3ca1a4a0dd8ba2a981"
+    },
+    {
+      "path": "src",
+      "type": "directory",
+      "sha": "e16f824712dc89e1320bd55f9ded1b9f71da6796"
+    },
+    {
+      "path": ".envrc",
+      "type": "file",
+      "sha": "3550a30f2de389e537ee40ca5e64a77dc185c79b"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "sha": "ea8c4bf7f35f6f77f75d92ad8ce8349f6e81ddba"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "type": "file",
+      "sha": "37d8f26c833c565fcde359bf2dae57216d5bfa72"
+    },
+    {
+      "path": "Cargo.lock",
+      "type": "file",
+      "sha": "47a6499990dc316efac4808d2e9b3f8620829015"
+    },
+    {
+      "path": "Cargo.toml",
+      "type": "file",
+      "sha": "87440e048443b498d6327de5e91f1c157bb046b8"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "sha": "0331b1988286859d725cf68b4850364342fcff05"
+    },
+    {
+      "path": "flake.lock",
+      "type": "file",
+      "sha": "eea34c940ededeeb1e7056fe10333fa793914f3a"
+    },
+    {
+      "path": "flake.nix",
+      "type": "file",
+      "sha": "abc35916860e75a112a35d0a9f482479b3f4f2a1"
+    },
+    {
+      "path": "release.toml",
+      "type": "file",
+      "sha": "d94c1526249827a8ccfed7de4e519bc2c311f620"
+    }
+  ]
+}

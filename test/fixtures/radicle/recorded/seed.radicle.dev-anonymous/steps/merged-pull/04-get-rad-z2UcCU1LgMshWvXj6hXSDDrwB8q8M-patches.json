@@ -1,0 +1,902 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches?status=merged&page=0&perPage=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": "f324183ad1833f1de4bba7537218bfb4f77bb763",
+        "author": {
+          "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+          "alias": "2color"
+        },
+        "title": "feat: add --latest flag to get the latest job run",
+        "state": {
+          "status": "merged",
+          "revision": "00c085e56f05d451072904be25b2f9be4bc1134e",
+          "commit": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+            "timestamp": 1781012926,
+            "revision": "00c085e56f05d451072904be25b2f9be4bc1134e"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "f324183ad1833f1de4bba7537218bfb4f77bb763",
+            "author": {
+              "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+              "alias": "2color"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+                  "alias": "2color"
+                },
+                "body": "",
+                "timestamp": 1780390013,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "ea565f777c3fadc9b96e191874e05957475be310",
+            "oid": "7a5422765bd978183801d39ae205500b1c4cc3c9",
+            "refs": [
+              "refs/heads/patches/f324183ad1833f1de4bba7537218bfb4f77bb763"
+            ],
+            "discussions": [],
+            "timestamp": 1780390013,
+            "reviews": []
+          },
+          {
+            "id": "00c085e56f05d451072904be25b2f9be4bc1134e",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Changes:\n- Remove unnecessary comment",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Changes:\n- Remove unnecessary comment",
+                "timestamp": 1781012897,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "ea565f777c3fadc9b96e191874e05957475be310",
+            "oid": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+            "refs": [
+              "refs/heads/main"
+            ],
+            "discussions": [],
+            "timestamp": 1781012897,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "92d189a94480b5b9bc969a1469a781c4c6741d78",
+        "author": {
+          "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+          "alias": "2color"
+        },
+        "title": "feat: add support for shorthand oids in show",
+        "state": {
+          "status": "merged",
+          "revision": "92d189a94480b5b9bc969a1469a781c4c6741d78",
+          "commit": "d462bc66d02e984671b45dac387d45c760c562d5"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "d462bc66d02e984671b45dac387d45c760c562d5",
+            "timestamp": 1781012926,
+            "revision": "92d189a94480b5b9bc969a1469a781c4c6741d78"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "92d189a94480b5b9bc969a1469a781c4c6741d78",
+            "author": {
+              "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+              "alias": "2color"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MktwkohCx8aHZ1QCjVZUiLmX92oPZFxRiFZkbq32Tk5Tkm",
+                  "alias": "2color"
+                },
+                "body": "",
+                "timestamp": 1780315199,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "ea565f777c3fadc9b96e191874e05957475be310",
+            "oid": "d462bc66d02e984671b45dac387d45c760c562d5",
+            "refs": [
+              "refs/heads/patches/92d189a94480b5b9bc969a1469a781c4c6741d78"
+            ],
+            "discussions": [],
+            "timestamp": 1780315199,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "40b77f9a8f76edba228810932752b22380600fe6",
+        "author": {
+          "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+          "alias": "fintohaps"
+        },
+        "title": "Add timestamp to Run information",
+        "state": {
+          "status": "merged",
+          "revision": "40b77f9a8f76edba228810932752b22380600fe6",
+          "commit": "e37ff3447ec38823361c71910455bec5ad74035c"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "e37ff3447ec38823361c71910455bec5ad74035c",
+            "timestamp": 1772646986,
+            "revision": "40b77f9a8f76edba228810932752b22380600fe6"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "40b77f9a8f76edba228810932752b22380600fe6",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Use the COB operation timestamp to add a timestamp to each Run.\n\nThis information is also output when using the `rad job` CLI.",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Use the COB operation timestamp to add a timestamp to each Run.\n\nThis information is also output when using the `rad job` CLI.",
+                "timestamp": 1766935121,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "525dc9a9e43217e038aa26a1dcb082ada32f1192",
+            "oid": "e37ff3447ec38823361c71910455bec5ad74035c",
+            "refs": [],
+            "discussions": [
+              {
+                "id": "94bb18beee41cd23b8f41be5c61d8724a013c653",
+                "author": {
+                  "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                  "alias": "liw"
+                },
+                "body": "For tracking how much Radicle CI is used, I would benefit from this patch in a `radicle-job` crate release. I would also benefit from having a timestamp for when a run finishes. I can compute the duration from there.\n\nThis is not a high priority or urgent request.",
+                "edits": [
+                  {
+                    "author": {
+                      "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                      "alias": "liw"
+                    },
+                    "body": "For tracking how much Radicle CI is used, I would benefit from this patch in a `radicle-job` crate release. I would also benefit from having a timestamp for when a run finishes. I can compute the duration from there.\n\nThis is not a high priority or urgent request.",
+                    "timestamp": 1771595860,
+                    "embeds": []
+                  }
+                ],
+                "embeds": [],
+                "reactions": [],
+                "timestamp": 1771595860,
+                "replyTo": null,
+                "location": null,
+                "resolved": false
+              }
+            ],
+            "timestamp": 1766935121,
+            "reviews": [
+              {
+                "id": "217568bc9362e5bdc9d48e5b08217c633bc59a92",
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "verdict": "accept",
+                "summary": "",
+                "comments": [],
+                "timestamp": 1767091913
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "af9c67f4386a496fbad18bf0b4e5646083c97015",
+        "author": {
+          "id": "did:key:z6MkkfM3tPXNPrPevKr3uSiQtHPuwnNhu2yUVjgd2jXVsVz5",
+          "alias": "sebastinez"
+        },
+        "title": "chore: update radicle 0.20.0",
+        "state": {
+          "status": "merged",
+          "revision": "af9c67f4386a496fbad18bf0b4e5646083c97015",
+          "commit": "8935de56d3bd09c8f512472eb811326615c53728"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "8935de56d3bd09c8f512472eb811326615c53728",
+            "timestamp": 1759931534,
+            "revision": "af9c67f4386a496fbad18bf0b4e5646083c97015"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "af9c67f4386a496fbad18bf0b4e5646083c97015",
+            "author": {
+              "id": "did:key:z6MkkfM3tPXNPrPevKr3uSiQtHPuwnNhu2yUVjgd2jXVsVz5",
+              "alias": "sebastinez"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkkfM3tPXNPrPevKr3uSiQtHPuwnNhu2yUVjgd2jXVsVz5",
+                  "alias": "sebastinez"
+                },
+                "body": "",
+                "timestamp": 1759931178,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "6a23756c2ea6b1d6e23f0778ec81851db6e7df54",
+            "oid": "8935de56d3bd09c8f512472eb811326615c53728",
+            "refs": [
+              "refs/heads/patches/af9c67f4386a496fbad18bf0b4e5646083c97015"
+            ],
+            "discussions": [],
+            "timestamp": 1759931178,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "dac4fef89d07fe609dd5d3d75ea57f76f1cca3dc",
+        "author": {
+          "id": "did:key:z6Mkondm5dgAxsQnV3iuvZBCGMAQgfAg4zSdJWoNVJr7i7wp",
+          "alias": "defelo"
+        },
+        "title": "feat: add --version flag",
+        "state": {
+          "status": "merged",
+          "revision": "1db54078166cbab93156e2059d1e347219e3ffca",
+          "commit": "1ac2251ac8b08dcbd23e3d72fde03e0485d93352"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "1ac2251ac8b08dcbd23e3d72fde03e0485d93352",
+            "timestamp": 1759931660,
+            "revision": "1db54078166cbab93156e2059d1e347219e3ffca"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "dac4fef89d07fe609dd5d3d75ea57f76f1cca3dc",
+            "author": {
+              "id": "did:key:z6Mkondm5dgAxsQnV3iuvZBCGMAQgfAg4zSdJWoNVJr7i7wp",
+              "alias": "defelo"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mkondm5dgAxsQnV3iuvZBCGMAQgfAg4zSdJWoNVJr7i7wp",
+                  "alias": "defelo"
+                },
+                "body": "",
+                "timestamp": 1757888275,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "6a23756c2ea6b1d6e23f0778ec81851db6e7df54",
+            "oid": "9bef19476b06a5add53f6a75c21d3218699170ac",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1757888275,
+            "reviews": []
+          },
+          {
+            "id": "1db54078166cbab93156e2059d1e347219e3ffca",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Rebase",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Rebase",
+                "timestamp": 1759931660,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "1ac2251ac8b08dcbd23e3d72fde03e0485d93352",
+            "oid": "1ac2251ac8b08dcbd23e3d72fde03e0485d93352",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1759931660,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "3154a80097c705e8e77aed3c2cb33d50d833396f",
+        "author": {
+          "id": "did:key:z6MkkfM3tPXNPrPevKr3uSiQtHPuwnNhu2yUVjgd2jXVsVz5",
+          "alias": "sebastinez"
+        },
+        "title": "chore: radicle 0.18.0",
+        "state": {
+          "status": "merged",
+          "revision": "e9486b8e4dff6059c2054ac72054490b7aff9828",
+          "commit": "979476291c035d4bc4e3f92187fadedfc3daef65"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "979476291c035d4bc4e3f92187fadedfc3daef65",
+            "timestamp": 1755249129,
+            "revision": "e9486b8e4dff6059c2054ac72054490b7aff9828"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "3154a80097c705e8e77aed3c2cb33d50d833396f",
+            "author": {
+              "id": "did:key:z6MkkfM3tPXNPrPevKr3uSiQtHPuwnNhu2yUVjgd2jXVsVz5",
+              "alias": "sebastinez"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkkfM3tPXNPrPevKr3uSiQtHPuwnNhu2yUVjgd2jXVsVz5",
+                  "alias": "sebastinez"
+                },
+                "body": "",
+                "timestamp": 1755246653,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "b9d8df7d33df0db25f05a6696935eb0e6f82ae57",
+            "oid": "ab6cf64c4bf568608e383444f0759e90402be32e",
+            "refs": [
+              "refs/heads/patches/3154a80097c705e8e77aed3c2cb33d50d833396f"
+            ],
+            "discussions": [],
+            "timestamp": 1755246653,
+            "reviews": []
+          },
+          {
+            "id": "e9486b8e4dff6059c2054ac72054490b7aff9828",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Changes:\n- Added CHANGELOG entry\n- Rebased on, originally unpublished, main",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Changes:\n- Added CHANGELOG entry\n- Rebased on, originally unpublished, main",
+                "timestamp": 1755249018,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "857df23f49ecd785da280c674dfda047f62b9446",
+            "oid": "979476291c035d4bc4e3f92187fadedfc3daef65",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1755249018,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "7e6d4ecd33f73570bc08f8d8e58035c2cb75a70a",
+        "author": {
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "alias": "liw"
+        },
+        "title": "fix(src/bin/radicle-job.rs): add missing elided hidden lifetime",
+        "state": {
+          "status": "merged",
+          "revision": "3d07d80a9caac14786f60915fd8d4fb4cb80858f",
+          "commit": "6a23756c2ea6b1d6e23f0778ec81851db6e7df54"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "6a23756c2ea6b1d6e23f0778ec81851db6e7df54",
+            "timestamp": 1755615203,
+            "revision": "3d07d80a9caac14786f60915fd8d4fb4cb80858f"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "7e6d4ecd33f73570bc08f8d8e58035c2cb75a70a",
+            "author": {
+              "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+              "alias": "liw"
+            },
+            "description": "The elided hidden lifetime in the return type can lead to confusion,\nand from Rust 1.89.0 the compiler warns about it by default. Avoid the\nwarning by making the elided lifetime explicit.\n\nThe release blog post explains this:\nhttps://blog.rust-lang.org/2025/08/07/Rust-1.89.0/#mismatched-lifetime-syntaxes-lint\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                  "alias": "liw"
+                },
+                "body": "The elided hidden lifetime in the return type can lead to confusion,\nand from Rust 1.89.0 the compiler warns about it by default. Avoid the\nwarning by making the elided lifetime explicit.\n\nThe release blog post explains this:\nhttps://blog.rust-lang.org/2025/08/07/Rust-1.89.0/#mismatched-lifetime-syntaxes-lint\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+                "timestamp": 1755237535,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "b9d8df7d33df0db25f05a6696935eb0e6f82ae57",
+            "oid": "d2b984497843595a263d0cfd64507097f79e3d1d",
+            "refs": [
+              "refs/heads/patches/7e6d4ecd33f73570bc08f8d8e58035c2cb75a70a"
+            ],
+            "discussions": [],
+            "timestamp": 1755237535,
+            "reviews": []
+          },
+          {
+            "id": "3d07d80a9caac14786f60915fd8d4fb4cb80858f",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Rebased",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Rebased",
+                "timestamp": 1755615188,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "127f2e281afcaa12aea60ca491fde01f4b642c71",
+            "oid": "6a23756c2ea6b1d6e23f0778ec81851db6e7df54",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1755615188,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "ac3e1f19db092d7c385598a8453cf3fb61679c3a",
+        "author": {
+          "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+          "alias": "rudolfs"
+        },
+        "title": "chore: radicle 0.16.1",
+        "state": {
+          "status": "merged",
+          "revision": "ac3e1f19db092d7c385598a8453cf3fb61679c3a",
+          "commit": "b9d8df7d33df0db25f05a6696935eb0e6f82ae57"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "b9d8df7d33df0db25f05a6696935eb0e6f82ae57",
+            "timestamp": 1753273893,
+            "revision": "ac3e1f19db092d7c385598a8453cf3fb61679c3a"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "ac3e1f19db092d7c385598a8453cf3fb61679c3a",
+            "author": {
+              "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+              "alias": "rudolfs"
+            },
+            "description": "Update the `radicle` dependency to `0.16.1`. We need this in radicle-desktop.\n\nCloses: https://app.radicle.xyz/nodes/seed.radicle.garden/rad%3Az2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/15023f0a6a8c497b157ee391beb3f635f726e3db.",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+                  "alias": "rudolfs"
+                },
+                "body": "Update the `radicle` dependency to `0.16.1`. We need this in radicle-desktop.",
+                "timestamp": 1753273499,
+                "embeds": []
+              },
+              {
+                "author": {
+                  "id": "did:key:z6MkwPUeUS2fJMfc2HZN1RQTQcTTuhw4HhPySB8JeUg2mVvx",
+                  "alias": "rudolfs"
+                },
+                "body": "Update the `radicle` dependency to `0.16.1`. We need this in radicle-desktop.\n\nCloses: https://app.radicle.xyz/nodes/seed.radicle.garden/rad%3Az2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/15023f0a6a8c497b157ee391beb3f635f726e3db.",
+                "timestamp": 1753273539,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "8530300d045448b7b7173d8a5280d18e493edbbb",
+            "oid": "b9d8df7d33df0db25f05a6696935eb0e6f82ae57",
+            "refs": [
+              "refs/heads/patches/ac3e1f19db092d7c385598a8453cf3fb61679c3a"
+            ],
+            "discussions": [],
+            "timestamp": 1753273499,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "d9f4dad05a4e468898bb7374c4c8a77e569548aa",
+        "author": {
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "alias": "liw"
+        },
+        "title": "feat: add program to manipulate and inspect job COBs",
+        "state": {
+          "status": "merged",
+          "revision": "193cf2685657d31704e857d83e451e8ad170b6ab",
+          "commit": "8530300d045448b7b7173d8a5280d18e493edbbb"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "8530300d045448b7b7173d8a5280d18e493edbbb",
+            "timestamp": 1752927155,
+            "revision": "193cf2685657d31704e857d83e451e8ad170b6ab"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "d9f4dad05a4e468898bb7374c4c8a77e569548aa",
+            "author": {
+              "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+              "alias": "liw"
+            },
+            "description": "Signed-off-by: Lars Wirzenius <redacted@example.invalid>",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                  "alias": "liw"
+                },
+                "body": "Signed-off-by: Lars Wirzenius <redacted@example.invalid>",
+                "timestamp": 1752642019,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "d461a00210ebeb84c1b2bc90829eaeed5864867f",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1752642019,
+            "reviews": [
+              {
+                "id": "efcd34c63c0cde7b5921a2ea6269b8b13c45069d",
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "verdict": null,
+                "summary": "May I suggest a different CLI language?\n\nFirst of all, I think it would be a bit cool to have this command integrated into `rad`, by renaming it to `rad-job`.\n\nFurthermore, partly to avoid repeating `job`, but also to align better with existing `rad` language, I'd like to propose the following subcommand changes.\n\n| current | new | description |\n| ------- | --- | ----------- |\n| `job` | `new` or `init` | Create a job COB for a specific Git commit |\n| `jobs` | `list` | List all job COBs for a repository |\n| `show-job` | `show` | Show the job COB for a Git commit |\n\nAlso to align with existing `rad` subcommands such as `rad issue`, `list` could be made the default command.\n\nFinally, I have a small output change suggestion:\n\n``` diff\ndiff --git a/src/main.rs b/src/main.rs\nindex 30982a6..9d2e5b5 100644\n--- a/src/main.rs\n+++ b/src/main.rs\n@@ -154,7 +154,7 @@ impl JobsList {\n \n         line(&mut s, format!(\"count: {}\", self.count));\n         for shown in self.jobs.iter() {\n-            line(&mut s, format!(\"job {}\", shown.job_id));\n+            line(&mut s, format!(\"job {} (oid {})\", shown.job_id, shown.oid));\n             for run in shown.runs.iter() {\n                 line(&mut s, format!(\"  node {}\", run.node_id));\n                 for run2 in run.runs.iter() {\n```\n\nFor any git user, the oid makes the job relatable to what they have in their commit history.",
+                "comments": [],
+                "timestamp": 1752650000
+              }
+            ]
+          },
+          {
+            "id": "d9fe84e7d65aa7649d7c7a40f7fa0b45da72bc13",
+            "author": {
+              "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+              "alias": "liw"
+            },
+            "description": "Apply suggestions from Richard Levitte",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                  "alias": "liw"
+                },
+                "body": "Apply suggestions from Richard Levitte",
+                "timestamp": 1752654773,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "f90f72b43758799c0b63b2cb7d8e658c1b5f46a9",
+            "refs": [
+              "refs/heads/patches/d461a00210ebeb84c1b2bc90829eaeed5864867f",
+              "refs/heads/patches/d9f4dad05a4e468898bb7374c4c8a77e569548aa"
+            ],
+            "discussions": [],
+            "timestamp": 1752654773,
+            "reviews": []
+          },
+          {
+            "id": "7ec1c77e42c048bf9a0b2f562b55a3af78ceb7e0",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Changes:\n- Introduce `FindByCommit` iterator\n- Introduce `display` module\n- Refactoring of CLI",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Changes:\n- Introduce `FindByCommit` iterator\n- Introduce `display` module\n- Refactoring of CLI",
+                "timestamp": 1752754680,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "20ee99575112021548a2d68df15175ef2e21603d",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1752754680,
+            "reviews": []
+          },
+          {
+            "id": "2d82eaa6ab2b2d06195ba2ec974da3943d276171",
+            "author": {
+              "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+              "alias": "levitte"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "",
+                "timestamp": 1752814887,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "576c9a42284ed9e86b6fc1b05a81f870dc8a35b1",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1752814887,
+            "reviews": []
+          },
+          {
+            "id": "7be52ad3291c6339c2d34be4791544f0da9456f6",
+            "author": {
+              "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+              "alias": "levitte"
+            },
+            "description": "",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                  "alias": "levitte"
+                },
+                "body": "",
+                "timestamp": 1752815088,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "ff28254d4037c6168e86e08c447b9430565e06f9",
+            "refs": [
+              "refs/heads/patches/d9f4dad05a4e468898bb7374c4c8a77e569548aa"
+            ],
+            "discussions": [],
+            "timestamp": 1752815088,
+            "reviews": []
+          },
+          {
+            "id": "152d304310d62613d37237777ec963267e176061",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Changes:\n- Remove optional UUID for `rad job run`\n- Rename Error to RadJobError\n- Improve wording of doc strings",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Changes:\n- Remove optional UUID for `rad job run`\n- Rename Error to RadJobError\n- Improve wording of doc strings",
+                "timestamp": 1752830466,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "ae7c5bc543d22468eba2747043a496583e465b3b",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1752830466,
+            "reviews": []
+          },
+          {
+            "id": "193cf2685657d31704e857d83e451e8ad170b6ab",
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "description": "Changes:\n- Re-attribution of commit",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+                  "alias": "fintohaps"
+                },
+                "body": "Changes:\n- Re-attribution of commit",
+                "timestamp": 1752831372,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "oid": "8530300d045448b7b7173d8a5280d18e493edbbb",
+            "refs": [],
+            "discussions": [],
+            "timestamp": 1752831372,
+            "reviews": []
+          }
+        ]
+      },
+      {
+        "id": "a78e23b68ce47452a79427b696f7e303b7f04fb4",
+        "author": {
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "alias": "liw"
+        },
+        "title": "fix: inline variable in format string",
+        "state": {
+          "status": "merged",
+          "revision": "a78e23b68ce47452a79427b696f7e303b7f04fb4",
+          "commit": "574129a2d0008294818aa99ba99b3ad64ffdaeab"
+        },
+        "target": "delegates",
+        "labels": [],
+        "merges": [
+          {
+            "author": {
+              "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+              "alias": "fintohaps"
+            },
+            "commit": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "timestamp": 1751280523,
+            "revision": "a78e23b68ce47452a79427b696f7e303b7f04fb4"
+          }
+        ],
+        "assignees": [],
+        "revisions": [
+          {
+            "id": "a78e23b68ce47452a79427b696f7e303b7f04fb4",
+            "author": {
+              "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+              "alias": "liw"
+            },
+            "description": "This is now considered idiomatic Rust style. Found by clippy in Rust\n1.88, but will work with Rust 1.84.1.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+            "edits": [
+              {
+                "author": {
+                  "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+                  "alias": "liw"
+                },
+                "body": "This is now considered idiomatic Rust style. Found by clippy in Rust\n1.88, but will work with Rust 1.84.1.\n\nSigned-off-by: Lars Wirzenius <redacted@example.invalid>",
+                "timestamp": 1751265547,
+                "embeds": []
+              }
+            ],
+            "reactions": [],
+            "base": "68cac715acaa4b2a8f8a01b590f5807f0aaa2286",
+            "oid": "574129a2d0008294818aa99ba99b3ad64ffdaeab",
+            "refs": [
+              "refs/heads/patches/a78e23b68ce47452a79427b696f7e303b7f04fb4"
+            ],
+            "discussions": [],
+            "timestamp": 1751265547,
+            "reviews": []
+          }
+        ]
+      }
+    ]
+  }
+}

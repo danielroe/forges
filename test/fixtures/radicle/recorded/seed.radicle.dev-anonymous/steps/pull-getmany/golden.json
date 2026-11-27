@@ -1,0 +1,105 @@
+[
+  {
+    "ok": true,
+    "ref": {
+      "forge": "radicle",
+      "instance": "seed.radicle.dev",
+      "repo": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "owner": "rad",
+        "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+        "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+      },
+      "kind": "pull_request",
+      "number": "40b77f9a8f76edba228810932752b22380600fe6"
+    },
+    "thread": {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "kind": "pull_request",
+        "number": "40b77f9a8f76edba228810932752b22380600fe6"
+      },
+      "kind": "pull_request",
+      "title": "Add timestamp to Run information",
+      "body": "Use the COB operation timestamp to add a timestamp to each Run.\n\nThis information is also output when using the `rad job` CLI.",
+      "state": "merged",
+      "stateRaw": "merged",
+      "isDraft": false,
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+        "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+        "name": "fintohaps",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "radicle",
+            "instance": "seed.radicle.dev",
+            "login": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "name": "levitte",
+            "isBotHint": false
+          },
+          "state": "approved",
+          "stateRaw": "accept"
+        }
+      ],
+      "labels": [],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/patches/40b77f9a8f76edba228810932752b22380600fe6",
+      "createdAt": "2025-12-28T15:18:41.000Z",
+      "lastActivityAt": "2026-03-04T17:56:26.000Z",
+      "mergedAt": "2026-03-04T17:56:26.000Z",
+      "mergedBy": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+        "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+        "name": "fintohaps",
+        "isBotHint": false
+      },
+      "commentCount": 1,
+      "participants": [
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+          "id": "did:key:z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM",
+          "name": "fintohaps",
+          "isBotHint": false
+        },
+        {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "login": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "id": "did:key:z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV",
+          "name": "liw",
+          "isBotHint": false
+        }
+      ],
+      "branches": {
+        "head": {
+          "ref": "patches/40b77f9a8f76edba228810932752b22380600fe6",
+          "sha": "e37ff3447ec38823361c71910455bec5ad74035c"
+        },
+        "base": {
+          "ref": "main",
+          "sha": "525dc9a9e43217e038aa26a1dcb082ada32f1192"
+        },
+        "mergeCommitSha": "e37ff3447ec38823361c71910455bec5ad74035c"
+      }
+    }
+  }
+]

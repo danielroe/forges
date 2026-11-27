@@ -1,0 +1,157 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/0209a238514e946440f76f2d4184b370897a3055"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": "0209a238514e946440f76f2d4184b370897a3055",
+      "author": {
+        "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "alias": "levitte"
+      },
+      "title": "`rad job show` only shows the first job COB associated with a specific OID",
+      "state": {
+        "status": "open"
+      },
+      "assignees": [],
+      "discussion": [
+        {
+          "id": "0209a238514e946440f76f2d4184b370897a3055",
+          "author": {
+            "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "alias": "levitte"
+          },
+          "body": "``` console\n$ rad job show 0ebf99a6e32eff60e36841a18fa3ee0757155d04 --pretty\njob 14954fef33264d516530f07a9be0c28fbd197d01 (commit 0ebf99a6e32eff60e36841a18fa3ee0757155d04)\n  node z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\n    run c9abeb4d-80ab-4dfb-b914-99296bcd6f27 Finished(Failed)\n      log  https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\n\n$ rad job show 0ebf99a6e32eff60e36841a18fa3ee0757155d04 \n{\n  \"job_id\": \"14954fef33264d516530f07a9be0c28fbd197d01\",\n  \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n  \"runs\": [\n    {\n      \"node_id\": \"z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\",\n      \"runs\": [\n        {\n          \"run_id\": \"c9abeb4d-80ab-4dfb-b914-99296bcd6f27\",\n          \"status\": {\n            \"Finished\": \"Failed\"\n          },\n          \"log\": \"https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nWhereas:\n\n``` console\n$ rad job list | grep -B2 -A16 0ebf99a\n    {\n      \"job_id\": \"14954fef33264d516530f07a9be0c28fbd197d01\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\",\n          \"runs\": [\n            {\n              \"run_id\": \"c9abeb4d-80ab-4dfb-b914-99296bcd6f27\",\n              \"status\": {\n                \"Finished\": \"Failed\"\n              },\n              \"log\": \"https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n--\n    {\n      \"job_id\": \"4857dfc7b9da4e601a9f735056b060869aaa243c\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MkfXa53s1ZSFy8rktvyXt5ADCojnxvjAoQpzajaXyLqG5n\",\n          \"runs\": [\n            {\n              \"run_id\": \"7b475384-2bfd-456e-ac9e-33fa0460c939\",\n              \"status\": \"Started\",\n              \"log\": \"http://callisto.liw.fi/ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/a0b0b031-9781-4491-b388-80a16b7dc496.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"job_id\": \"487ab8e13d9b73a7ebf91eff8f7f05873cf98bf7\",\n      \"oid\": \"88dd863f2e4bedf9e75921180c2001f8ed7ef14c\",\n--\n    {\n      \"job_id\": \"cf4b7faf60c19fca1b5dbe077529902ce446c85b\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MksU9RybqKLYRnrae3muoLgQTXUbsS8JmFDWWdxyJ5ceN3\",\n          \"runs\": [\n            {\n              \"run_id\": \"3acb868e-eabc-4c9a-8c98-e822379bc9f0\",\n              \"status\": \"Started\",\n              \"log\": \"https://cci.rad.levitte.org//e188383c-c73b-4716-998a-e51225e17ea5.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"job_id\": \"cf63a15d40c810a1945d20968b2a9e96a0d13e5b\",\n      \"oid\": \"c672a06988b8d04df47e068a98847a59b02d88ee\",\n```\n",
+          "edits": [
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "``` console\n$ rad job show 0ebf99a6e32eff60e36841a18fa3ee0757155d04 --pretty\njob 14954fef33264d516530f07a9be0c28fbd197d01 (commit 0ebf99a6e32eff60e36841a18fa3ee0757155d04)\n  node z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\n    run c9abeb4d-80ab-4dfb-b914-99296bcd6f27 Finished(Failed)\n      log  https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\n\n$ rad job show 0ebf99a6e32eff60e36841a18fa3ee0757155d04 \n{\n  \"job_id\": \"14954fef33264d516530f07a9be0c28fbd197d01\",\n  \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n  \"runs\": [\n    {\n      \"node_id\": \"z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\",\n      \"runs\": [\n        {\n          \"run_id\": \"c9abeb4d-80ab-4dfb-b914-99296bcd6f27\",\n          \"status\": {\n            \"Finished\": \"Failed\"\n          },\n          \"log\": \"https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nWhereas:\n\n``` console\n$ rad job list | grep -B2 -A16 0ebf99a\n    {\n      \"job_id\": \"14954fef33264d516530f07a9be0c28fbd197d01\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\",\n          \"runs\": [\n            {\n              \"run_id\": \"c9abeb4d-80ab-4dfb-b914-99296bcd6f27\",\n              \"status\": {\n                \"Finished\": \"Failed\"\n              },\n              \"log\": \"https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n--\n    {\n      \"job_id\": \"4857dfc7b9da4e601a9f735056b060869aaa243c\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MkfXa53s1ZSFy8rktvyXt5ADCojnxvjAoQpzajaXyLqG5n\",\n          \"runs\": [\n            {\n              \"run_id\": \"7b475384-2bfd-456e-ac9e-33fa0460c939\",\n              \"status\": \"Started\",\n              \"log\": \"http://callisto.liw.fi/ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/a0b0b031-9781-4491-b388-80a16b7dc496.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"job_id\": \"487ab8e13d9b73a7ebf91eff8f7f05873cf98bf7\",\n      \"oid\": \"88dd863f2e4bedf9e75921180c2001f8ed7ef14c\",\n--\n    {\n      \"job_id\": \"cf4b7faf60c19fca1b5dbe077529902ce446c85b\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MksU9RybqKLYRnrae3muoLgQTXUbsS8JmFDWWdxyJ5ceN3\",\n          \"runs\": [\n            {\n              \"run_id\": \"3acb868e-eabc-4c9a-8c98-e822379bc9f0\",\n              \"status\": \"Started\",\n              \"log\": \"https://cci.rad.levitte.org//e188383c-c73b-4716-998a-e51225e17ea5.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"job_id\": \"cf63a15d40c810a1945d20968b2a9e96a0d13e5b\",\n      \"oid\": \"c672a06988b8d04df47e068a98847a59b02d88ee\",\n```\n",
+              "timestamp": 1756123778,
+              "embeds": []
+            },
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "``` console\n$ rad job show 0ebf99a6e32eff60e36841a18fa3ee0757155d04 --pretty\njob 14954fef33264d516530f07a9be0c28fbd197d01 (commit 0ebf99a6e32eff60e36841a18fa3ee0757155d04)\n  node z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\n    run c9abeb4d-80ab-4dfb-b914-99296bcd6f27 Finished(Failed)\n      log  https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\n\n$ rad job show 0ebf99a6e32eff60e36841a18fa3ee0757155d04 \n{\n  \"job_id\": \"14954fef33264d516530f07a9be0c28fbd197d01\",\n  \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n  \"runs\": [\n    {\n      \"node_id\": \"z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\",\n      \"runs\": [\n        {\n          \"run_id\": \"c9abeb4d-80ab-4dfb-b914-99296bcd6f27\",\n          \"status\": {\n            \"Finished\": \"Failed\"\n          },\n          \"log\": \"https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nWhereas:\n\n``` console\n$ rad job list | grep -B2 -A16 0ebf99a\n    {\n      \"job_id\": \"14954fef33264d516530f07a9be0c28fbd197d01\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MkkYez6QAFWvmdudjrfMXySu1NTpSrraJotCJFwGgkmgx8\",\n          \"runs\": [\n            {\n              \"run_id\": \"c9abeb4d-80ab-4dfb-b914-99296bcd6f27\",\n              \"status\": {\n                \"Finished\": \"Failed\"\n              },\n              \"log\": \"https://ci0.liw.fi//ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/7826a717-c5bf-460d-81f8-04a926317728.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n--\n    {\n      \"job_id\": \"4857dfc7b9da4e601a9f735056b060869aaa243c\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MkfXa53s1ZSFy8rktvyXt5ADCojnxvjAoQpzajaXyLqG5n\",\n          \"runs\": [\n            {\n              \"run_id\": \"7b475384-2bfd-456e-ac9e-33fa0460c939\",\n              \"status\": \"Started\",\n              \"log\": \"http://callisto.liw.fi/ambient-log/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/a0b0b031-9781-4491-b388-80a16b7dc496.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"job_id\": \"487ab8e13d9b73a7ebf91eff8f7f05873cf98bf7\",\n      \"oid\": \"88dd863f2e4bedf9e75921180c2001f8ed7ef14c\",\n--\n    {\n      \"job_id\": \"cf4b7faf60c19fca1b5dbe077529902ce446c85b\",\n      \"oid\": \"0ebf99a6e32eff60e36841a18fa3ee0757155d04\",\n      \"runs\": [\n        {\n          \"node_id\": \"z6MksU9RybqKLYRnrae3muoLgQTXUbsS8JmFDWWdxyJ5ceN3\",\n          \"runs\": [\n            {\n              \"run_id\": \"3acb868e-eabc-4c9a-8c98-e822379bc9f0\",\n              \"status\": \"Started\",\n              \"log\": \"https://cci.rad.levitte.org//e188383c-c73b-4716-998a-e51225e17ea5.html\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"job_id\": \"cf63a15d40c810a1945d20968b2a9e96a0d13e5b\",\n      \"oid\": \"c672a06988b8d04df47e068a98847a59b02d88ee\",\n```\n",
+              "timestamp": 1770042446,
+              "embeds": []
+            }
+          ],
+          "embeds": [],
+          "reactions": [],
+          "timestamp": 1756123778,
+          "replyTo": null,
+          "resolved": false
+        },
+        {
+          "id": "bf24477bc52402c4a944a84b0835647718381004",
+          "author": {
+            "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "alias": "levitte"
+          },
+          "body": "[superfluous comment deleted]",
+          "edits": [
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "Note: I thought the theory was that there would only be one job COB per commit....  that doesn't seem to hold true, which does make more sense in a distributed system.",
+              "timestamp": 1756123788,
+              "embeds": []
+            },
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "[never mind]",
+              "timestamp": 1756123830,
+              "embeds": []
+            },
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "[never mind, this was a superfluous comment]",
+              "timestamp": 1756123842,
+              "embeds": []
+            },
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "[superfluous comment deleted]",
+              "timestamp": 1756123857,
+              "embeds": []
+            }
+          ],
+          "embeds": [],
+          "reactions": [],
+          "timestamp": 1756123788,
+          "replyTo": "0209a238514e946440f76f2d4184b370897a3055",
+          "resolved": false
+        },
+        {
+          "id": "2fc13c1ff54cb2fdc9d377180b8c14ea12cb4925",
+          "author": {
+            "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "alias": "levitte"
+          },
+          "body": "Side note: https://cci.rad.levitte.org//e188383c-c73b-4716-998a-e51225e17ea5.html shows that the run did finish (with failure).  Why wasn't that recorded?  Perhaps that belongs with radicle-ci-broker, and @liw can tell.",
+          "edits": [
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "Side note: https://cci.rad.levitte.org//e188383c-c73b-4716-998a-e51225e17ea5.html shows that the run did finish (with failure).  Why wasn't that recorded?  Perhaps that belongs with radicle-ci-broker, and @liw can tell.",
+              "timestamp": 1756124205,
+              "embeds": []
+            }
+          ],
+          "embeds": [],
+          "reactions": [],
+          "timestamp": 1756124205,
+          "replyTo": "0209a238514e946440f76f2d4184b370897a3055",
+          "resolved": false
+        },
+        {
+          "id": "b94f64e306c6b377d123dc8d6a5b880e771a3b96",
+          "author": {
+            "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+            "alias": "levitte"
+          },
+          "body": "I got sufficiently irritated with this today that I might have a go at making the change so `rad job show` shows *all* job COBs for the specified commit.\n\nI know that's not \"right\" visavi the theory that one commit should only have one associated job COB, but until that's a reality, it is better if the command can display the current reality.",
+          "edits": [
+            {
+              "author": {
+                "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+                "alias": "levitte"
+              },
+              "body": "I got sufficiently irritated with this today that I might have a go at making the change so `rad job show` shows *all* job COBs for the specified commit.\n\nI know that's not \"right\" visavi the theory that one commit should only have one associated job COB, but until that's a reality, it is better if the command can display the current reality.",
+              "timestamp": 1776953390,
+              "embeds": []
+            }
+          ],
+          "embeds": [],
+          "reactions": [],
+          "timestamp": 1776953390,
+          "replyTo": "0209a238514e946440f76f2d4184b370897a3055",
+          "resolved": false
+        }
+      ],
+      "labels": []
+    }
+  }
+}

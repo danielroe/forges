@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://seed.radicle.dev/api/v1/repos/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits?parent=c6d10d40f5aadaa1898f65b8d77ca524336cb1f9&page=0&perPage=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+        "author": {
+          "name": "Daniel Norman",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "feat: add --latest flag to get the latest job run",
+        "description": "",
+        "parents": [
+          "d462bc66d02e984671b45dac387d45c760c562d5"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1781012845
+        }
+      },
+      {
+        "id": "d462bc66d02e984671b45dac387d45c760c562d5",
+        "author": {
+          "name": "Daniel Norman",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "feat: add support for shorthand oids in show",
+        "description": "",
+        "parents": [
+          "ea565f777c3fadc9b96e191874e05957475be310"
+        ],
+        "committer": {
+          "name": "Daniel Norman",
+          "email": "redacted@example.invalid",
+          "time": 1780315171
+        }
+      },
+      {
+        "id": "ea565f777c3fadc9b96e191874e05957475be310",
+        "author": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid"
+        },
+        "summary": "chore: Release radicle-job 0.6.0",
+        "description": "",
+        "parents": [
+          "b736670212593c5da0a76b5b98737f76e5322671"
+        ],
+        "committer": {
+          "name": "Fintan Halpenny",
+          "email": "redacted@example.invalid",
+          "time": 1778139924
+        }
+      }
+    ]
+  }
+}

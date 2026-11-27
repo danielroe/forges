@@ -21,6 +21,7 @@ export default defineConfig({
     'src/gitcafe/index.ts',
     'src/entire/index.ts',
     'src/upstream/index.ts',
+    'src/radicle/index.ts',
     'src/env.ts',
     'src/helpers.ts',
     'src/kit.ts',

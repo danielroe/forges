@@ -1,0 +1,94 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9"
+      },
+      "sha": "c6d10d40f5aadaa1898f65b8d77ca524336cb1f9",
+      "message": "feat: add --latest flag to get the latest job run",
+      "author": {
+        "name": "Daniel Norman",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2026-06-09T13:47:25.000Z"
+      },
+      "parents": [
+        "d462bc66d02e984671b45dac387d45c760c562d5"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/c6d10d40f5aadaa1898f65b8d77ca524336cb1f9"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "d462bc66d02e984671b45dac387d45c760c562d5"
+      },
+      "sha": "d462bc66d02e984671b45dac387d45c760c562d5",
+      "message": "feat: add support for shorthand oids in show",
+      "author": {
+        "name": "Daniel Norman",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Daniel Norman",
+        "email": "redacted@example.invalid",
+        "date": "2026-06-01T11:59:31.000Z"
+      },
+      "parents": [
+        "ea565f777c3fadc9b96e191874e05957475be310"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/d462bc66d02e984671b45dac387d45c760c562d5"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "repo": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "owner": "rad",
+          "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+          "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+        },
+        "sha": "ea565f777c3fadc9b96e191874e05957475be310"
+      },
+      "sha": "ea565f777c3fadc9b96e191874e05957475be310",
+      "message": "chore: Release radicle-job 0.6.0",
+      "author": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid"
+      },
+      "committer": {
+        "name": "Fintan Halpenny",
+        "email": "redacted@example.invalid",
+        "date": "2026-05-07T07:45:24.000Z"
+      },
+      "parents": [
+        "b736670212593c5da0a76b5b98737f76e5322671"
+      ],
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/commits/ea565f777c3fadc9b96e191874e05957475be310"
+    }
+  ],
+  "cursor": {
+    "token": "1"
+  }
+}

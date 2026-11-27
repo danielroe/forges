@@ -1,0 +1,99 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "thread": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "repo": {
+            "forge": "radicle",
+            "instance": "seed.radicle.dev",
+            "owner": "rad",
+            "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+            "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+          },
+          "kind": "issue",
+          "number": "0209a238514e946440f76f2d4184b370897a3055"
+        },
+        "id": "bf24477bc52402c4a944a84b0835647718381004"
+      },
+      "body": "[superfluous comment deleted]",
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "name": "levitte",
+        "isBotHint": false
+      },
+      "createdAt": "2025-08-25T12:09:48.000Z",
+      "updatedAt": "2025-08-25T12:10:57.000Z",
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/0209a238514e946440f76f2d4184b370897a3055"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "thread": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "repo": {
+            "forge": "radicle",
+            "instance": "seed.radicle.dev",
+            "owner": "rad",
+            "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+            "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+          },
+          "kind": "issue",
+          "number": "0209a238514e946440f76f2d4184b370897a3055"
+        },
+        "id": "2fc13c1ff54cb2fdc9d377180b8c14ea12cb4925"
+      },
+      "body": "Side note: https://cci.rad.levitte.org//e188383c-c73b-4716-998a-e51225e17ea5.html shows that the run did finish (with failure).  Why wasn't that recorded?  Perhaps that belongs with radicle-ci-broker, and @liw can tell.",
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "name": "levitte",
+        "isBotHint": false
+      },
+      "createdAt": "2025-08-25T12:16:45.000Z",
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/0209a238514e946440f76f2d4184b370897a3055"
+    },
+    {
+      "ref": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "thread": {
+          "forge": "radicle",
+          "instance": "seed.radicle.dev",
+          "repo": {
+            "forge": "radicle",
+            "instance": "seed.radicle.dev",
+            "owner": "rad",
+            "name": "z2UcCU1LgMshWvXj6hXSDDrwB8q8M",
+            "externalId": "rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M"
+          },
+          "kind": "issue",
+          "number": "0209a238514e946440f76f2d4184b370897a3055"
+        },
+        "id": "b94f64e306c6b377d123dc8d6a5b880e771a3b96"
+      },
+      "body": "I got sufficiently irritated with this today that I might have a go at making the change so `rad job show` shows *all* job COBs for the specified commit.\n\nI know that's not \"right\" visavi the theory that one commit should only have one associated job COB, but until that's a reality, it is better if the command can display the current reality.",
+      "author": {
+        "forge": "radicle",
+        "instance": "seed.radicle.dev",
+        "login": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "id": "did:key:z6Mku8hpprWTmCv3BqkssCYDfr2feUdyLSUnycVajFo9XVAx",
+        "name": "levitte",
+        "isBotHint": false
+      },
+      "createdAt": "2026-04-23T14:09:50.000Z",
+      "url": "https://radicle.network/nodes/seed.radicle.dev/rad:z2UcCU1LgMshWvXj6hXSDDrwB8q8M/issues/0209a238514e946440f76f2d4184b370897a3055"
+    }
+  ],
+  "total": 3
+}
