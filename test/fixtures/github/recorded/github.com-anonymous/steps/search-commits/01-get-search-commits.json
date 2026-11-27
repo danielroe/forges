@@ -6,58 +6,58 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2>; rel=\"next\", <https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=150>; rel=\"last\"",
+      "link": "<https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2>; rel=\"next\", <https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=153>; rel=\"last\"",
       "x-ratelimit-limit": "10",
       "x-ratelimit-remaining": "9",
-      "x-ratelimit-reset": "1792384817",
+      "x-ratelimit-reset": "1795408268",
       "x-ratelimit-resource": "search"
     },
     "body": {
-      "total_count": 448,
+      "total_count": 458,
       "incomplete_results": false,
       "items": [
         {
-          "url": "https://api.github.com/repos/h3js/h3/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-          "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmY0ZWJkNGU5YWI0ZGUxZDA2OTQyNjU4OTZlNDFlN2QyYTJkZDQyZDg=",
-          "html_url": "https://github.com/h3js/h3/commit/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/fb2a9943b5e91c03ea0b457f60650d080e96afc7",
+          "sha": "fb2a9943b5e91c03ea0b457f60650d080e96afc7",
+          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmZiMmE5OTQzYjVlOTFjMDNlYTBiNDU3ZjYwNjUwZDA4MGU5NmFmYzc=",
+          "html_url": "https://github.com/h3js/h3/commit/fb2a9943b5e91c03ea0b457f60650d080e96afc7",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/fb2a9943b5e91c03ea0b457f60650d080e96afc7/comments",
           "commit": {
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/fb2a9943b5e91c03ea0b457f60650d080e96afc7",
             "author": {
-              "date": "2026-10-17T20:49:51.000+09:00",
-              "name": "otowa1",
+              "date": "2026-11-10T12:10:04.000-03:00",
+              "name": "Caíque de Castro Soares da Silva",
               "email": "redacted@example.invalid"
             },
             "committer": {
-              "date": "2026-10-17T20:49:51.000+09:00",
+              "date": "2026-11-10T16:10:04.000+01:00",
               "name": "GitHub",
               "email": "redacted@example.invalid"
             },
-            "message": "docs: fix code example (#1587)",
+            "message": "fix(proxy): preserve content-length for unencoded responses (#1643)\n\n* fix(proxy): preserve content-length for unencoded responses\n\nThe proxy strips Content-Length from every upstream response even when fetch returns the body unchanged. This discards valid framing metadata for full and partial media responses, as well as HEAD and empty responses. Stripping the header is still necessary when fetch transparently decompresses a response.\n\nMove Content-Length out of the unconditional response-header denylist and preserve it when Content-Encoding is absent or identity. Keep dropping it for encoded or CORS-filtered responses and respect Connection-nominated hop-by-hop fields. Add regression coverage for full and partial binary responses, identity encoding, empty responses, HEAD, real HTTP gzip/deflate/Brotli decompression, and the header-filtering safeguards.\n\n* fix(proxy): handle head method overrides when forwarding length\n\nA GET request proxied with fetchOptions.method set to HEAD could forward the upstream representation length despite having no response body. Clients would wait for bytes that never arrived.\n\nOnly preserve a nonzero length without a body when the downstream request is HEAD or the response is 304. Add regression tests for the GET-to-HEAD override and for retaining valid 304 metadata, using both internal requests and real HTTP connections.\n\n* fix(proxy): drop conflicting and prohibited content lengths\n\nPreserving upstream Content-Length could retain a stale length when an internal handler also supplied Transfer-Encoding, causing clients to wait for bytes that were never sent. The zero-length and HEAD exceptions could also forward Content-Length on a 204 response, where the header is prohibited.\n\nExclude responses with Transfer-Encoding and status 204 before applying the length-preservation exceptions. Add regression coverage for conflicting internal response headers and for zero-length GET and positive-length HEAD responses with status 204, exercising both web and Node transports.\n\n* refactor(proxy): drop content-length guards unreachable over HTTP\n\nA real upstream cannot send both transfer-encoding and content-length (the\nHTTP parser rejects it), and a bodyless zero length only arises from synthetic\ninternal responses; dropping it there matches the previous behavior.\n\n* fix(proxy): keep dropping content-length alongside transfer-encoding\n\nInternal targets bypass the HTTP parser, so a handler response carrying both\nheaders would otherwise forward a length the body may not match (hang or\nsilent truncation instead of the direct-access framing error).\n\n---------\n\nCo-authored-by: Pooya Parsa <redacted@example.invalid>",
             "tree": {
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/f631228e7e99bffcb275eb3b2fde7eda0c83a0a4",
-              "sha": "f631228e7e99bffcb275eb3b2fde7eda0c83a0a4"
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/80b9f4f2db55f7f5769bf9d8405174a21d6143f0",
+              "sha": "80b9f4f2db55f7f5769bf9d8405174a21d6143f0"
             },
             "comment_count": 0
           },
           "author": {
-            "login": "otowa1",
-            "id": 90172742,
+            "login": "caiquecastro",
+            "id": 3316550,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/90172742?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/3316550?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/otowa1",
-            "html_url": "https://github.com/otowa1",
-            "followers_url": "https://api.github.com/users/otowa1/followers",
-            "following_url": "https://api.github.com/users/otowa1/following{/other_user}",
-            "gists_url": "https://api.github.com/users/otowa1/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/otowa1/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/otowa1/subscriptions",
-            "organizations_url": "https://api.github.com/users/otowa1/orgs",
-            "repos_url": "https://api.github.com/users/otowa1/repos",
-            "events_url": "https://api.github.com/users/otowa1/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/otowa1/received_events",
+            "url": "https://api.github.com/users/caiquecastro",
+            "html_url": "https://github.com/caiquecastro",
+            "followers_url": "https://api.github.com/users/caiquecastro/followers",
+            "following_url": "https://api.github.com/users/caiquecastro/following{/other_user}",
+            "gists_url": "https://api.github.com/users/caiquecastro/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/caiquecastro/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/caiquecastro/subscriptions",
+            "organizations_url": "https://api.github.com/users/caiquecastro/orgs",
+            "repos_url": "https://api.github.com/users/caiquecastro/repos",
+            "events_url": "https://api.github.com/users/caiquecastro/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/caiquecastro/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
@@ -85,9 +85,9 @@
           },
           "parents": [
             {
-              "url": "https://api.github.com/repos/h3js/h3/commits/0835b7da1348ce02c736dc0c1d6f195ecba4d32c",
-              "html_url": "https://github.com/h3js/h3/commit/0835b7da1348ce02c736dc0c1d6f195ecba4d32c",
-              "sha": "0835b7da1348ce02c736dc0c1d6f195ecba4d32c"
+              "url": "https://api.github.com/repos/h3js/h3/commits/e379a329df994022f2a9924ae55bb8a8c485f91f",
+              "html_url": "https://github.com/h3js/h3/commit/e379a329df994022f2a9924ae55bb8a8c485f91f",
+              "sha": "e379a329df994022f2a9924ae55bb8a8c485f91f"
             }
           ],
           "repository": {
@@ -161,77 +161,77 @@
           "score": 1
         },
         {
-          "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OjQ4ZDY1MGJlODk0MjJjZDVkMDZmNGNkN2EwMmZjYmY0MzAwZDk2ZGY=",
-          "html_url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/e379a329df994022f2a9924ae55bb8a8c485f91f",
+          "sha": "e379a329df994022f2a9924ae55bb8a8c485f91f",
+          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmUzNzlhMzI5ZGY5OTQwMjJmMmE5OTI0YWU1NWJiOGE4YzQ4NWY5MWY=",
+          "html_url": "https://github.com/h3js/h3/commit/e379a329df994022f2a9924ae55bb8a8c485f91f",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/e379a329df994022f2a9924ae55bb8a8c485f91f/comments",
           "commit": {
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/e379a329df994022f2a9924ae55bb8a8c485f91f",
             "author": {
-              "date": "2026-10-18T13:53:32.000Z",
-              "name": "Pooya Parsa",
+              "date": "2026-11-10T11:20:13.000-03:00",
+              "name": "Henrico Piubello",
               "email": "redacted@example.invalid"
             },
             "committer": {
-              "date": "2026-10-18T13:59:46.000Z",
-              "name": "Pooya Parsa",
+              "date": "2026-11-10T15:20:13.000+01:00",
+              "name": "GitHub",
               "email": "redacted@example.invalid"
             },
-            "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+            "message": "fix(query): reject malformed Content-Type tokens (#1634)",
             "tree": {
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/f60a2a47abeb5c7bf7b5e46049cc312f2239f930",
-              "sha": "f60a2a47abeb5c7bf7b5e46049cc312f2239f930"
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/89808cea5c89b617af83eb8555ebcb9631d63154",
+              "sha": "89808cea5c89b617af83eb8555ebcb9631d63154"
             },
             "comment_count": 0
           },
           "author": {
-            "login": "pi0",
-            "id": 5158436,
+            "login": "henricop",
+            "id": 54844857,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/54844857?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/pi0",
-            "html_url": "https://github.com/pi0",
-            "followers_url": "https://api.github.com/users/pi0/followers",
-            "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-            "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-            "organizations_url": "https://api.github.com/users/pi0/orgs",
-            "repos_url": "https://api.github.com/users/pi0/repos",
-            "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/pi0/received_events",
+            "url": "https://api.github.com/users/henricop",
+            "html_url": "https://github.com/henricop",
+            "followers_url": "https://api.github.com/users/henricop/followers",
+            "following_url": "https://api.github.com/users/henricop/following{/other_user}",
+            "gists_url": "https://api.github.com/users/henricop/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/henricop/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/henricop/subscriptions",
+            "organizations_url": "https://api.github.com/users/henricop/orgs",
+            "repos_url": "https://api.github.com/users/henricop/repos",
+            "events_url": "https://api.github.com/users/henricop/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/henricop/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           },
           "committer": {
-            "login": "pi0",
-            "id": 5158436,
+            "login": "web-flow",
+            "id": 19864447,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/pi0",
-            "html_url": "https://github.com/pi0",
-            "followers_url": "https://api.github.com/users/pi0/followers",
-            "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-            "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-            "organizations_url": "https://api.github.com/users/pi0/orgs",
-            "repos_url": "https://api.github.com/users/pi0/repos",
-            "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/pi0/received_events",
+            "url": "https://api.github.com/users/web-flow",
+            "html_url": "https://github.com/web-flow",
+            "followers_url": "https://api.github.com/users/web-flow/followers",
+            "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+            "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+            "organizations_url": "https://api.github.com/users/web-flow/orgs",
+            "repos_url": "https://api.github.com/users/web-flow/repos",
+            "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/web-flow/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           },
           "parents": [
             {
-              "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
-              "html_url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876",
-              "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876"
+              "url": "https://api.github.com/repos/h3js/h3/commits/ef941511f41e22a9c9bfdef0750b5fea0c28c6a7",
+              "html_url": "https://github.com/h3js/h3/commit/ef941511f41e22a9c9bfdef0750b5fea0c28c6a7",
+              "sha": "ef941511f41e22a9c9bfdef0750b5fea0c28c6a7"
             }
           ],
           "repository": {
@@ -305,47 +305,47 @@
           "score": 1
         },
         {
-          "url": "https://api.github.com/repos/h3js/h3/commits/ef38da99d4e3b9f837725e2b398ce73a173d007d",
-          "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d",
-          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmVmMzhkYTk5ZDRlM2I5ZjgzNzcyNWUyYjM5OGNlNzNhMTczZDAwN2Q=",
-          "html_url": "https://github.com/h3js/h3/commit/ef38da99d4e3b9f837725e2b398ce73a173d007d",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/ef38da99d4e3b9f837725e2b398ce73a173d007d/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/d252549ca9f39690a3547fe440f42db6b7c4f612",
+          "sha": "d252549ca9f39690a3547fe440f42db6b7c4f612",
+          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmQyNTI1NDljYTlmMzk2OTBhMzU0N2ZlNDQwZjQyZGI2YjdjNGY2MTI=",
+          "html_url": "https://github.com/h3js/h3/commit/d252549ca9f39690a3547fe440f42db6b7c4f612",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/d252549ca9f39690a3547fe440f42db6b7c4f612/comments",
           "commit": {
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/ef38da99d4e3b9f837725e2b398ce73a173d007d",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/d252549ca9f39690a3547fe440f42db6b7c4f612",
             "author": {
-              "date": "2026-10-17T17:20:19.000+05:30",
-              "name": "Satvik Mishra",
+              "date": "2026-11-10T22:45:14.000+07:00",
+              "name": "Ngo Quoc Viet",
               "email": "redacted@example.invalid"
             },
             "committer": {
-              "date": "2026-10-17T20:50:19.000+09:00",
+              "date": "2026-11-10T16:45:14.000+01:00",
               "name": "GitHub",
               "email": "redacted@example.invalid"
             },
-            "message": "docs: fix broken section anchors (#1577)",
+            "message": "fix(response): keep `iterable` streaming past skipped values (#1615)",
             "tree": {
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/9feb88f7010d519fd06ac5fce2804881ded28356",
-              "sha": "9feb88f7010d519fd06ac5fce2804881ded28356"
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/064b0c448c7d356fe94202064a89092d05a20f26",
+              "sha": "064b0c448c7d356fe94202064a89092d05a20f26"
             },
             "comment_count": 0
           },
           "author": {
-            "login": "SatvikMishra08",
-            "id": 89024979,
+            "login": "NgoQuocViet2001",
+            "id": 123613986,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/89024979?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123613986?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/SatvikMishra08",
-            "html_url": "https://github.com/SatvikMishra08",
-            "followers_url": "https://api.github.com/users/SatvikMishra08/followers",
-            "following_url": "https://api.github.com/users/SatvikMishra08/following{/other_user}",
-            "gists_url": "https://api.github.com/users/SatvikMishra08/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/SatvikMishra08/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/SatvikMishra08/subscriptions",
-            "organizations_url": "https://api.github.com/users/SatvikMishra08/orgs",
-            "repos_url": "https://api.github.com/users/SatvikMishra08/repos",
-            "events_url": "https://api.github.com/users/SatvikMishra08/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/SatvikMishra08/received_events",
+            "url": "https://api.github.com/users/NgoQuocViet2001",
+            "html_url": "https://github.com/NgoQuocViet2001",
+            "followers_url": "https://api.github.com/users/NgoQuocViet2001/followers",
+            "following_url": "https://api.github.com/users/NgoQuocViet2001/following{/other_user}",
+            "gists_url": "https://api.github.com/users/NgoQuocViet2001/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/NgoQuocViet2001/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/NgoQuocViet2001/subscriptions",
+            "organizations_url": "https://api.github.com/users/NgoQuocViet2001/orgs",
+            "repos_url": "https://api.github.com/users/NgoQuocViet2001/repos",
+            "events_url": "https://api.github.com/users/NgoQuocViet2001/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/NgoQuocViet2001/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
@@ -373,9 +373,9 @@
           },
           "parents": [
             {
-              "url": "https://api.github.com/repos/h3js/h3/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-              "html_url": "https://github.com/h3js/h3/commit/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-              "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+              "url": "https://api.github.com/repos/h3js/h3/commits/2ce0e5f660589b841c1abce2942c27dd46c5d3a0",
+              "html_url": "https://github.com/h3js/h3/commit/2ce0e5f660589b841c1abce2942c27dd46c5d3a0",
+              "sha": "2ce0e5f660589b841c1abce2942c27dd46c5d3a0"
             }
           ],
           "repository": {

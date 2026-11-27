@@ -167,166 +167,6 @@
       },
       "files": [
         {
-          "path": "internal/app/activity.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/activity_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/activity_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/branch_protections.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/branch_protections_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/branch_protections_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/dry_run_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/gpg_keys_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/integration_repo_helpers_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/issue_actions_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/output_template_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/pull_actions_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/release_run_api_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/repo_templates_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/run_view_options_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/runners_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/tags.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/tags_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/tags_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/time_stopwatch_integration_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/app/time_stopwatch_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/git/reads.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/git/reads_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/activity.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/branch_protections.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/tags.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/settings/atomic_other.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/settings/atomic_windows.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/settings/atomic_windows_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": ".revive.toml",
-          "status": "removed",
-          "statusRaw": "removed"
-        },
-        {
-          "path": "internal/settings/rename_other.go",
-          "status": "removed",
-          "statusRaw": "removed"
-        },
-        {
-          "path": "internal/settings/rename_windows.go",
-          "status": "removed",
-          "statusRaw": "removed"
-        },
-        {
           "path": ".golangci.yml",
           "status": "modified",
           "statusRaw": "modified"
@@ -1780,6 +1620,166 @@
           "path": "tools/cli-docs/main.go",
           "status": "modified",
           "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/activity.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/activity_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/activity_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branch_protections.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branch_protections_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branch_protections_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/dry_run_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/gpg_keys_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/integration_repo_helpers_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_actions_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/output_template_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_actions_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/release_run_api_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repo_templates_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/run_view_options_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/runners_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/tags.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/tags_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/tags_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/time_stopwatch_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/time_stopwatch_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/git/reads.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/git/reads_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/activity.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/branch_protections.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/tags.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/settings/atomic_other.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/settings/atomic_windows.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/settings/atomic_windows_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": ".revive.toml",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/rename_other.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/rename_windows.go",
+          "status": "removed",
+          "statusRaw": "removed"
         }
       ]
     },

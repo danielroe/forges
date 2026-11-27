@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Awj53zt2oo653zr3wgnvn4llg%2Forg.tangled.track.ticket%2F4272"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreicxu7cdlxbgfos2cwehgtnmyjqanylwtozujwqkdpx33paamntemu",
+          "uri": "at://did:plc:wj53zt2oo653zr3wgnvn4llg/org.tangled.track.ticket/4272",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "description:\n- **`sync_of`:** the site's `[git]` alone decides, for every site; unset, it pushes and does not pull. A `settings.toml` that is not TOML, is over the bound, or links out of the site says nothing. The toggle writes there, keeping the other toggle, and the record holds neither.\n- **Migration 0015:**\n  - the record's toggle is carried over the site's own;\n  - nothing is written where the record holds none, so a confined site's own setting now decides;\n  - with nothing anywhere, the defaults apply;\n  - run again, it changes nothing;\n  - after an interruption it writes the same value and clears the record;\n  - no record holds either field afterwards.\n- **Migration 0006** no longer copies the sync.\n- **The push gate** on a move of `main`, and a push through it, follow the site's own `auto_push`, sandboxed or trusted. **Move to Tangled** turns the site's own `auto_pull` on in its settings.\n- **The front:** it reads the DID from the record and `auto_pull` from the settings alone; a `true` left over in an old record is not read. A knot1 event starts a stopped site only as its own `auto_pull` says, and the toggle writes it, with the next event obeying.\n- **Inventories:** the settings readers list and the grants name the front's `auto_pull` read.\n- **Core:** 19536 at the tip, +126 over `f4a13bba`.\n\n---\n\ninfo:\nD3c amendment. Parent: s/1442. Tip: `d76814ae71884091d776c8bb2272ca7361ee68c0`. Check: notify-47e96836 at this tip: quick PASSED 293 of 293, custom (migration 0015, the dashboard's site operations) 3 of 3, e2e/lib, ratchet 19536. Earlier, notify-fe019db2 at cf14f583: custom PASSED 846 of 846, fuzz self-tests, README map.\n"
+            },
+            "createdAt": "2026-11-23T01:37:58Z",
+            "state": "open",
+            "targetBranch": "s/1442-tangled-site-override-product",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "tests: auto-pull and auto-push in the site's own settings alone"
+            },
+            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+          }
+        }
+      ]
+    }
+  }
+}

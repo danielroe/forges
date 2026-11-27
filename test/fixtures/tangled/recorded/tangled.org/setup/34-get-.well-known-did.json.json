@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://topos-backsword.test.pds.did.bot/.well-known/did.json"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:web:topos-backsword.test.pds.did.bot",
+      "alsoKnownAs": [
+        "at://topos-backsword.test.pds.did.bot"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:web:topos-backsword.test.pds.did.bot#atproto",
+          "type": "Multikey",
+          "controller": "did:web:topos-backsword.test.pds.did.bot",
+          "publicKeyMultibase": "zQ3shmhMcMPqj8pq3D8khnwL9sYwZuA5mNufN1sToKSD3Wnh3"
+        }
+      ],
+      "service": [
+        {
+          "id": "did:web:topos-backsword.test.pds.did.bot#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.did.bot"
+        }
+      ],
+      "operator": "did:plc:nlzmjyfv6loqtxyzvdcznwgf"
+    }
+  }
+}

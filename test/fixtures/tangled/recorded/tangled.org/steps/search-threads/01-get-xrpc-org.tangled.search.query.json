@@ -10,88 +10,71 @@
       "hits": [
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreicqwnbnytfofbz6fuvgadl2gb7wu2hvznonfrxlqotkwxc5mwltwe",
+          "cid": "bafyreigmt4vjvl55e3bpgcg5mmhskujs4q7z6ud6w4ogslvxuwykjgoyfa",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 2,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/57",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/59",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
               "text": "A pull."
             },
-            "createdAt": "2026-11-20T22:27:13Z",
+            "createdAt": "2026-11-20T22:27:50Z",
             "state": "open",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261120222708 pr"
+              "text": "forges fixture 20261120222746 pr"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         },
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreidgudd66ip2ebrokkimuysfbz6bri36h5bysi7ivphhwj35dqlux4",
+          "cid": "bafyreibep6vxhj36x643t23572fythmjpm5bz6jjpjttigdot2knmt5fbm",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 2,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/58",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/61",
           "value": {
             "$type": "org.tangled.track.ticket",
-            "assignees": [
-              "did:plc:7qksav5io2s4qfg67pe7iqqk"
-            ],
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Edited."
+              "text": "A pull."
             },
-            "createdAt": "2026-11-20T22:27:47Z",
+            "createdAt": "2026-11-20T22:28:25Z",
             "state": "open",
-            "tangledLabels": [
-              {
-                "$type": "org.tangled.label.defs#labelToken",
-                "key": "forges-seed"
-              }
-            ],
+            "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261120222746 v2"
+              "text": "forges fixture 20261120222819 pr"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         },
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreiefwe5f6qnfurnduurhmavmmytyupjlndss7dposc66t6r7spui44",
+          "cid": "bafyreigpsgjhb2fhgfzaxhywil342suhdeymsd2h3ues574nickojqd5h4",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 2,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/63",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/64",
           "value": {
             "$type": "org.tangled.track.ticket",
-            "assignees": [
-              "did:plc:7qksav5io2s4qfg67pe7iqqk"
-            ],
             "body": {
               "$type": "org.tangled.markup.markdown",
               "text": "Opened by run 20261120223432."
             },
-            "createdAt": "2026-11-20T22:35:13Z",
+            "createdAt": "2026-11-20T22:35:15Z",
             "state": "open",
-            "tangledLabels": [
-              {
-                "$type": "org.tangled.label.defs#labelToken",
-                "key": "forges-fixture-20261120223432"
-              }
-            ],
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261120223432: labelled issue"
+              "text": "forges fixture 20261120223432: duplicate"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }

@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Awj53zt2oo653zr3wgnvn4llg%2Forg.tangled.track.ticket%2F4263"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreigaxybjl2567s2mdin6arn6j36apq7hy7q7bbh2jjiahkur4vwkoi",
+          "uri": "at://did:plc:wj53zt2oo653zr3wgnvn4llg/org.tangled.track.ticket/4263",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "description:\nThe operator's D5, a move:\n- **lichen-git:** the Tangled-only items go to `src/tangled/`: `repository.rs` (transport, state, auth), `source.rs` (provisioning, names, checks) and `moving.rs` (Move to Tangled).\n- **The subscriber:** knot1's event subscriber moves whole into a new core-excluded crate, `lichen-tangled`, which lichen-server imports.\n- **The account routes stay in lichen-server,** in `src/tangled/account.rs`. Their substance is the server's user store, the grant and its sites' processes, which a crate could reach only through an interface as wide as the routes.\n- **Visibility:** only what the moved items reach is widened.\n- **`Cargo.lock`:** gains the workspace package `lichen-tangled` and its dependency edges, and no external package.\n\n**Recommendation (D5 asks for it; not moved here):**\n- **`lichen-publish`'s Tangled code belongs in `lichen-tangled`:** `tangled.rs` and `tangled/credential.rs`, the Tangled Sites transport and settings that implement lichen-git's `TangledTransport`. `lichen-tangled` would then depend on `lichen-git` and `lichen-atproto-client`, which depend on neither it nor `lichen-site`/`lichen-server`, and `lichen-publish` would import it. There is no cycle, and the crate stays core-excluded. A later unit, a move with its own map.\n- **`lichen-atproto-client`'s Tangled modules stay where they are:** `tangled.rs` (the knot's and the PDS's RPC) and `tangled_events.rs` (the firehose frames). They are protocol clients beside the other atproto calls, used by publishing and by the subscriber alike. Moving them would make `lichen-tangled` the owner of wire formats the rest of the atproto client shares.\n\n---\n\ninfo:\nD5. Parent: s/1437. Tip: `4d2bc6f9cbfec5198dfdc4b7d5ab18b3f361733b`. The AST move check (ast-checker eae97561) passes across the D5 range.\n"
+            },
+            "createdAt": "2026-11-22T16:07:07Z",
+            "state": "open",
+            "targetBranch": "s/1437-tangled-source-read-tests",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "product: Tangled code in tangled folders and the lichen-tangled crate"
+            },
+            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+          }
+        }
+      ]
+    }
+  }
+}

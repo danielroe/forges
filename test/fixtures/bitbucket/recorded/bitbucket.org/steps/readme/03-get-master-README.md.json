@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "\"16d47cdd183eaa37c89360056b5243a3\""
+      "etag": "\"8b9ec92e1e56b045274040db24c05f4b\""
     },
     "body": {
       "path": "README.md",
@@ -26,7 +26,7 @@
       "attributes": [],
       "escaped_path": "README.md",
       "size": 814,
-      "mimetype": "text/markdown",
+      "mimetype": null,
       "links": {
         "self": {
           "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/6f202224c3c938d01c46892ed305df6e385ce13f/README.md"

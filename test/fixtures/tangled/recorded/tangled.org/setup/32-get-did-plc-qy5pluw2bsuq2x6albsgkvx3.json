@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:qy5pluw2bsuq2x6albsgkvx3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"21d-mBlGwcZXO9+WatjcJpVfEYUIZgA\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:qy5pluw2bsuq2x6albsgkvx3",
+      "alsoKnownAs": [
+        "at://samclemente.me"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:qy5pluw2bsuq2x6albsgkvx3#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:qy5pluw2bsuq2x6albsgkvx3",
+          "publicKeyMultibase": "zQ3shRJ6xhKi2hCNVcVwC8XmxjFpuPQYo3tNLaoxEovyLV6qM"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://northsky.social"
+        }
+      ]
+    }
+  }
+}

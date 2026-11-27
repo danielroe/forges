@@ -1,122 +1,106 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/actions/jobs/117694943258"
+    "url": "https://api.github.com/repos/h3js/h3/actions/jobs/137220989706"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"f07b2268131ae15f29462776c22c644409ae2954bb5efbb1a1a7e61820fe17ea\"",
+      "etag": "W/\"2be53f15dbbb0a11f8629e2ce38430621e20b3f9d02ef4a683fc27ee51f64f8c\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4956",
-      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-remaining": "4943",
+      "x-ratelimit-reset": "1795411811",
       "x-ratelimit-resource": "core"
     },
     "body": {
-      "id": 117694943258,
-      "run_id": 39134083187,
-      "workflow_name": "publish",
-      "head_branch": "main",
-      "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/39134083187",
+      "id": 137220989706,
+      "run_id": 45026634434,
+      "workflow_name": "autofix.ci",
+      "head_branch": "chore/tiny-typo",
+      "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/45026634434",
       "run_attempt": 1,
-      "node_id": "CR_kwDOErHI988AAAAbZypQGg",
-      "head_sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "url": "https://api.github.com/repos/h3js/h3/actions/jobs/117694943258",
-      "html_url": "https://github.com/h3js/h3/actions/runs/39134083187/job/117694943258",
+      "node_id": "CR_kwDOErHI988AAAAf8wIjCg",
+      "head_sha": "2e65ac92308432809c3b869c3ac644cd846dea4a",
+      "url": "https://api.github.com/repos/h3js/h3/actions/jobs/137220989706",
+      "html_url": "https://github.com/h3js/h3/actions/runs/45026634434/job/137220989706",
       "status": "completed",
-      "conclusion": "failure",
-      "created_at": "2026-10-18T14:00:57Z",
-      "started_at": "2026-10-18T14:00:59Z",
-      "completed_at": "2026-10-18T14:01:17Z",
-      "name": "publish",
+      "conclusion": "success",
+      "created_at": "2026-11-22T13:16:50Z",
+      "started_at": "2026-11-22T13:16:51Z",
+      "completed_at": "2026-11-22T13:17:07Z",
+      "name": "autofix",
       "steps": [
         {
           "name": "Set up job",
           "status": "completed",
           "conclusion": "success",
           "number": 1,
-          "started_at": "2026-10-18T14:01:00Z",
-          "completed_at": "2026-10-18T14:01:01Z"
+          "started_at": "2026-11-22T13:16:52Z",
+          "completed_at": "2026-11-22T13:16:53Z"
         },
         {
           "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
           "status": "completed",
           "conclusion": "success",
           "number": 2,
-          "started_at": "2026-10-18T14:01:01Z",
-          "completed_at": "2026-10-18T14:01:03Z"
+          "started_at": "2026-11-22T13:16:53Z",
+          "completed_at": "2026-11-22T13:16:54Z"
         },
         {
           "name": "Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
           "status": "completed",
           "conclusion": "success",
           "number": 3,
-          "started_at": "2026-10-18T14:01:03Z",
-          "completed_at": "2026-10-18T14:01:09Z"
+          "started_at": "2026-11-22T13:16:54Z",
+          "completed_at": "2026-11-22T13:17:00Z"
         },
         {
-          "name": "Run pnpm changelogen --bump -r 2.0.0 --canary nightly",
+          "name": "Run pnpm fmt",
           "status": "completed",
           "conclusion": "success",
           "number": 4,
-          "started_at": "2026-10-18T14:01:09Z",
-          "completed_at": "2026-10-18T14:01:10Z"
+          "started_at": "2026-11-22T13:17:00Z",
+          "completed_at": "2026-11-22T13:17:03Z"
         },
         {
-          "name": "Run npm i -g npm@11.19.1",
+          "name": "Run autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a",
           "status": "completed",
           "conclusion": "success",
           "number": 5,
-          "started_at": "2026-10-18T14:01:10Z",
-          "completed_at": "2026-10-18T14:01:14Z"
-        },
-        {
-          "name": "Run printf '11.5.1\\n%s\\n' \"$(npm --version)\" | sort -VC",
-          "status": "completed",
-          "conclusion": "failure",
-          "number": 6,
-          "started_at": "2026-10-18T14:01:14Z",
-          "completed_at": "2026-10-18T14:01:14Z"
-        },
-        {
-          "name": "Run npm publish --tag latest",
-          "status": "completed",
-          "conclusion": "skipped",
-          "number": 7,
-          "started_at": "2026-10-18T14:01:14Z",
-          "completed_at": "2026-10-18T14:01:14Z"
+          "started_at": "2026-11-22T13:17:03Z",
+          "completed_at": "2026-11-22T13:17:03Z"
         },
         {
           "name": "Post Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
           "status": "completed",
           "conclusion": "success",
-          "number": 13,
-          "started_at": "2026-10-18T14:01:14Z",
-          "completed_at": "2026-10-18T14:01:14Z"
+          "number": 9,
+          "started_at": "2026-11-22T13:17:03Z",
+          "completed_at": "2026-11-22T13:17:05Z"
         },
         {
           "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
           "status": "completed",
           "conclusion": "success",
-          "number": 14,
-          "started_at": "2026-10-18T14:01:14Z",
-          "completed_at": "2026-10-18T14:01:14Z"
+          "number": 10,
+          "started_at": "2026-11-22T13:17:05Z",
+          "completed_at": "2026-11-22T13:17:05Z"
         },
         {
           "name": "Complete job",
           "status": "completed",
           "conclusion": "success",
-          "number": 15,
-          "started_at": "2026-10-18T14:01:14Z",
-          "completed_at": "2026-10-18T14:01:14Z"
+          "number": 11,
+          "started_at": "2026-11-22T13:17:05Z",
+          "completed_at": "2026-11-22T13:17:05Z"
         }
       ],
-      "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/117694943258",
+      "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/137220989706",
       "labels": [
         "ubuntu-latest"
       ],
-      "runner_id": 1000013959,
-      "runner_name": "GitHub Actions 1000013959",
+      "runner_id": 1000014930,
+      "runner_name": "GitHub Actions 1000014930",
       "runner_group_id": 0,
       "runner_group_name": "GitHub Actions"
     }

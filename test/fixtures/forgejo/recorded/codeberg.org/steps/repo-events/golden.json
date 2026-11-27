@@ -3,330 +3,10 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "254282594",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo",
-          "externalId": "73144"
-        },
-        "kind": "pull_request",
-        "number": "15357"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo",
-              "externalId": "73144"
-            },
-            "kind": "pull_request",
-            "number": "15357"
-          },
-          "id": "28215554"
-        },
-        "body": "@mfenniak, thanks, I removed the change made in `asserts/go-licenses.json`, it was somehow a by-product of `make pr-go`. Context from testing.T applied as well."
-      },
-      "summary": "sarumaj commented on pull request 15357",
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "sarumaj",
-        "id": "1641474",
-        "name": "Dawid Ciepiela",
-        "avatarUrl": "https://codeberg.org/avatars/ffb715dd1681fec0db971867232afb2dc7915fc4209d0cb729ee65c2689847d0",
-        "url": "https://codeberg.org/sarumaj",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "254275949",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo",
-          "externalId": "73144"
-        },
-        "kind": "pull_request",
-        "number": "15355"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo",
-              "externalId": "73144"
-            },
-            "kind": "pull_request",
-            "number": "15355"
-          },
-          "id": "28214657"
-        },
-        "body": "This is quite an expensive database migration to run; (a) it's not implemented very efficiently as every repository requires a second query, and (b) it rewrites the entire repository table, row-by-row, without even a condition on whether the rewrite has an impact on the row (e.g. where the topics are already correct).  This is quite expensive on a large-scale instance like Codeberg.\r\n\r\nI don't think this has value relative to the upgrade time spent on it"
-      },
-      "summary": "mfenniak commented on pull request 15355",
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "254273669",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo",
-          "externalId": "73144"
-        },
-        "kind": "pull_request",
-        "number": "15357"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo",
-              "externalId": "73144"
-            },
-            "kind": "pull_request",
-            "number": "15357"
-          },
-          "id": "28214534"
-        },
-        "body": "Hi @sarumaj!  This change makes sense to me, although it's a bit tricky to know side-efects from loading these non-DB users in these new locations, but it should be OK.\r\n\r\nThis PR shouldn't touch or change `asserts/go-licenses.json` -- please revert that change.  We won't be able to get a full test run with that change in place.\r\n\r\nOne minor change requested in tests; just a modernization change.\r\n"
-      },
-      "summary": "mfenniak commented on pull request 15357",
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "254273321",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo",
-          "externalId": "73144"
-        },
-        "kind": "pull_request",
-        "number": "15357"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo",
-              "externalId": "73144"
-            },
-            "kind": "pull_request",
-            "number": "15357"
-          },
-          "id": "28214252"
-        },
-        "body": "`t.Context()` should be used rather than `db.DefaultContext`."
-      },
-      "summary": "mfenniak commented on pull request 15357",
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "254256254",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo",
-          "externalId": "73144"
-        },
-        "kind": "pull_request",
-        "number": "15319"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo",
-              "externalId": "73144"
-            },
-            "kind": "pull_request",
-            "number": "15319"
-          },
-          "id": "28212968"
-        },
-        "body": "Thanks @patka! 🙂"
-      },
-      "summary": "mfenniak commented on pull request 15319",
-      "occurredAt": "2026-11-21T18:35:51.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "254255852",
-      "kindRaw": "merge_pull_request",
+      "id": "254955218",
+      "kindRaw": "close_pull_request",
       "kind": "state_change",
-      "action": "merged",
+      "action": "closed",
       "thread": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -338,17 +18,439 @@
           "externalId": "73144"
         },
         "kind": "pull_request",
-        "number": "15319"
-      },
-      "threadSnapshot": {
-        "title": "fix(ci): actually run the e2e tests affected by a PR as intended"
+        "number": "14337"
       },
       "detail": {
         "type": "state_change",
-        "state": "merged"
+        "state": "closed"
       },
-      "summary": "mfenniak merged pull request 15319",
-      "occurredAt": "2026-11-21T18:35:32.000Z",
+      "summary": "crueter closed pull request 14337",
+      "occurredAt": "2026-11-23T02:22:28.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "crueter",
+        "id": "326873",
+        "avatarUrl": "https://codeberg.org/avatars/3c82623c5197284bdabc2166b3c809cf51afd4583c5d9dd9f9acc044a5abaace",
+        "url": "https://codeberg.org/crueter",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "254954876",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "14337"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "pull_request",
+            "number": "14337"
+          },
+          "id": "28373975"
+        },
+        "body": "If someone else wishes to add this, they can. I don't feel like slopping up a bunch of tests for this, and it seems like a *certain* group of people is against it ;)"
+      },
+      "summary": "crueter commented on pull request 14337",
+      "occurredAt": "2026-11-23T02:22:27.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "crueter",
+        "id": "326873",
+        "avatarUrl": "https://codeberg.org/avatars/3c82623c5197284bdabc2166b3c809cf51afd4583c5d9dd9f9acc044a5abaace",
+        "url": "https://codeberg.org/crueter",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "254954204",
+      "kindRaw": "close_issue",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "14178"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "crueter closed issue 14178",
+      "occurredAt": "2026-11-23T02:20:10.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "crueter",
+        "id": "326873",
+        "avatarUrl": "https://codeberg.org/avatars/3c82623c5197284bdabc2166b3c809cf51afd4583c5d9dd9f9acc044a5abaace",
+        "url": "https://codeberg.org/crueter",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "254953868",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "14178"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "issue",
+            "number": "14178"
+          },
+          "id": "28373936"
+        },
+        "body": "Well, I've had enough of arguing with boomers these past few weeks, I'm not gonna bother trying to argue anymore."
+      },
+      "summary": "crueter commented on issue 14178",
+      "occurredAt": "2026-11-23T02:20:09.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "crueter",
+        "id": "326873",
+        "avatarUrl": "https://codeberg.org/avatars/3c82623c5197284bdabc2166b3c809cf51afd4583c5d9dd9f9acc044a5abaace",
+        "url": "https://codeberg.org/crueter",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "254938733",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "14178"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "issue",
+            "number": "14178"
+          },
+          "id": "28372646"
+        },
+        "body": "Now for the unexpected and out of the box proposal that sidesteps the problem entirely. Have you heard the good word about [MetaLink](https://en.wikipedia.org/wiki/Metalink)?\r\n\r\nThis is a bit like torrents, but designed as a download accelerator mechanism. You get rather high reliability of your download, since it includes chunkwise hashing. You can download individual chunks in parallel from various geodistributed CDNs (forgejo probably does not need this). You can detect corruption and partial downloads and resume arbitrarily anywhere since most of the content you already downloaded fits into a chunk that can be verified to be intact.\r\n\r\nYou could serve MetaLink to supporting clients -- mirrorbrain / mirrorcache do this -- and I suppose you could store them directly rather than serving via a CDN. This provides dubious security benefits as a free side effect of excellent corruption detection and resume support that the user doing the download doesn't have to think about."
+      },
+      "summary": "eschwartz commented on issue 14178",
+      "occurredAt": "2026-11-23T01:24:33.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "eschwartz",
+        "id": "148634",
+        "name": "Eli Schwartz",
+        "avatarUrl": "https://codeberg.org/avatars/f004dee6cbb5713307d527a0ca8bf1d4340da95bc684e5487cc1f5b426669792",
+        "url": "https://codeberg.org/eschwartz",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "254933567",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "14178"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "issue",
+            "number": "14178"
+          },
+          "id": "28372268"
+        },
+        "body": "@crueter wrote in https://codeberg.org/forgejo/forgejo/issues/14178#issuecomment-28371422:\r\n\r\n> The fundamental tenet of security is to trust nobody. ;)\r\n\r\nThis is a suitably vague statement that elides a definition of trust and also one of security. One cannot solve the fundamental tenets of security through the mechanism of picking arbitrary technological algorithms out of a lottery, then finding a way to build a feature that \"uses that algorithm\" (in this case the winning lottery entry was \"sha256\").\r\n\r\nSo we're back to the original question, what is the *goal* of installing a digest functionality into the downloads page? Without a goal we don't know what direction we're heading and certainly cannot make any progress.\r\n\r\nThe original proposal basically suggested the goal is to detect when, due to a network interruption, the file was truncated / download aborted / some other form of accidental corruption. But download clients tend to be pretty good at catching that already. Would it suffice if forgejo explicitly provided digests that disavow all uses other than corruption detection? Let us say:\r\n\r\n> THE CRC32 DIGEST IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR OR INDEED ANY PURPOSE, AND SECURITY. IN NO EVENT SHALL THE UPLOADERS OR SUPPLIERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE DIGEST OR TRUST THAT THE DIGEST MEANS ANYTHING OR THE USE OR OTHER DEALINGS IN THE DIGEST.\r\n\r\nAnd anyone who assumes that a crc32 digest is intended to be a security mechanism will have had numerous warnings signs before they got that far.\r\n\r\nThis is \"good enough\" for corruption detection.\r\n\r\n...\r\n\r\nIf the intent of the digest is for security, then we return to the wisdom of \"trust nobody\" and especially do not trust the forge itself. This is the reason why, for security reasons, I refuse to trust digests on GitHub and would likewise refuse to trust them on forgejo.\r\n\r\nIf we disregard \"trust nobody\" and decide to trust somebody, namely, the forge, but we are worried about the forge using a non-trustworthy CDN, then I would worry the html page and/or the JavaScript may be manipulated by the CDN to return a variety of suspicious things including a malicious checksum too. If that CDN is cloudflare I'm *extra* worried.\r\n\r\nSo...\r\n\r\n@eschwartz wrote in https://codeberg.org/forgejo/forgejo/issues/14178#issuecomment-22908721:\r\n\r\n> It sounds like the major reason to add it is \"for feature parity with github since github offers them\" (and \"adding it causes no harm\"), but... is that really a reason?\r\n\r\n"
+      },
+      "summary": "eschwartz commented on issue 14178",
+      "occurredAt": "2026-11-23T01:11:47.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "eschwartz",
+        "id": "148634",
+        "name": "Eli Schwartz",
+        "avatarUrl": "https://codeberg.org/avatars/f004dee6cbb5713307d527a0ca8bf1d4340da95bc684e5487cc1f5b426669792",
+        "url": "https://codeberg.org/eschwartz",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "254921954",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "14178"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "issue",
+            "number": "14178"
+          },
+          "id": "28371422"
+        },
+        "body": "> also has to be applied to other features in Forgejo to no longer make the assumption it can trust the filesystem, external services etc.\r\n\r\nThe fundamental tenet of security is to trust nobody. ;)"
+      },
+      "summary": "crueter commented on issue 14178",
+      "occurredAt": "2026-11-23T00:29:06.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "crueter",
+        "id": "326873",
+        "avatarUrl": "https://codeberg.org/avatars/3c82623c5197284bdabc2166b3c809cf51afd4583c5d9dd9f9acc044a5abaace",
+        "url": "https://codeberg.org/crueter",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "254920100",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "14026"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "issue",
+            "number": "14026"
+          },
+          "id": "28371200"
+        },
+        "body": "Hi @zachhandley.  The work I've had the time to put in is very preliminary, and is contained in this branch: [service-account-v1](https://codeberg.org/forgejo/forgejo/compare/forgejo...mfenniak:service-account-v1).  If you'd like to take a look and see how you want to contribute, we could work out how to collaborate on it.  I'm very interested in the work and a little hesitant to say \"take it over\", but, I have a few other commitments and projects that have limited my time... take a look and let me know your thoughts."
+      },
+      "summary": "mfenniak commented on issue 14026",
+      "occurredAt": "2026-11-23T00:22:18.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -372,51 +474,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "254254586",
-      "kindRaw": "commit_repo",
-      "kind": "push",
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/forgejo",
-        "before": "71d3fb8767dc89a14b283b6d3e08c91a66d52525",
-        "after": "9ddd410a13b7dff70f3d9f883375518420b90240",
-        "commitCount": 1,
-        "forced": false,
-        "commits": [
-          {
-            "sha": "9ddd410a13b7dff70f3d9f883375518420b90240",
-            "message": "fix(ci): actually run the e2e tests affected by a PR as intended (#15319)",
-            "author": "patka"
-          }
-        ]
-      },
-      "summary": "mfenniak pushed 1 commit(s) to forgejo",
-      "occurredAt": "2026-11-21T18:35:25.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll",
-      "action": "other"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "254253944",
+      "id": "254895050",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -431,7 +489,7 @@
           "externalId": "73144"
         },
         "kind": "pull_request",
-        "number": "15317"
+        "number": "14529"
       },
       "detail": {
         "type": "comment",
@@ -449,22 +507,21 @@
               "externalId": "73144"
             },
             "kind": "pull_request",
-            "number": "15317"
+            "number": "14529"
           },
-          "id": "28212911"
+          "id": "28367987"
         },
-        "body": "@lingyicute wrote in https://codeberg.org/forgejo/forgejo/pulls/15317#issuecomment-28179635:\r\n\r\n> The main branch has moved forward, so I performed a rebase.\r\n\r\nIn the future, this isn't necessary unless there are conflicts. 🙂"
+        "body": "I do not have E2E set up and running as of yet."
       },
-      "summary": "mfenniak commented on pull request 15317",
-      "occurredAt": "2026-11-21T18:34:15.000Z",
+      "summary": "vednoc commented on pull request 14529",
+      "occurredAt": "2026-11-22T22:59:59.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
+        "login": "vednoc",
+        "id": "26954",
+        "avatarUrl": "https://codeberg.org/avatars/440177c1b01135792cc795673531b2527c261be3978a3a078a2b9f5f70d305a5",
+        "url": "https://codeberg.org/vednoc",
         "isBotHint": false
       },
       "repo": {
@@ -480,7 +537,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "254253167",
+      "id": "254894690",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -495,7 +552,7 @@
           "externalId": "73144"
         },
         "kind": "pull_request",
-        "number": "15317"
+        "number": "14529"
       },
       "detail": {
         "type": "comment",
@@ -513,86 +570,21 @@
               "externalId": "73144"
             },
             "kind": "pull_request",
-            "number": "15317"
+            "number": "14529"
           },
-          "id": "28212827"
+          "id": "28367981"
         },
-        "body": "This looks great; just one comment on the code.  The PR is currently failing to run CI -- please check it out.  https://codeberg.org/forgejo/forgejo/actions/runs/218511/jobs/0/attempt/1\r\n\r\nI've tested manually and it works as advertised, and the automated test coverage looks sufficient to me."
+        "body": "It worked better this way throughout my testing, but I will remove this as well. The way it scales is unpredictable and due for some refinement, but that is just my opinion."
       },
-      "summary": "mfenniak commented on pull request 15317",
-      "occurredAt": "2026-11-21T18:33:25.000Z",
+      "summary": "vednoc commented on pull request 14529",
+      "occurredAt": "2026-11-22T22:59:39.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "254252816",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo",
-          "externalId": "73144"
-        },
-        "kind": "pull_request",
-        "number": "15317"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo",
-              "externalId": "73144"
-            },
-            "kind": "pull_request",
-            "number": "15317"
-          },
-          "id": "28212632"
-        },
-        "body": "It doesn't seem correct for this panel to only be displayed `{{if not .MustEnableTwoFactor}}`?  Why would requiring 2FA disable the ability to do session logout?"
-      },
-      "summary": "mfenniak commented on pull request 15317",
-      "occurredAt": "2026-11-21T18:33:23.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
+        "login": "vednoc",
+        "id": "26954",
+        "avatarUrl": "https://codeberg.org/avatars/440177c1b01135792cc795673531b2527c261be3978a3a078a2b9f5f70d305a5",
+        "url": "https://codeberg.org/vednoc",
         "isBotHint": false
       },
       "repo": {
@@ -606,13 +598,13 @@
       "source": "poll"
     }
   ],
-  "total": 103936,
+  "total": 104000,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/activities/feeds?limit=10&page=2"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1949,
+    "remaining": 1950,
     "resetAt": "<now>",
     "resource": "baseline"
   }

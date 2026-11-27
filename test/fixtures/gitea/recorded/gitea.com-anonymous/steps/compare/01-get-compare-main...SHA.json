@@ -1798,26 +1798,6 @@
           ],
           "files": [
             {
-              "filename": "internal/app/commits.go",
-              "status": "added"
-            },
-            {
-              "filename": "internal/app/commits_test.go",
-              "status": "added"
-            },
-            {
-              "filename": "internal/app/diff_filter.go",
-              "status": "added"
-            },
-            {
-              "filename": "internal/app/diff_filter_test.go",
-              "status": "added"
-            },
-            {
-              "filename": "internal/services/commits.go",
-              "status": "added"
-            },
-            {
               "filename": "internal/app/app.go",
               "status": "modified"
             },
@@ -1836,6 +1816,26 @@
             {
               "filename": "skills/gt/references/resources.md",
               "status": "modified"
+            },
+            {
+              "filename": "internal/app/commits.go",
+              "status": "added"
+            },
+            {
+              "filename": "internal/app/commits_test.go",
+              "status": "added"
+            },
+            {
+              "filename": "internal/app/diff_filter.go",
+              "status": "added"
+            },
+            {
+              "filename": "internal/app/diff_filter_test.go",
+              "status": "added"
+            },
+            {
+              "filename": "internal/services/commits.go",
+              "status": "added"
             }
           ],
           "stats": {

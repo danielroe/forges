@@ -11,6 +11,101 @@
           "name": "forgejo"
         },
         "kind": "issue",
+        "number": "15361",
+        "externalId": "8265074"
+      },
+      "kind": "issue",
+      "title": "problem: Bypassing WebAuthn authentication during the password recovery process",
+      "body": "### Does your problem still exist on the latest Forgejo version?\n\nUnknown, I can't try it for some reason (please explain)\n\n### About your usage of Forgejo\n\nI use an on-premise instance as a private Git repository (<10 users)\n\n### Problem description\n\nFor accounts where the only second authentication factor is a security key or a WebAuthn credential, with no TOTP authentication configured, the \"Forgot Password\" procedure allows anyone with access to the account's email address to set a new password and log in directly, without any WebAuthn authentication.\r\n\r\nThe 2FA enforcement policies and the admin interface correctly indicate that 2FA is active when only WebAuthn is enabled.\r\nConsequently, we are led to believe that the account is secure, when in reality, the WebAuthn setup offers no more protection than a simple OTP sent via email.\r\n\r\nImpossible to test on https://v18.next.forgejo.org : The \"forgot password\" form does nothing\n\n### Potential workarounds\n\n- Disable \"forgot password\"\r\n- Enable TOTP, but unable to verify or enforce it for other users\n\n### Forgejo Version\n\n17.0.2\n\n### Other details about your environment (software names and versions)\n\nDocker\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "fpellet",
+        "id": "1670912",
+        "avatarUrl": "https://codeberg.org/avatars/50232de4ead9f0c1ff454baa7b58509c",
+        "url": "https://codeberg.org/fpellet",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "impact/unknown",
+          "colour": "545454",
+          "description": "Report was not yet triaged to assess impact."
+        },
+        {
+          "name": "problem",
+          "colour": "fbca04",
+          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15361",
+      "createdAt": "2026-11-22T08:57:52.000Z",
+      "updatedAt": "2026-11-22T08:57:52.000Z",
+      "lastActivityAt": "2026-11-22T08:57:52.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "issue",
+        "number": "15360",
+        "externalId": "8252666"
+      },
+      "kind": "issue",
+      "title": "bug: Credential failure 403 on pull-mirror sync and on new migration.",
+      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nYes, I've linked the repository below\n\n### Description\n\nSince upgrading to Forgejo v15 I can no longer synchronize my mirror of a git repo in AWS CodeCommit. There was no error message in the Forgejo UI, but no changes were synchronized after many minutes of waiting. I have pasted the portion of the log generated after clicking \"Synchronize now\" (with debug and git command logging enabled) and it clearly shows a credential problem.\n\nI've tried a few things to narrow down the problem:\n\n1. I confirmed that the credentials are correct by running a manual git dry run with interactive credentials from the command line on the same LXC running Forgejo. It synchronized correctly.\n\n```bash\nsudo -H -u git -- /usr/bin/git \\\n  -C /var/lib/forgejo/data/forgejo-repositories/<owner>/<mirror>.git \\\n  -c protocol.version=2 \\\n  -c credential.helper= \\\n  -c core.askPass= \\\n  fetch --dry-run --tags \\\n  'https://git-codecommit.ca-central-1.amazonaws.com/v1/repos/<repo>/' \\\n  refs/heads/main\n```\n\n2. I tried creating a new migration of the same AWS git repo on both my Forgejo instance and on the official Forgejo test instance. Both failed with seemingly the same error:\n\n```\nMigrating from https://git-codecommit.ca-central-1.amazonaws.com/v1/repos/<repo> failed.\n\nmigration failed: Clone: exit status 128 - fatal: unable to access 'https://git-codecommit.ca-central-1.amazonaws.com/v1/repos/<repo>/': The requested URL returned error: 403\n```\n\n### Forgejo Version\n\n15.0.10\n\n### How are you running Forgejo?\n\nI'm running Forgejo in an LXC running Debian GNU/Linux 13.7 (trixie) on Proxmox. I first created this container way back with Forgejo v7.0.5 by installing from binaries:\n\nhttps://forgejo.org/docs/latest/admin/installation/binary/\n\nAnd I've upgraded from release to release successfully using these instructions:\n\nhttps://forgejo.org/docs/latest/admin/upgrade/\n\nI've kept the Debian installation up to date as well.\n\nI've not had any critical errors until now.\n\n### Logs\n\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: router: completed GET /user/events for IPADDR:49996, 200 OK in 32615.0ms @ events/events.go:18(events.Events)\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= rev-parse\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= cat-file --batch-check\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= hash-object --stdin\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= rev-parse\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= cat-file --batch\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= rev-list --count SHACOMMIT\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= config --get commit.gpgsign\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= config --get commit.gpgsign\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: router: completed POST /OWNER/MIRROR/settings for IPADDR:64974, 303 See Other in 25.6ms @ setting/setting.go:307(setting.SettingsPost)\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/fogejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= rev-parse\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= cat-file --batch-check\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= hash-object --stdin\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= rev-parse\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= cat-file --batch\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= config --get commit.gpgsign\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: Template: repo/settings/options\n2026-11-21T21:34:08-06:00 forgejo forgejo[16003]: router: completed GET /OWNER/MIRROR/settings for IPADDR:64974, 200 OK in 10.1ms @ setting/setting.go:302(setting.Settings)\n2026-11-21T21:34:09-06:00 forgejo forgejo[16003]: Queue \"mirror\" starts new worker\n2026-11-21T21:34:09-06:00 forgejo forgejo[16003]: git.Command.RunDir(/var/lib/forgejo/data/forgejo-repositories/OWNER/MIRROR.git): /usr/bin/git -c protocol.version=2 -c credential.helper= -c filter.lfs.required= -c filter.lfs.smudge= -c filter.lfs.clean= -c \"credential.helper=store --file=/tmp/forgejo-clone-credentials-925118314\" fetch --prune --tags origin\n2026-11-21T21:34:09-06:00 forgejo forgejo[16003]: SyncMirrors [repo: <Repository 12:OWNER/MIRROR>]: failed to update mirror repository:\n2026-11-21T21:34:09-06:00 forgejo forgejo[16003]: Stdout:\n2026-11-21T21:34:09-06:00 forgejo forgejo[16003]: Stderr: fatal: unable to access 'https://git-codecommit.ca-central-1.amazonaws.com/v1/repos/REPO/': The requested URL returned error: 403\n2026-11-21T21:34:09-06:00 forgejo forgejo[16003]: Err: exit status 128\n2026-11-21T21:34:12-06:00 forgejo forgejo[16003]: router: polling GET /user/events for IPADDR:64974, elapsed 3500.9ms @ events/events.go:18(events.Events)\n\n### Database\n\nSQLite\n\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "LegoWolf",
+        "id": "240932",
+        "avatarUrl": "https://codeberg.org/avatars/3c30227324f290eb570fde6731a633fd",
+        "url": "https://codeberg.org/LegoWolf",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "bug/new-report",
+          "colour": "e11d21",
+          "description": "bug has just been reported and need triage (default label on issue creation)"
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15360",
+      "createdAt": "2026-11-22T03:57:47.000Z",
+      "updatedAt": "2026-11-22T04:26:32.000Z",
+      "lastActivityAt": "2026-11-22T04:26:32.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "issue",
         "number": "15356",
         "externalId": "8245169"
       },
@@ -50,112 +145,6 @@
       "lastActivityAt": "2026-11-21T09:48:37.000Z",
       "locked": false,
       "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "kind": "issue",
-        "number": "15353",
-        "externalId": "8242586"
-      },
-      "kind": "issue",
-      "title": "problem: ucode-lang (ucode) is detected as unrealscript",
-      "body": "### Does your problem still exist on the latest Forgejo version?\n\nUnknown, I can't try it for some reason (please explain)\n\n### About your usage of Forgejo\n\nI use Forgejo through codeberg.org and do not have a Forgejo instance to test with, however searching Forgejo issues and pull requests does not match 'unrealscript' or 'ucode'. GitHub also does not handle this correctly as [ucode-lang](https://github.com/ucode-lang/ucode) is a fairly niche ECMAScript-like language, primarily used by [OpenWrt](https://openwrt.org) that happens to use the typically uses same file extension (`.uc`) as unrealscript (although `ucode` doesn't really care about the extension).\r\n\r\nFor a sample repo with which one can see the issue see: https://codeberg.org/danielfdickinson/uwatchcat\n\n### Problem description\n\nI have a repo https://codeberg.org/danielfdickinson/uwatchcat for which the main code is written in [ucode](https://github.com/ucode-lang/ucode) aka `ucode-lang`. The ucode scripts are detected and reported as `UnrealScript`\n\n### Potential workarounds\n\n_No response_\n\n### Forgejo Version\n\nI think 17 with modifications (https://codeberg.org/Codeberg-Infrastructure/forgejo)\n\n### Other details about your environment (software names and versions)\n\nAlthough this occurs with Codeberg, when I was running my own Forgejo instance  (15 then 16) I noticed the same behaviour. (I gave up on self-hosting due to LLM abusive crawlers).\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "danielfdickinson",
-        "id": "963756",
-        "name": "Daniel F. Dickinson",
-        "avatarUrl": "https://codeberg.org/avatars/be7eec9cec7a737ba79d6941770c9872069047e23459c88fc44dbfcf62962785",
-        "url": "https://codeberg.org/danielfdickinson",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [
-        {
-          "name": "impact/unknown",
-          "colour": "545454",
-          "description": "Report was not yet triaged to assess impact."
-        },
-        {
-          "name": "problem",
-          "colour": "fbca04",
-          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
-        }
-      ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/15353",
-      "createdAt": "2026-11-21T02:38:41.000Z",
-      "updatedAt": "2026-11-21T02:38:41.000Z",
-      "lastActivityAt": "2026-11-21T02:38:41.000Z",
-      "locked": false,
-      "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "kind": "issue",
-        "number": "15351",
-        "externalId": "8240433"
-      },
-      "kind": "issue",
-      "title": "problem: forgejo-cli actions register: --secret-stdin should be a boolean flag, not a string flag",
-      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested on a next instance)\n\n### About your usage of Forgejo\n\nI'm migrating off of Gitea to Forgejo and am figuring out runner registration using the CLI.\n\n### Problem description\n\n- I wanted to register a runner while piping its secret through stdin, without putting the secret in process arguments.\n- On Forgejo 15.0.12 (LTS), --secret-stdin requires a string value, so I just used --secret-stdin=dummyto get it to work. I found the source [here](https://codeberg.org/forgejo/forgejo/src/tag/v15.0.12/cmd/forgejo/actions.go#L71). It is the same for the latest branch. The actual secret value is piped in through std.in as you would expect and that functionality works fine.\n- The assigned value (in this case \"dummy\") is completely ignored in the source code: SubcmdActionsRegister() declares a string flag, while readSecret() only checks whether it is set.\n\nI expected --secret-stdin to work without a value being given to the argument - the actual secret comes from std.in and works fine.\n\nDoes it make sense to just change this to a BoolFlag so there is no need to pass a value here? The value is ignored anyway.\n\n### Potential workarounds\n\nI can just give a value and it works but it feels wrong.\n\n### Forgejo Version\n\nlatest and on LTS 15.0.12 (which I tested)\n\n### Other details about your environment (software names and versions)\n\nI tested on On Forgejo 15.0.12 (LTS) - docker compose but the code is the same on the main branch.\n\nLinks:\n- [On forgejo branch](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/cmd/forgejo/actions.go#L72) \n\n\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "vab2048",
-        "id": "1614644",
-        "avatarUrl": "https://codeberg.org/avatars/a734c6a3e63e276b2659b07f4b1774ad",
-        "url": "https://codeberg.org/vab2048",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [
-        {
-          "name": "code/actions",
-          "colour": "eb6420",
-          "description": "Forgejo Actions feature"
-        },
-        {
-          "name": "impact/unknown",
-          "colour": "545454",
-          "description": "Report was not yet triaged to assess impact."
-        },
-        {
-          "name": "problem",
-          "colour": "fbca04",
-          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
-        }
-      ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/15351",
-      "createdAt": "2026-11-20T22:23:13.000Z",
-      "updatedAt": "2026-11-21T12:08:15.000Z",
-      "lastActivityAt": "2026-11-21T12:08:15.000Z",
-      "locked": false,
-      "commentCount": 1
     }
   ],
   "total": 1659,
@@ -164,7 +153,7 @@
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1885,
+    "remaining": 1886,
     "resetAt": "<now>",
     "resource": "baseline"
   }

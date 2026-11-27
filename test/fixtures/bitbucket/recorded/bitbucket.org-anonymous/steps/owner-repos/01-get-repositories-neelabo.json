@@ -6,10 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"f40ac238b441202dea7b030a15e3c29a\"",
-      "x-ratelimit-limit": "60, 60;w=3600",
-      "x-ratelimit-remaining": "59",
-      "x-ratelimit-reset": "1000"
+      "etag": "W/\"36d9c3c2ca45020b194b6240508565dd\""
     },
     "body": {
       "values": [
@@ -57,7 +54,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/neeview.git"
+                "href": "git@ssh.bitbucket.org:neelabo/neeview.git"
               }
             ],
             "issues": {
@@ -139,7 +136,7 @@
             "branching_model": false
           },
           "parent": null,
-          "enforced_signed_commits": null,
+          "enforced_signed_commits": false,
           "has_issues": true,
           "has_wiki": true
         },
@@ -187,7 +184,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/iconmaker.git"
+                "href": "git@ssh.bitbucket.org:neelabo/iconmaker.git"
               }
             ],
             "issues": {
@@ -269,7 +266,7 @@
             "branching_model": false
           },
           "parent": null,
-          "enforced_signed_commits": null,
+          "enforced_signed_commits": false,
           "has_issues": true,
           "has_wiki": true
         },
@@ -317,7 +314,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/resxxlsxconv.git"
+                "href": "git@ssh.bitbucket.org:neelabo/resxxlsxconv.git"
               }
             ],
             "hooks": {
@@ -396,7 +393,7 @@
             "branching_model": false
           },
           "parent": null,
-          "enforced_signed_commits": null,
+          "enforced_signed_commits": false,
           "has_issues": false,
           "has_wiki": false
         }

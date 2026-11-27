@@ -14,11 +14,11 @@
         },
         "kind": "pull_request",
         "typeRaw": "org.tangled.track.ticket",
-        "number": "57",
-        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/57"
+        "number": "59",
+        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/59"
       },
       "kind": "pull_request",
-      "title": "forges fixture 20261120222708 pr",
+      "title": "forges fixture 20261120222746 pr",
       "body": "A pull.",
       "state": "open",
       "stateRaw": "open",
@@ -33,12 +33,60 @@
       },
       "assignees": [],
       "reviewers": [],
-      "createdAt": "2026-11-20T22:27:13.000Z",
-      "updatedAt": "2026-11-20T22:27:13.000Z",
-      "lastActivityAt": "2026-11-20T22:27:13.000Z",
+      "createdAt": "2026-11-20T22:27:50.000Z",
+      "updatedAt": "2026-11-20T22:27:50.000Z",
+      "lastActivityAt": "2026-11-20T22:27:50.000Z",
       "labels": [],
       "commentCount": 0,
-      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/57",
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/59",
+      "branches": {
+        "head": {
+          "ref": ""
+        },
+        "base": {
+          "ref": "main"
+        }
+      }
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
+        },
+        "kind": "pull_request",
+        "typeRaw": "org.tangled.track.ticket",
+        "number": "61",
+        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/61"
+      },
+      "kind": "pull_request",
+      "title": "forges fixture 20261120222819 pr",
+      "body": "A pull.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "roebot.tngl.sh",
+        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "url": "https://tangled.org/roebot.tngl.sh",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "createdAt": "2026-11-20T22:28:25.000Z",
+      "updatedAt": "2026-11-20T22:28:25.000Z",
+      "lastActivityAt": "2026-11-20T22:28:25.000Z",
+      "labels": [],
+      "commentCount": 0,
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/61",
       "branches": {
         "head": {
           "ref": ""
@@ -62,65 +110,11 @@
         },
         "kind": "issue",
         "typeRaw": "org.tangled.track.ticket",
-        "number": "58",
-        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/58"
+        "number": "64",
+        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/64"
       },
       "kind": "issue",
-      "title": "forges fixture 20261120222746 v2",
-      "body": "Edited.",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "login": "roebot.tngl.sh",
-        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-        "url": "https://tangled.org/roebot.tngl.sh",
-        "isBotHint": false
-      },
-      "assignees": [
-        {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "login": "roebot.tngl.sh",
-          "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "url": "https://tangled.org/roebot.tngl.sh",
-          "isBotHint": false
-        }
-      ],
-      "reviewers": [],
-      "createdAt": "2026-11-20T22:27:47.000Z",
-      "updatedAt": "2026-11-20T22:27:47.000Z",
-      "lastActivityAt": "2026-11-20T22:27:47.000Z",
-      "labels": [
-        {
-          "name": "forges-seed",
-          "colour": "8B5CF6"
-        }
-      ],
-      "commentCount": 0,
-      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/58"
-    },
-    {
-      "ref": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
-          "ownerHandle": "roebot.tngl.sh"
-        },
-        "kind": "issue",
-        "typeRaw": "org.tangled.track.ticket",
-        "number": "63",
-        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/63"
-      },
-      "kind": "issue",
-      "title": "forges fixture 20261120223432: labelled issue",
+      "title": "forges fixture 20261120223432: duplicate",
       "body": "Opened by run 20261120223432.",
       "state": "open",
       "stateRaw": "open",
@@ -133,28 +127,14 @@
         "url": "https://tangled.org/roebot.tngl.sh",
         "isBotHint": false
       },
-      "assignees": [
-        {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "login": "roebot.tngl.sh",
-          "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "url": "https://tangled.org/roebot.tngl.sh",
-          "isBotHint": false
-        }
-      ],
+      "assignees": [],
       "reviewers": [],
-      "createdAt": "2026-11-20T22:35:13.000Z",
-      "updatedAt": "2026-11-20T22:35:13.000Z",
-      "lastActivityAt": "2026-11-20T22:35:13.000Z",
-      "labels": [
-        {
-          "name": "forges-fixture-20261120223432",
-          "colour": "0E8A16"
-        }
-      ],
+      "createdAt": "2026-11-20T22:35:15.000Z",
+      "updatedAt": "2026-11-20T22:35:15.000Z",
+      "lastActivityAt": "2026-11-20T22:35:15.000Z",
+      "labels": [],
       "commentCount": 0,
-      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/63"
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/64"
     }
   ],
   "total": 91,

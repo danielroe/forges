@@ -19,11 +19,11 @@
           "content_type": "json"
         },
         "events": [
-          "issue_label",
-          "issue_milestone",
-          "issue_comment",
           "issue_assign",
-          "issues"
+          "issues",
+          "issue_comment",
+          "issue_label",
+          "issue_milestone"
         ],
         "authorization_header": "",
         "active": true,

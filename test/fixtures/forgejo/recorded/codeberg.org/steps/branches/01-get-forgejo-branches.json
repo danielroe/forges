@@ -7,7 +7,7 @@
     "status": 200,
     "headers": {
       "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1934;t=600",
+      "ratelimit": "\"baseline\";r=1935;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "33"
     },
@@ -15,9 +15,9 @@
       {
         "name": "forgejo",
         "commit": {
-          "id": "9ddd410a13b7dff70f3d9f883375518420b90240",
-          "message": "fix(ci): actually run the e2e tests affected by a PR as intended (#15319)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15319\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/9ddd410a13b7dff70f3d9f883375518420b90240",
+          "id": "77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
+          "message": "perf: stop loading repo topics twice (#15355)\n\nThe repo topics (the user definable labels for a repo) were already loaded and put on the context. There's no need to do it a second time.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15355\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
           "author": {
             "name": "patka",
             "email": "redacted@example.invalid",
@@ -35,7 +35,7 @@
             "signer": null,
             "payload": ""
           },
-          "timestamp": "2026-11-21T19:35:16+01:00",
+          "timestamp": "2026-11-22T21:14:26+01:00",
           "added": null,
           "removed": null,
           "modified": null
@@ -51,6 +51,46 @@
           "testing / test-sqlite (pull_request)",
           "testing / test-mysql (pull_request)"
         ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "renovate/forgejo-swagger-ui-dist-5.x",
+        "commit": {
+          "id": "83232ba529671d843a4c1ec26c35a99709cbf58b",
+          "message": "Update dependency swagger-ui-dist to v5.35.1\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/83232ba529671d843a4c1ec26c35a99709cbf58b",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "viceice-bot"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "viceice-bot"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "viceice-bot / 8AC4BEEB5900F976",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCawK/mAAKCRCKxL7rWQD5\ndq3YAP9PlQWtYd0RS5+ZUeR7acSArChqky6fd3gH/k9aP8t+vgD/VqBOYSot4z5H\nDWK1IT6pWR+zYtGqiX9qEylHmdzOeAQ=\n=D2bN\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "viceice-bot",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree e361e473fadf0c2aabc1fc6540e0b42fcfbb1d4b\nparent 6840f006da9306345d66736ff21c358a96b7d278\nauthor Renovate Bot <redacted@example.invalid> 1795342232 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1795342232 +0000\n\nUpdate dependency swagger-ui-dist to v5.35.1\n"
+          },
+          "timestamp": "2026-11-22T10:10:32Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""
@@ -91,49 +131,6 @@
         "required_approvals": 0,
         "enable_status_check": false,
         "status_check_contexts": [],
-        "user_can_push": false,
-        "user_can_merge": false,
-        "effective_branch_protection_name": ""
-      },
-      {
-        "name": "v17.0/forgejo",
-        "commit": {
-          "id": "0f10ccb6b9dd36ed8f0da165c3ba45e7825c36dd",
-          "message": "[v17.0/forgejo] perf: don't compute commit status twice on notifications subscription page (#15337)\n\n**Backport:** https://codeberg.org/forgejo/forgejo/pulls/15296\n\nCo-authored-by: patka <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15337\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/0f10ccb6b9dd36ed8f0da165c3ba45e7825c36dd",
-          "author": {
-            "name": "forgejo-backport-action",
-            "email": "redacted@example.invalid",
-            "username": "forgejo-backport-action"
-          },
-          "committer": {
-            "name": "Mathieu Fenniak",
-            "email": "redacted@example.invalid",
-            "username": "mfenniak"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          },
-          "timestamp": "2026-11-19T22:31:59+01:00",
-          "added": null,
-          "removed": null,
-          "modified": null
-        },
-        "protected": true,
-        "required_approvals": 1,
-        "enable_status_check": true,
-        "status_check_contexts": [
-          "testing / frontend-checks (pull_request)",
-          "testing / backend-checks (pull_request)",
-          "testing / test-unit (pull_request)",
-          "testing / test-pgsql (pull_request)",
-          "testing / test-sqlite (pull_request)",
-          "testing / test-mysql (pull_request)"
-        ],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""

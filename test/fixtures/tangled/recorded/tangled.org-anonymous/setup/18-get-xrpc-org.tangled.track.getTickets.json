@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3A4gz5bnlcchmi22lwgkvraofj%2Forg.tangled.track.ticket%2F11"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Awj53zt2oo653zr3wgnvn4llg%2Forg.tangled.track.ticket%2F4259"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreihf7m67l6nwntfnqt4q6ejstoh2jvvobqdn63pyjtxesikn6katdi",
-          "uri": "at://did:plc:4gz5bnlcchmi22lwgkvraofj/org.tangled.track.ticket/11",
+          "cid": "bafyreidcjl465pdw4ctl4yco3azlxy3rxw2g2fhh5kwtnywnt3qe6tkeiy",
+          "uri": "at://did:plc:wj53zt2oo653zr3wgnvn4llg/org.tangled.track.ticket/4259",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Implements iPhone Duo (foldable / dual-panel) support (resolving #9).\n\n### Changes\n- **Orientation support** (`project.yml`, `Resources/Info.plist`): Added `UIInterfaceOrientationLandscapeLeft` and `UIInterfaceOrientationLandscapeRight` alongside `UIInterfaceOrientationPortrait` so the unfolded inner display (`951×669pt`) and landscape orientation are supported.\n- **Hinge pose observation** (`Support/HingeObserver.swift`): Added `HingeObserver` and `HingeReaderView` using `UIHingeInteraction` (`iOS 27.1+`, guarded with `#available(iOS 27.1, *)`) to track `.closed`, `.partiallyOpen`, and `.fullyOpen` hinge states.\n- **Adaptive layouts** (`ListeningView.swift`, `SignInView.swift`):\n  - `ListeningView` switches to a two-column `insetGrouped` layout on wide/unfolded displays (`width >= 600`, `.regular` horizontal size class, or unfolded hinge posture), placing the listening control and `Just heard` on the left and `Heard recently` on the right, while preserving the single-column layout on the closed outer display (`466×678pt`).\n  - `SignInView` constrains the form to `maxWidth: 560` centered on wide/unfolded displays so fields and buttons do not stretch edge-to-edge.\n- **Active-scene OAuth anchor** (`Auth/OAuthBrowser.swift`): `presentationAnchor(for:)` prefers the `.foregroundActive` `UIWindowScene`'s key window.\n\n### Verification\n- `swift test` in `StamperCore/` — all 90 tests pass.\n- Built and verified on the `iPhone Duo` simulator (`iOS 27.2`, `iPhone19,4`) across `closed` (`466×678pt`, `1398×2034 @3x`), `open` (`951×669pt`, `2853×2007 @3x`), and `half-open` (`132.5°`) poses:\n  - Atmosphere OAuth sign-in (`chromextensiontest.bsky.social`) and callback redirect into `ListeningView`.\n  - Microphone permission prompt and active listening state.\n  - `Settings` sheet presentation and dismissal in unfolded mode."
+              "text": "description:\nThe operator's D3c rule: a knot1 push to a site's repository may start the stopped site to pull it.\n- **No start without an event:** the catch-up after a dropped stream and the dashboard's auto-pull ask only a running process (`running_site_process` + `admin_act`, never `get_or_start`), so they start no site.\n- **Coalescing:** a burst's one more pull is for an event if any hint in it was.\n- **Catching up:** a site that auto-pulls fetches its remote as it starts (`OwnSite::pull_as_it_starts`, the existing `inbound::auto_pull` on the admin runtime), so what was pushed while it was stopped reaches it then.\n\n---\n\ninfo:\nTANGLED-DEFAULT-REMOTE D3c, first pair. Parent: `s/1433-tangled-auto-pull-tests` `f4a13bba`. Merges `stack` `fa1f17b9` (LEXICON X2/X3). Tip: `aba1087c7dad82228cc04000e83cb2eb0be270e5`. Tests: s/1435.\n"
             },
-            "createdAt": "2026-11-21T17:22:32Z",
+            "createdAt": "2026-11-22T16:05:46Z",
             "state": "open",
-            "targetBranch": "main",
+            "targetBranch": "s/1433-tangled-auto-pull-tests",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "Add iPhone Duo support (#9)"
+              "text": "product: only an event for a site starts it to pull"
             },
-            "x-tngl-editor": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq"
+            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
           }
         }
       ]

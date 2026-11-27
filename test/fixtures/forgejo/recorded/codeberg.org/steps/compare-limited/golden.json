@@ -1,5 +1,5 @@
 {
-  "base": "1a13355998e2e0183e74d0221e0504564ca21e6c",
+  "base": "9ddd410a13b7dff70f3d9f883375518420b90240",
   "head": "forgejo",
   "aheadBy": 4,
   "commits": [
@@ -13,10 +13,10 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "9ddd410a13b7dff70f3d9f883375518420b90240"
+        "sha": "77f28e72ecb2e9fea6363c9dea4613cc332fdafe"
       },
-      "sha": "9ddd410a13b7dff70f3d9f883375518420b90240",
-      "message": "fix(ci): actually run the e2e tests affected by a PR as intended (#15319)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15319\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+      "sha": "77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
+      "message": "perf: stop loading repo topics twice (#15355)\n\nThe repo topics (the user definable labels for a repo) were already loaded and put on the context. There's no need to do it a second time.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15355\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
@@ -29,7 +29,7 @@
         },
         "name": "patka",
         "email": "redacted@example.invalid",
-        "date": "2026-11-21T18:35:16.000Z"
+        "date": "2026-11-22T20:14:26.000Z"
       },
       "committer": {
         "actor": {
@@ -44,16 +44,16 @@
         },
         "name": "Mathieu Fenniak",
         "email": "redacted@example.invalid",
-        "date": "2026-11-21T18:35:16.000Z"
+        "date": "2026-11-22T20:14:26.000Z"
       },
       "parents": [
-        "71d3fb8767dc89a14b283b6d3e08c91a66d52525"
+        "1041044ea6bcbabeea314a5a1f16efd34fe764b1"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/9ddd410a13b7dff70f3d9f883375518420b90240",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/77f28e72ecb2e9fea6363c9dea4613cc332fdafe",
       "stats": {
-        "additions": 17,
-        "deletions": 18,
-        "total": 35
+        "additions": 4,
+        "deletions": 24,
+        "total": 28
       }
     },
     {
@@ -66,46 +66,48 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "71d3fb8767dc89a14b283b6d3e08c91a66d52525"
+        "sha": "1041044ea6bcbabeea314a5a1f16efd34fe764b1"
       },
-      "sha": "71d3fb8767dc89a14b283b6d3e08c91a66d52525",
-      "message": "fix(ui): keep trailing parts of list items right-aligned on wrap (#15093)\n\nIn issue lists, the trailing block (assignees, comment count, tracked time) is rendered at the left edge of its own line when the title and labels are long enough to fill the whole row. It should stay right-aligned like in rows where everything fits on one line.\n\n`.flex-item-header` uses `flex-wrap: wrap`. When the title and labels fill the row, `.flex-item-trailing` wraps onto a new line. It has `flex-grow: 0`, so it sits at the start of that line and `justify-content: end` has no effect. The fix adds `margin-inline-start: auto` to `.flex-item .flex-item-trailing`, which pushes it to the right in both cases.\n\nThe rule is in the shared `flex-list.css`, so it also applies to other lists that use `flex-item-trailing`. Rows where the trailing block does not wrap look the same as before.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15093\nReviewed-by: 0ko <redacted@example.invalid>\n",
+      "sha": "1041044ea6bcbabeea314a5a1f16efd34fe764b1",
+      "message": "feat: add \"Compare Commits\" to pull request force-pushes (#15271)\n\nImplements #5357.  Contains #15252 as a prerequisite.\n\nWhen a force push occurs against an open pull request, it can be difficult for a reviewer to recognize what changed in a pull request.  The existing \"Compare\" button compares the source tree between the original head of the PR and the new head of the PR; if the force push contains both modifications to the pull request, and a rebase of the pull request, then both sets of changes are displayed because that represents the change between the commits.  The changes caused by the rebase are typically not relevant for a reviewer of the pull request.\n\nReplaces the \"Compare\" button with \"Compare Commits\" and \"Compare Tree\".  Compare Tree performs the source tree comparison.  Compare Commits performs a `git range-diff` command which compares the commits that existed in the PR before the force-push with the commits that exist after the force-push, allowing changes to the PR to be observed separately of changes to the base branch.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15271\nReviewed-by: Έλλεν Εμίλια Άννα Zscheile <redacted@example.invalid>\nReviewed-by: Panagiotis \"Ivory\" Vasilopoulos <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "jona-es",
-          "id": "1613132",
-          "avatarUrl": "https://codeberg.org/avatars/3ddb872d36066430231b45fdb6f1009e",
-          "url": "https://codeberg.org/jona-es",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
           "isBotHint": false
         },
-        "name": "jona sander",
+        "name": "Mathieu Fenniak",
         "email": "redacted@example.invalid",
-        "date": "2026-11-21T13:05:07.000Z"
+        "date": "2026-11-22T18:57:03.000Z"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "0ko",
-          "id": "35856",
-          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
-          "url": "https://codeberg.org/0ko",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
           "isBotHint": false
         },
-        "name": "0ko",
+        "name": "Mathieu Fenniak",
         "email": "redacted@example.invalid",
-        "date": "2026-11-21T13:05:07.000Z"
+        "date": "2026-11-22T18:57:03.000Z"
       },
       "parents": [
-        "5c3c081e6566a94028d37a733a282c299c20ff6b"
+        "6840f006da9306345d66736ff21c358a96b7d278"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/71d3fb8767dc89a14b283b6d3e08c91a66d52525",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/1041044ea6bcbabeea314a5a1f16efd34fe764b1",
       "stats": {
-        "additions": 1,
-        "deletions": 0,
-        "total": 1
+        "additions": 889,
+        "deletions": 11,
+        "total": 900
       }
     }
   ],

@@ -4,85 +4,44 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "gitlab-org/technical-writing",
-        "name": "docs-gitlab-com",
-        "externalId": "51970333"
+        "owner": "gitlab-org",
+        "name": "release-tools",
+        "externalId": "430285"
       },
-      "description": "The GitLab Docs website, built on Hugo.\r\n\r\nhttps://docs.gitlab.com",
-      "defaultBranch": "main",
+      "description": "Instructions and tools for releasing GitLab.",
+      "defaultBranch": "master",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com.git",
-        "ssh": "git@gitlab.com:gitlab-org/technical-writing/docs-gitlab-com.git"
-      },
-      "createdAt": "2023-11-07T18:07:49.139Z",
-      "updatedAt": "<now>",
-      "openIssueCount": 91,
-      "stars": 56,
-      "forks": 128,
-      "mergeMethods": [
-        "merge",
-        "squash"
+      "topics": [
+        "hacktoberfest"
       ],
-      "defaultMergeMethod": "squash",
-      "deleteBranchOnMerge": true,
-      "mergeCommit": {
-        "merge": {
-          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
-        },
-        "squash": {
-          "template": "%{first_commit}"
-        }
-      },
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org/analytics-section/platform-insights",
-        "name": "general",
-        "externalId": "64468833"
-      },
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/analytics-section/platform-insights/general",
+      "url": "https://gitlab.com/gitlab-org/release-tools",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/analytics-section/platform-insights/general.git",
-        "ssh": "git@gitlab.com:gitlab-org/analytics-section/platform-insights/general.git"
+        "https": "https://gitlab.com/gitlab-org/release-tools.git",
+        "ssh": "git@gitlab.com:gitlab-org/release-tools.git"
       },
-      "createdAt": "2024-11-12T21:16:03.594Z",
+      "createdAt": "2015-08-26T23:35:56.146Z",
       "updatedAt": "<now>",
-      "openIssueCount": 6,
-      "stars": 0,
-      "forks": 0,
+      "stars": 98,
+      "forks": 280,
       "mergeMethods": [
         "merge",
         "squash"
       ],
       "defaultMergeMethod": "merge",
       "deleteBranchOnMerge": true,
+      "mergeCommit": {
+        "merge": {
+          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\n\n%{title}\n\n%{issues}\n\nSee merge request %{url}\n\nMerged-by: %{merged_by}\n%{approved_by}\n%{reviewed_by}\n%{co_authored_by}\n"
+        }
+      },
       "features": {
-        "issues": true,
+        "issues": false,
         "pullRequests": true,
         "discussions": false,
-        "wiki": true,
+        "wiki": false,
         "projects": false,
         "releases": true
       }
@@ -114,8 +73,8 @@
       "createdAt": "2013-09-26T06:02:36.000Z",
       "updatedAt": "<now>",
       "openIssueCount": 0,
-      "stars": 7173,
-      "forks": 8274,
+      "stars": 7176,
+      "forks": 8377,
       "mergeMethods": [
         "merge",
         "squash"
@@ -135,18 +94,64 @@
         "projects": false,
         "releases": false
       }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "customers-gitlab-com",
+        "externalId": "2670515"
+      },
+      "description": "",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/gitlab-org/customers-gitlab-com",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/customers-gitlab-com.git",
+        "ssh": "git@gitlab.com:gitlab-org/customers-gitlab-com.git"
+      },
+      "createdAt": "2017-02-09T18:59:13.690Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 1013,
+      "stars": 67,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "squash",
+      "deleteBranchOnMerge": true,
+      "mergeCommit": {
+        "merge": {
+          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+        },
+        "squash": {
+          "template": "%{title}\r\n\r\nSee merge request %{url}"
+        }
+      },
+      "features": {
+        "issues": true,
+        "pullRequests": false,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      }
     }
   ],
-  "total": 3762,
+  "total": 3989,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/projects?id=gitlab-org&include_ancestor_groups=false&include_subgroups=true&order_by=updated_at&owned=false&page=2&per_page=3&simple=false&sort=desc&starred=false&visibility=public&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=false",
-    "etag": "W/\"c4e80ed851872c101365ad7a3c3d4d5a\""
+    "etag": "W/\"2fc991bc9b7aae1fcf32acf79d64bbc5\""
   },
-  "etag": "W/\"c4e80ed851872c101365ad7a3c3d4d5a\"",
+  "etag": "W/\"2fc991bc9b7aae1fcf32acf79d64bbc5\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1942,
+    "limit": 100,
+    "remaining": 33,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

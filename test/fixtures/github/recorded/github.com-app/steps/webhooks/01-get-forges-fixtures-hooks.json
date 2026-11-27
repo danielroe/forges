@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"5b65cbef8c194c37d1a9dfccd5caf1e603b7b2ca29617ce4ba9d3c1c8bab207f\"",
+      "etag": "W/\"a6613823de24e87665b5681c20737fd3aad7813e9094b4c384759ea98f1d9b4b\"",
       "x-ratelimit-limit": "500",
       "x-ratelimit-remaining": "499",
-      "x-ratelimit-reset": "1791734820"
+      "x-ratelimit-reset": "1795408303",
+      "x-ratelimit-resource": "webhook_deliveries"
     },
     "body": [
       {
@@ -34,9 +35,9 @@
         "ping_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694647722/pings",
         "deliveries_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694647722/deliveries",
         "last_response": {
-          "code": 502,
-          "status": "connection_error",
-          "message": "failed to connect to host"
+          "code": null,
+          "status": "unused",
+          "message": null
         }
       }
     ]

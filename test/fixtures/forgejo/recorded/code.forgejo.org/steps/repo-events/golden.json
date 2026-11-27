@@ -3,6 +3,132 @@
     {
       "forge": "forgejo",
       "instance": "code.forgejo.org",
+      "id": "1237058",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1773"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1773"
+          },
+          "id": "107290"
+        },
+        "body": "I have been using the k8s plugin greatly, and I do believe that this is the way forgejo runner should work."
+      },
+      "summary": "kryptonian commented on issue 1773",
+      "occurredAt": "2026-11-23T02:13:58.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "kryptonian",
+        "id": "388",
+        "avatarUrl": "https://code.forgejo.org/avatars/06339bafd4bf302cee23b4d03ba123f6a2482c0e6cb1c0b6557ee809ee3871ec",
+        "url": "https://code.forgejo.org/kryptonian",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1236676",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1773"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1773"
+          },
+          "id": "107265"
+        },
+        "body": "Hey @mfenniak just wanted to pop in to leave similar feedback as roman. My usage of the plugin architecture has also been heavily vibecoded but it has gone well.\r\n\r\nI'm migrating from GitHub and Actions Runner Controller (ArC) to Forgejo and eleboucher's [runner-k8s-plugin](https://git.erwanleboucher.dev/eleboucher/runner-k8s-plugin). That plugin, and the framework in general, have basically allowed me to recreate my ArC scalesets in my locally hosted K8s environment. This is big for me. I much prefer ephemeral containers for my CI jobs and moving everything local and into Forgejo has already yielded major performance improvements for my CI jobs. I am slowly but surely migrating everything to Forgejo because of this. "
+      },
+      "summary": "The-Funk commented on issue 1773",
+      "occurredAt": "2026-11-22T16:37:50.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "The-Funk",
+        "id": "3336",
+        "avatarUrl": "https://code.forgejo.org/avatars/cda3a5ac5d234a314d973acc5ffd121d",
+        "url": "https://code.forgejo.org/The-Funk",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
       "id": "1235805",
       "kindRaw": "comment_issue",
       "kind": "comment",
@@ -426,117 +552,9 @@
       },
       "isPublic": true,
       "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "code.forgejo.org",
-      "id": "1234880",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "owner": "forgejo",
-          "name": "runner",
-          "externalId": "2"
-        },
-        "kind": "pull_request",
-        "number": "1800"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "code.forgejo.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "code.forgejo.org",
-              "owner": "forgejo",
-              "name": "runner",
-              "externalId": "2"
-            },
-            "kind": "pull_request",
-            "number": "1800"
-          },
-          "id": "107120"
-        },
-        "body": "can we publish a new fix release, because we're sometimes bugged by the ipv6 issue "
-      },
-      "summary": "viceice commented on pull request 1800",
-      "occurredAt": "2026-11-19T13:19:56.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "login": "viceice",
-        "id": "8",
-        "name": "Michael Kriese",
-        "avatarUrl": "https://code.forgejo.org/avatars/3da6c3c7dde0a4bb3db897f012f99e64684eaebeefbe49621b0ac43c18702c9b",
-        "url": "https://code.forgejo.org/viceice",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "owner": "forgejo",
-        "name": "runner",
-        "externalId": "2"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "code.forgejo.org",
-      "id": "1234805",
-      "kindRaw": "commit_repo",
-      "kind": "push",
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/main",
-        "before": "649b2e5eba37f03e14e7dbbbc2079fbad2e3e03e",
-        "after": "0e61343d1cb98d2a381d0d18f34aea408e66e4d2",
-        "commitCount": 1,
-        "forced": false,
-        "commits": [
-          {
-            "sha": "0e61343d1cb98d2a381d0d18f34aea408e66e4d2",
-            "message": "fix: update lxc-helpers to v1.1.4 (#1800)",
-            "author": "Michael Kriese"
-          }
-        ]
-      },
-      "summary": "viceice pushed 1 commit(s) to main",
-      "occurredAt": "2026-11-19T13:18:10.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "login": "viceice",
-        "id": "8",
-        "name": "Michael Kriese",
-        "avatarUrl": "https://code.forgejo.org/avatars/3da6c3c7dde0a4bb3db897f012f99e64684eaebeefbe49621b0ac43c18702c9b",
-        "url": "https://code.forgejo.org/viceice",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "owner": "forgejo",
-        "name": "runner",
-        "externalId": "2"
-      },
-      "isPublic": true,
-      "source": "poll",
-      "action": "other"
     }
   ],
-  "total": 5593,
+  "total": 5595,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/activities/feeds?limit=10&page=2"
   }

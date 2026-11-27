@@ -6,10 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"97255b0b5877bd0ac09e126df8a3602d\"",
-      "x-ratelimit-limit": "60, 60;w=3600",
-      "x-ratelimit-remaining": "46",
-      "x-ratelimit-reset": "1480"
+      "etag": "W/\"9c639448b728600260b4a434a0392e21\""
     },
     "body": {
       "type": "repository",
@@ -137,7 +134,7 @@
         "branching_model": false
       },
       "parent": null,
-      "enforced_signed_commits": null,
+      "enforced_signed_commits": false,
       "has_issues": true,
       "has_wiki": true
     }

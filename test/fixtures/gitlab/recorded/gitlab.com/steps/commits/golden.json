@@ -10,25 +10,25 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+        "sha": "06cf146650d936573b573859dcf42b67fbe2518d"
       },
-      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+      "sha": "06cf146650d936573b573859dcf42b67fbe2518d",
+      "message": "Merge branch 'shubhmehta942/mr-merge-skip-ci' into 'main'\n\nfeat(mr): add --skip-ci to mr merge\n\nCloses #7926\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4431\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: shubh <redacted@example.invalid>",
       "author": {
         "name": "Jay McCure",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "2026-11-23T03:08:48.000Z"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "2026-11-23T03:08:48.000Z"
       },
       "parents": [
-        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "34a15a7fd30532b4dae1d989c1198a6506e5aec2",
+        "032be95c70917ff5c4ade8678e1cf86c82ffa544"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/06cf146650d936573b573859dcf42b67fbe2518d"
     },
     {
       "ref": {
@@ -40,24 +40,24 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "sha": "032be95c70917ff5c4ade8678e1cf86c82ffa544"
       },
-      "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
-      "message": "feat(issue): add date filters to issue list\n",
+      "sha": "032be95c70917ff5c4ade8678e1cf86c82ffa544",
+      "message": "feat(mr): add --skip-ci to mr merge\n",
       "author": {
-        "name": "Hamza Hassanain",
+        "name": "Shubh Mehta",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "2026-11-23T03:08:47.000Z"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "2026-11-23T03:08:47.000Z"
       },
       "parents": [
-        "a300719a2aac26acb25eee65fe08398188c99a0e"
+        "5f0d99198a235af8c4d8d8d0cbdb165c5195368e"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/032be95c70917ff5c4ade8678e1cf86c82ffa544"
     },
     {
       "ref": {
@@ -69,36 +69,36 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+        "sha": "34a15a7fd30532b4dae1d989c1198a6506e5aec2"
       },
-      "sha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-      "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+      "sha": "34a15a7fd30532b4dae1d989c1198a6506e5aec2",
+      "message": "Merge branch 'df-npm-yarn-cafile' into 'main'\n\nfix(df): keep npm and Yarn cafile settings from distrusting the proxy\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4505\n\nMerged-by: Sam Roque-Worcel <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Sam Roque-Worcel <redacted@example.invalid>\nReviewed-by: Sam Roque-Worcel <redacted@example.invalid>\nCo-authored-by: Arpit Gogia <redacted@example.invalid>",
       "author": {
-        "name": "Jay McCure",
+        "name": "Sam Roque-Worcel",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T01:56:01.000Z"
+        "date": "2026-11-22T21:45:16.000Z"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T01:56:01.000Z"
+        "date": "2026-11-22T21:45:16.000Z"
       },
       "parents": [
-        "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-        "74931758500a9c66e56ca2c443a0c2a987c5923f"
+        "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+        "5288ccf1726b99b9cb3c95600e4696d98384eef6"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/34a15a7fd30532b4dae1d989c1198a6506e5aec2"
     }
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false",
-    "etag": "W/\"d5898b8c6eb2fcaa1108ea3bb7605002\""
+    "etag": "W/\"1d4ec01d4a6090ddc413eeb022d4dcfc\""
   },
-  "etag": "W/\"d5898b8c6eb2fcaa1108ea3bb7605002\"",
+  "etag": "W/\"1d4ec01d4a6090ddc413eeb022d4dcfc\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1919,
+    "limit": 100,
+    "remaining": 9,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

@@ -1,15 +1,15 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/actions/jobs/117694943258/logs"
+    "url": "https://api.github.com/repos/h3js/h3/actions/jobs/137220989706/logs"
   },
   "response": {
     "status": 302,
     "headers": {
-      "location": "https://productionresultssa7.blob.core.windows.net/actions-results/2a16d01c-e080-8612-8cc7-4ea89604c8cd/workflow-job-run-bd93b31d-0ff5-5ac4-9525-0f231e0593c4/logs/job/job-logs.txt?rsct=text%2Fplain&se=2026-10-19T04%3A49%3A43Z&sig=REDACTED&ske=2026-10-19T08%3A26%3A43Z&skoid=REDACTED&sks=b&skt=2026-10-19T04%3A26%3A43Z&sktid=REDACTED&skv=2025-11-05&sp=r&spr=https&sr=b&st=2026-10-19T04%3A39%3A38Z&sv=2025-11-05",
+      "location": "https://productionresultssa5.blob.core.windows.net/actions-results/851b73a7-7a63-8f2c-b898-9db6485ea36b/workflow-job-run-c0c30dce-d4db-555b-84d7-25075dc72f89/logs/job/job-logs.txt?rsct=text%2Fplain&se=2026-11-23T04%3A40%3A36Z&sig=REDACTED&ske=2026-11-23T06%3A07%3A54Z&skoid=REDACTED&sks=b&skt=2026-11-23T02%3A07%3A54Z&sktid=REDACTED&skv=2025-11-05&sp=r&spr=https&sr=b&st=2026-11-23T04%3A30%3A31Z&sv=2025-11-05",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4970",
-      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-remaining": "4942",
+      "x-ratelimit-reset": "1795411811",
       "x-ratelimit-resource": "core"
     }
   }
